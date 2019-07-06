@@ -12,9 +12,7 @@ namespace cost_income_calculator.api
         public string Username { get; set; }
         
         [Required]
-        public byte[] PasswordHash { get; set; }
-
-        public byte[] PasswordSalt { get; set; }
+        public string PasswordHash { get; set; }
 
         public List<Cost> Cost { get; set; }
 

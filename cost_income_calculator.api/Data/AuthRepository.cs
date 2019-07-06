@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using cost_income_calculator.api.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace cost_income_calculator.api.Data
@@ -6,8 +7,10 @@ namespace cost_income_calculator.api.Data
     public class AuthRepository : IAuthRepository
     {
         private readonly DataContext context;
-        public AuthRepository(DataContext context)
+        private readonly IPasswordHasher passwordHasher;
+        public AuthRepository(DataContext context, IPasswordHasher passwordHasher)
         {
+            this.passwordHasher = passwordHasher;
             this.context = context;
         }
 
@@ -19,34 +22,19 @@ namespace cost_income_calculator.api.Data
                 return null;
             }
 
-            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            if (passwordHasher.VerifyPasswordHash(password, user.PasswordHash))
             {
-                return null;
+                return user;
             }
-
-            return user;
-        }
-
-        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-        {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
-            {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                for (int i = 0; i < computedHash.Length; i++)
-                {
-                    if (computedHash[i] != passwordHash[i]) return false;
-                }
-            }
-            return true;
+            return null;
         }
 
         public async Task<User> Register(User user, string password)
         {
-            byte[] passwordHash, passwordSalt;
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            string passwordHash;
+            passwordHasher.CreatePasswordHash(password, out passwordHash);
 
             user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
 
             await context.Users.AddAsync(user);
             await context.SaveChangesAsync();
@@ -58,17 +46,8 @@ namespace cost_income_calculator.api.Data
         {
             if (await context.Users.AnyAsync(x => x.Username == username))
                 return true;
-                
-            return false;
-        }
 
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
+            return false;
         }
     }
 }

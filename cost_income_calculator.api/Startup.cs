@@ -4,7 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using cost_income_calculator.api.Data;
+using cost_income_calculator.api.Data.AuthData;
+using cost_income_calculator.api.Data.CostData;
 using cost_income_calculator.api.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -37,9 +40,11 @@ namespace cost_income_calculator.api
         {
             services.AddDbContext<DataContext>(x => x.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors();
-            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IUserHelper, UserHelper>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<ICostRepository, CostRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {

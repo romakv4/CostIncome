@@ -1,8 +1,8 @@
-namespace cost_income_calculator.api.Dtos
+namespace cost_income_calculator.api.Dtos.CostDtos
 {
-    public class CostDto
+    public class CostForSetDto
     {
-        public int UserId { get; set; }
+        public string Username { get; set; }
         public string Type { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }

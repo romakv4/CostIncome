@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using cost_income_calculator.api.Helpers;
 using Microsoft.EntityFrameworkCore;
 
-namespace cost_income_calculator.api.Data
+namespace cost_income_calculator.api.Data.AuthData
 {
     public class AuthRepository : IAuthRepository
     {

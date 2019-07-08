@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using cost_income_calculator.api.Data;
 using cost_income_calculator.api.Dtos;
+using cost_income_calculator.api.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -19,9 +20,11 @@ namespace cost_income_calculator.api.Controllers
     {
         private readonly IAuthRepository repository;
         private readonly IConfiguration config;
+        private readonly IUserHelper userHelper;
 
-        public AuthController(IAuthRepository repository, IConfiguration config)
+        public AuthController(IAuthRepository repository, IConfiguration config, IUserHelper userHelper)
         {
+            this.userHelper = userHelper;
             this.config = config;
             this.repository = repository;
 
@@ -32,7 +35,7 @@ namespace cost_income_calculator.api.Controllers
         {
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
 
-            if (await repository.UserExists(userForRegisterDto.Username))
+            if (await userHelper.UserExists(userForRegisterDto.Username))
                 return BadRequest("Username already exists");
 
             var userToCreate = new User

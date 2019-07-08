@@ -41,13 +41,5 @@ namespace cost_income_calculator.api.Data
 
             return user;
         }
-
-        public async Task<bool> UserExists(string username)
-        {
-            if (await context.Users.AnyAsync(x => x.Username == username))
-                return true;
-
-            return false;
-        }
     }
 }

@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using cost_income_calculator.api.Dtos.CostDtos;
+using cost_income_calculator.api.Helpers;
 using cost_income_calculator.api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,8 +14,10 @@ namespace cost_income_calculator.api.Data.CostData
     {
         private readonly DataContext context;
         private readonly IMapper mapper;
-        public CostRepository(DataContext context, IMapper mapper)
+        private readonly IDatesHelper datesHelper;
+        public CostRepository(DataContext context, IMapper mapper, IDatesHelper datesHelper)
         {
+            this.datesHelper = datesHelper;
             this.mapper = mapper;
             this.context = context;
         }
@@ -27,6 +31,16 @@ namespace cost_income_calculator.api.Data.CostData
             costs = await context.Costs.ToListAsync();
 
             return mapper.Map<IEnumerable<CostReturnDto>>(costs);
+        }
+
+        public async Task<IEnumerable<CostReturnDto>> GetMonthlyCosts(string username, DateTime currentDate)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            
+            (DateTime, DateTime) dates = datesHelper.GetFirstAndLastDateOfMonth(currentDate);
+            var monthlyCosts = await context.Costs.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
+
+            return mapper.Map<IEnumerable<CostReturnDto>>(monthlyCosts);
         }
 
         public async Task<Cost> SetCost(string username, string type, string description, double price, DateTime date)
@@ -80,7 +94,7 @@ namespace cost_income_calculator.api.Data.CostData
             }
 
             await context.SaveChangesAsync();
-            
+
             return costs;
         }
     }

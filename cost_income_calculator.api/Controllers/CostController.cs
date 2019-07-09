@@ -1,14 +1,14 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using cost_income_calculator.api.Data.CostData;
 using cost_income_calculator.api.Dtos.CostDtos;
 using cost_income_calculator.api.Helpers;
-using cost_income_calculator.api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
 namespace cost_income_calculator.api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CostController : ControllerBase
@@ -41,7 +41,7 @@ namespace cost_income_calculator.api.Controllers
             if (!await userHelper.UserExists(costForSetDto.Username))
                 return BadRequest("This username doesn't exists");
 
-            var settedCost = await repository.SetCost(costForSetDto.Username, costForSetDto.Type, costForSetDto.Description, costForSetDto.Price);
+            var settedCost = await repository.SetCost(costForSetDto.Username, costForSetDto.Type, costForSetDto.Description, costForSetDto.Price, costForSetDto.Date);
             
             return StatusCode(201);
         }
@@ -52,7 +52,7 @@ namespace cost_income_calculator.api.Controllers
             if (!await userHelper.UserExists(costForEditDto.Username))
                 return BadRequest("This username doesn't exists");
             
-            var editedCost = await repository.EditCost(costForEditDto.Username, id, costForEditDto.Type, costForEditDto.Description, costForEditDto.Price);
+            var editedCost = await repository.EditCost(costForEditDto.Username, id, costForEditDto.Type, costForEditDto.Description, costForEditDto.Price, costForEditDto.Date);
 
             return StatusCode(204);
         }

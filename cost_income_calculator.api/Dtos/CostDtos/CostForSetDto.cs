@@ -1,3 +1,5 @@
+using System;
+
 namespace cost_income_calculator.api.Dtos.CostDtos
 {
     public class CostForSetDto
@@ -6,5 +8,6 @@ namespace cost_income_calculator.api.Dtos.CostDtos
         public string Type { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }
+        public DateTime Date { get; set; }
     }
 }

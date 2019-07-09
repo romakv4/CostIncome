@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -29,7 +30,7 @@ namespace cost_income_calculator.api.Data.CostData
             return mapper.Map<IEnumerable<CostReturnDto>>(costs);
         }
 
-        public async Task<Cost> SetCost(string username, string type, string description, double price)
+        public async Task<Cost> SetCost(string username, string type, string description, double price, DateTime date)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
             if (user == null) return null;
@@ -39,7 +40,8 @@ namespace cost_income_calculator.api.Data.CostData
                 UserId = user.Id,
                 Type = type,
                 Description = description,
-                Price = price
+                Price = price,
+                Date = date
             };
 
             await context.AddAsync(cost);
@@ -48,7 +50,7 @@ namespace cost_income_calculator.api.Data.CostData
             return cost;
         }
 
-        public async Task<Cost> EditCost(string username, int costId, string newType, string newDescription, double newPrice)
+        public async Task<Cost> EditCost(string username, int costId, string newType, string newDescription, double newPrice, DateTime newDate)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
             if (user == null) return null;

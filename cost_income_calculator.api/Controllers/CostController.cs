@@ -35,7 +35,7 @@ namespace cost_income_calculator.api.Controllers
             return Ok(costs);
         }
 
-        [HttpPost("setcost")]
+        [HttpPost("set")]
         public async Task<IActionResult> SetCost(CostForSetDto costForSetDto)
         {
             if (!await userHelper.UserExists(costForSetDto.Username))
@@ -46,7 +46,7 @@ namespace cost_income_calculator.api.Controllers
             return StatusCode(201);
         }
 
-        [HttpPut("editcost/{id}")]
+        [HttpPut("edit/{id}")]
         public async Task<IActionResult> EditCost(int id, CostForEditDto costForEditDto)
         {
             if (!await userHelper.UserExists(costForEditDto.Username))
@@ -57,7 +57,7 @@ namespace cost_income_calculator.api.Controllers
             return StatusCode(204);
         }
 
-        [HttpDelete("deletecost/{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteCost(int id, CostForDeleteDto costForDeleteDto)
         {
             if (!await userHelper.UserExists(costForDeleteDto.Username))

@@ -56,13 +56,13 @@ namespace cost_income_calculator.api.Controllers
             return StatusCode(204);
         }
 
-        [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> DeleteIncome(int id, IncomeForDeleteDto incomeForDeleteDto)
+        [HttpDelete("delete")]
+        public async Task<IActionResult> DeleteIncomes(ManyIncomesForDeleteDto manyIncomesForDeleteDto)
         {
-            if (!await userHelper.UserExists(incomeForDeleteDto.Username))
+            if (!await userHelper.UserExists(manyIncomesForDeleteDto.Username))
                 return BadRequest("This username doesn't exists");
 
-            var deletedIncome = await repository.DeleteIncome(incomeForDeleteDto.Username, id);
+            var deletedIncomes = await repository.DeleteIncomes(manyIncomesForDeleteDto.Username, manyIncomesForDeleteDto.Ids);
 
             return StatusCode(204);
         }

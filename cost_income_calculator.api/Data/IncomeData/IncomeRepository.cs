@@ -22,7 +22,6 @@ namespace cost_income_calculator.api.Data.IncomeData
         public async Task<IEnumerable<IncomeReturnDto>> GetAllIncomes(string username)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
-            if (user == null) return null;
 
             List<Income> incomes = new List<Income>();
 
@@ -34,7 +33,6 @@ namespace cost_income_calculator.api.Data.IncomeData
         public async Task<Income> SetIncome(string username, string type, string description, double price, DateTime date)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
-            if (user == null) return null;
 
             var income = new Income
             {
@@ -54,7 +52,6 @@ namespace cost_income_calculator.api.Data.IncomeData
         public async Task<Income> EditIncome(string username, int costId, string newType, string newDescription, double newPrice, DateTime newDate)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
-            if (user == null) return null;
 
             var currentIncome = await context.Incomes.FirstOrDefaultAsync(x => x.Id == costId && x.UserId == user.Id);
             if (currentIncome == null) return null;
@@ -69,18 +66,23 @@ namespace cost_income_calculator.api.Data.IncomeData
             return currentIncome;
         }
 
-        public async Task<Income> DeleteIncome(string username, int costId)
+        public async Task<List<Income>> DeleteIncomes(string username, int[] incomeIds)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
-            if (user == null) return null;
 
-            var currentIncome = await context.Incomes.FirstOrDefaultAsync(x => x.Id == costId && x.UserId == user.Id);
-            if (currentIncome == null) return null;
+            List<Income> incomes = new List<Income>();
 
-            context.Incomes.Remove(currentIncome);
+            foreach (var incomeId in incomeIds)
+            {
+                var incomeForDelete = await context.Incomes.FirstOrDefaultAsync(x => x.Id == incomeId && x.UserId == user.Id);
+                if (incomeForDelete == null) return null;
+                context.Incomes.Remove(incomeForDelete);
+                incomes.Add(incomeForDelete);
+            }
+
             await context.SaveChangesAsync();
-
-            return currentIncome;
+            
+            return incomes;
         }
     }
 }

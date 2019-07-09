@@ -21,7 +21,6 @@ namespace cost_income_calculator.api.Data.CostData
         public async Task<IEnumerable<CostReturnDto>> GetAllCosts(string username)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
-            if (user == null) return null;
 
             List<Cost> costs = new List<Cost>();
 
@@ -33,7 +32,6 @@ namespace cost_income_calculator.api.Data.CostData
         public async Task<Cost> SetCost(string username, string type, string description, double price, DateTime date)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
-            if (user == null) return null;
 
             var cost = new Cost
             {
@@ -53,7 +51,6 @@ namespace cost_income_calculator.api.Data.CostData
         public async Task<Cost> EditCost(string username, int costId, string newType, string newDescription, double newPrice, DateTime newDate)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
-            if (user == null) return null;
 
             var currentCost = await context.Costs.FirstOrDefaultAsync(x => x.Id == costId && x.UserId == user.Id);
             if (currentCost == null) return null;
@@ -68,18 +65,23 @@ namespace cost_income_calculator.api.Data.CostData
             return currentCost;
         }
 
-        public async Task<Cost> DeleteCost(string username, int costId)
+        public async Task<List<Cost>> DeleteCosts(string username, int[] costIds)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
-            if (user == null) return null;
 
-            var currentCost = await context.Costs.FirstOrDefaultAsync(x => x.Id == costId && x.UserId == user.Id);
-            if (currentCost == null) return null;
+            List<Cost> costs = new List<Cost>();
 
-            context.Costs.Remove(currentCost);
+            foreach (var costId in costIds)
+            {
+                var costForDelete = await context.Costs.FirstOrDefaultAsync(x => x.Id == costId && x.UserId == user.Id);
+                if (costForDelete == null) return null;
+                context.Costs.Remove(costForDelete);
+                costs.Add(costForDelete);
+            }
+
             await context.SaveChangesAsync();
-
-            return currentCost;
+            
+            return costs;
         }
     }
 }

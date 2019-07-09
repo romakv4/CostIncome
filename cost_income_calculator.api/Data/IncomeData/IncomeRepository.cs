@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using cost_income_calculator.api.Dtos.IncomeDtos;
+using cost_income_calculator.api.Helpers;
 using cost_income_calculator.api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,9 +14,11 @@ namespace cost_income_calculator.api.Data.IncomeData
     {
         private readonly DataContext context;
         private readonly IMapper mapper;
+        private readonly IDatesHelper datesHelper;
 
-        public IncomeRepository(DataContext context, IMapper mapper)
+        public IncomeRepository(DataContext context, IMapper mapper, IDatesHelper datesHelper)
         {
+            this.datesHelper = datesHelper;
             this.mapper = mapper;
             this.context = context;
         }
@@ -28,6 +32,16 @@ namespace cost_income_calculator.api.Data.IncomeData
             incomes = await context.Incomes.ToListAsync();
 
             return mapper.Map<IEnumerable<IncomeReturnDto>>(incomes);
+        }
+
+        public async Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomes(string username, DateTime currentDate)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+
+            (DateTime, DateTime) dates = datesHelper.GetFirstAndLastDateOfMonth(currentDate);
+            var monthlyIncomes = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
+
+            return mapper.Map<IEnumerable<IncomeReturnDto>>(monthlyIncomes);
         }
 
         public async Task<Income> SetIncome(string username, string type, string description, double price, DateTime date)
@@ -81,7 +95,7 @@ namespace cost_income_calculator.api.Data.IncomeData
             }
 
             await context.SaveChangesAsync();
-            
+
             return incomes;
         }
     }

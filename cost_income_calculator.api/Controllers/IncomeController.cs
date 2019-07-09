@@ -34,6 +34,17 @@ namespace cost_income_calculator.api.Controllers
             return Ok(incomes);
         }
 
+        [HttpPost("monthly")]
+        public async Task<IActionResult> GetMonthlyIncomes(MonthlyIncomesDto monthlyIncomesDto)
+        {
+            if (!await userHelper.UserExists(monthlyIncomesDto.Username))
+                return BadRequest("This username doesn't exists");
+            
+            var monthlyIncomes = await repository.GetMonthlyIncomes(monthlyIncomesDto.Username, monthlyIncomesDto.Date);
+            
+            return Ok(monthlyIncomes);
+        }
+
         [HttpPost("set")]
         public async Task<IActionResult> SetIncome(IncomeForSetDto incomeForSetDto)
         {

@@ -33,11 +33,21 @@ namespace cost_income_calculator.api.Data.CostData
             return mapper.Map<IEnumerable<CostReturnDto>>(costs);
         }
 
-        public async Task<IEnumerable<CostReturnDto>> GetMonthlyCosts(string username, DateTime currentDate)
+        public async Task<IEnumerable<CostReturnDto>> GetWeeklyCosts(string username, DateTime date)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
             
-            (DateTime, DateTime) dates = datesHelper.GetFirstAndLastDateOfMonth(currentDate);
+            (DateTime, DateTime) dates = datesHelper.GetWeekDateRange(date);
+            var weeklyCosts = await context.Costs.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
+
+            return mapper.Map<IEnumerable<CostReturnDto>>(weeklyCosts);
+        }
+
+        public async Task<IEnumerable<CostReturnDto>> GetMonthlyCosts(string username, DateTime date)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            
+            (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(date);
             var monthlyCosts = await context.Costs.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
 
             return mapper.Map<IEnumerable<CostReturnDto>>(monthlyCosts);

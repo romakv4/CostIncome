@@ -35,8 +35,19 @@ namespace cost_income_calculator.api.Controllers
             return Ok(costs);
         }
 
+        [HttpPost("weekly")]
+        public async Task<IActionResult> GetWeeklyCosts(PeriodicCostsDto weeklyCostsDto)
+        {
+            if (!await userHelper.UserExists(weeklyCostsDto.Username))
+                return BadRequest("This username doesn't exists");
+            
+            var weeklyCosts = await repository.GetMonthlyCosts(weeklyCostsDto.Username, weeklyCostsDto.Date);
+            
+            return Ok(weeklyCosts);
+        }
+
         [HttpPost("monthly")]
-        public async Task<IActionResult> GetMonthlyCosts(MonthlyCostsDto monthlyCostsDto)
+        public async Task<IActionResult> GetMonthlyCosts(PeriodicCostsDto monthlyCostsDto)
         {
             if (!await userHelper.UserExists(monthlyCostsDto.Username))
                 return BadRequest("This username doesn't exists");

@@ -1,8 +1,8 @@
 using System;
 
-namespace cost_income_calculator.api.Dtos.CostDtos
+namespace cost_income_calculator.api.Dtos.IncomeDtos
 {
-    public class MonthlyCostsDto
+    public class PeriodicIncomesDto
     {
         public string Username { get; set; }
         public DateTime Date { get; set; }

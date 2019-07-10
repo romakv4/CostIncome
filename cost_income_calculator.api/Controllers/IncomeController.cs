@@ -35,25 +35,36 @@ namespace cost_income_calculator.api.Controllers
         }
 
         [HttpPost("weekly")]
-        public async Task<IActionResult> GetWeeklyIncomes(PeriodicIncomesDto weeklyIncomesDto)
+        public async Task<IActionResult> GetWeeklyIncomes(PeriodicIncomesDto periodicCostsDto)
         {
-            if (!await userHelper.UserExists(weeklyIncomesDto.Username))
+            if (!await userHelper.UserExists(periodicCostsDto.Username))
                 return BadRequest("This username doesn't exists");
             
-            var weeklyIncomes = await repository.GetWeeklyIncomes(weeklyIncomesDto.Username, weeklyIncomesDto.Date);
+            var weeklyIncomes = await repository.GetWeeklyIncomes(periodicCostsDto.Username, periodicCostsDto.Date);
             
             return Ok(weeklyIncomes);
         }
 
         [HttpPost("monthly")]
-        public async Task<IActionResult> GetMonthlyIncomes(PeriodicIncomesDto monthlyIncomesDto)
+        public async Task<IActionResult> GetMonthlyIncomes(PeriodicIncomesDto periodicCostsDto)
         {
-            if (!await userHelper.UserExists(monthlyIncomesDto.Username))
+            if (!await userHelper.UserExists(periodicCostsDto.Username))
                 return BadRequest("This username doesn't exists");
             
-            var monthlyIncomes = await repository.GetMonthlyIncomes(monthlyIncomesDto.Username, monthlyIncomesDto.Date);
+            var monthlyIncomes = await repository.GetMonthlyIncomes(periodicCostsDto.Username, periodicCostsDto.Date);
             
             return Ok(monthlyIncomes);
+        }
+
+        [HttpPost("monthly/max")]
+        public async Task<IActionResult> GetMaxMonthlyIncomes(PeriodicIncomesDto periodicCostsDto)
+        {
+            if (!await userHelper.UserExists(periodicCostsDto.Username))
+                return BadRequest("This username doesn't exists");
+            
+            var maxMonthlyIncomes = await repository.GetMaxIncomesCategoryInMonth(periodicCostsDto.Username, periodicCostsDto.Date);
+            
+            return Ok(maxMonthlyIncomes);
         }
 
         [HttpPost("set")]

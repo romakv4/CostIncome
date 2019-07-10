@@ -36,25 +36,36 @@ namespace cost_income_calculator.api.Controllers
         }
 
         [HttpPost("weekly")]
-        public async Task<IActionResult> GetWeeklyCosts(PeriodicCostsDto weeklyCostsDto)
+        public async Task<IActionResult> GetWeeklyCosts(PeriodicCostsDto periodicCostsDto)
         {
-            if (!await userHelper.UserExists(weeklyCostsDto.Username))
+            if (!await userHelper.UserExists(periodicCostsDto.Username))
                 return BadRequest("This username doesn't exists");
             
-            var weeklyCosts = await repository.GetWeeklyCosts(weeklyCostsDto.Username, weeklyCostsDto.Date);
+            var weeklyCosts = await repository.GetWeeklyCosts(periodicCostsDto.Username, periodicCostsDto.Date);
             
             return Ok(weeklyCosts);
         }
 
         [HttpPost("monthly")]
-        public async Task<IActionResult> GetMonthlyCosts(PeriodicCostsDto monthlyCostsDto)
+        public async Task<IActionResult> GetMonthlyCosts(PeriodicCostsDto periodicCostsDto)
         {
-            if (!await userHelper.UserExists(monthlyCostsDto.Username))
+            if (!await userHelper.UserExists(periodicCostsDto.Username))
                 return BadRequest("This username doesn't exists");
             
-            var monthlyCosts = await repository.GetMonthlyCosts(monthlyCostsDto.Username, monthlyCostsDto.Date);
+            var monthlyCosts = await repository.GetMonthlyCosts(periodicCostsDto.Username, periodicCostsDto.Date);
             
             return Ok(monthlyCosts);
+        }
+
+        [HttpPost("monthly/max")]
+        public async Task<IActionResult> GetMaxMonthlyCosts(PeriodicCostsDto periodicCostsDto)
+        {
+            if (!await userHelper.UserExists(periodicCostsDto.Username))
+                return BadRequest("This username doesn't exists");
+            
+            var maxMonthlyCosts = await repository.GetMaxCostsCategoryInMonth(periodicCostsDto.Username, periodicCostsDto.Date);
+            
+            return Ok(maxMonthlyCosts);
         }
 
         [HttpPost("set")]

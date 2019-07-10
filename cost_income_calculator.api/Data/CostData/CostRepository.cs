@@ -53,6 +53,26 @@ namespace cost_income_calculator.api.Data.CostData
             return mapper.Map<IEnumerable<CostReturnDto>>(monthlyCosts);
         }
 
+        public async Task<MonthCostDto> GetMaxCostsCategoryInMonth(string username, DateTime date)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            
+            (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(date);
+            var monthlyCosts = await context.Costs.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
+            var categories = monthlyCosts.Select(x => x.Type).Distinct();
+            
+            List<MonthCostDto> costs = new List<MonthCostDto>();
+            foreach (var category in categories)
+            {
+                costs.Add(new MonthCostDto { 
+                    Type = category, 
+                    CostSum = monthlyCosts.Where(x => x.Type == category).Select(x => x.Price).Sum() 
+                    });
+            }
+
+            return costs.FirstOrDefault(x => x.CostSum == costs.Max(z => z.CostSum));
+        }
+
         public async Task<Cost> SetCost(string username, string type, string description, double price, DateTime date)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);

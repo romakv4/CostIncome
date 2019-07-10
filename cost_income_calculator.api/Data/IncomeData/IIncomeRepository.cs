@@ -11,6 +11,7 @@ namespace cost_income_calculator.api.Data.IncomeData
         Task<IEnumerable<IncomeReturnDto>> GetAllIncomes(string username);
         Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomes(string username, DateTime date);
         Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomes(string username, DateTime date);
+        Task<MonthIncomeDto> GetMaxIncomesCategoryInMonth(string username, DateTime date);
         Task<Income> SetIncome(string username, string type, string description, double price, DateTime date);
         Task<Income> EditIncome(string username, int incomeId, string newType, string newDescription, double newPrice, DateTime newDate);
         Task<List<Income>> DeleteIncomes(string username, int[] incomeIds);

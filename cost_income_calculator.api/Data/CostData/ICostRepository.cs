@@ -12,6 +12,7 @@ namespace cost_income_calculator.api.Data.CostData
         Task<IEnumerable<CostReturnDto>> GetWeeklyCosts(string username, DateTime date);
         Task<IEnumerable<CostReturnDto>> GetWeeklyCostsByCategory(string username, DateTime date, string category);
         Task<IEnumerable<CostReturnDto>> GetMonthlyCosts(string username, DateTime date);
+        Task<IEnumerable<CostReturnDto>> GetMonthlyCostsByCategory(string username, DateTime date, string category);
         Task<MonthCostDto> GetMaxCostsCategoryInMonth(string username, DateTime date);
         Task<Cost> SetCost(string username, string type, string description, double price, DateTime date);
         Task<Cost> EditCost(string username, int costId, string newType, string newDescription, double newPrice, DateTime newDate);

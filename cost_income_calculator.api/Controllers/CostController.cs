@@ -68,6 +68,17 @@ namespace cost_income_calculator.api.Controllers
             return Ok(monthlyCosts);
         }
 
+        [HttpPost("monthly/{category}")]
+        public async Task<IActionResult> GetMonthlyCostsByCategory(PeriodicCostsDto periodicCostsDto, string category)
+        {
+            if (!await userHelper.UserExists(periodicCostsDto.Username))
+                return BadRequest("This username doesn't exists");
+            
+            var monthlyCostsByCategory = await repository.GetMonthlyCostsByCategory(periodicCostsDto.Username, periodicCostsDto.Date, category);
+            
+            return Ok(monthlyCostsByCategory);
+        }
+
         [HttpPost("monthly/max")]
         public async Task<IActionResult> GetMaxMonthlyCosts(PeriodicCostsDto periodicCostsDto)
         {

@@ -64,6 +64,16 @@ namespace cost_income_calculator.api.Data.IncomeData
             return mapper.Map<IEnumerable<IncomeReturnDto>>(monthlyIncomes);
         }
 
+        public async Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomesByCategory(string username, DateTime date, string category)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+
+            (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(date);
+            var monthlyIncomesByCategory = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).Where(x => x.Type == category).ToListAsync();
+
+            return mapper.Map<IEnumerable<IncomeReturnDto>>(monthlyIncomesByCategory);
+        }
+
         public async Task<MonthIncomeDto> GetMaxIncomesCategoryInMonth(string username, DateTime date)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);

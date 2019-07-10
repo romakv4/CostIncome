@@ -86,7 +86,7 @@ namespace cost_income_calculator.api.Data.IncomeData
             foreach (var category in categories)
             {
                 costs.Add(new MonthIncomeDto { 
-                    Type = category, 
+                    Type = category.ToLower(), 
                     IncomeSum = monthlyIncomes.Where(x => x.Type == category.ToLower()).Select(x => x.Price).Sum() 
                     });
             }

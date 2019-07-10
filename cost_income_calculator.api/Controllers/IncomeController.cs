@@ -95,7 +95,7 @@ namespace cost_income_calculator.api.Controllers
             if (!await userHelper.UserExists(incomeForSetDto.Username))
                 return BadRequest("This username doesn't exists");
 
-            var settedIncome = await repository.SetIncome(incomeForSetDto.Username, incomeForSetDto.Type, incomeForSetDto.Description, incomeForSetDto.Price, incomeForSetDto.Date);
+            var settedIncome = await repository.SetIncome(incomeForSetDto.Username, incomeForSetDto.Type.ToLower(), incomeForSetDto.Description, incomeForSetDto.Price, incomeForSetDto.Date);
             
             return StatusCode(201);
         }
@@ -106,7 +106,7 @@ namespace cost_income_calculator.api.Controllers
             if (!await userHelper.UserExists(incomeForEditDto.Username))
                 return BadRequest("This username doesn't exists");
             
-            var editedIncome = await repository.EditIncome(incomeForEditDto.Username, id, incomeForEditDto.Type, incomeForEditDto.Description, incomeForEditDto.Price, incomeForEditDto.Date);
+            var editedIncome = await repository.EditIncome(incomeForEditDto.Username, id, incomeForEditDto.Type.ToLower(), incomeForEditDto.Description, incomeForEditDto.Price, incomeForEditDto.Date);
 
             return StatusCode(204);
         }

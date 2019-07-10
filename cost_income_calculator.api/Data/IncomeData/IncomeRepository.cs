@@ -138,7 +138,7 @@ namespace cost_income_calculator.api.Data.IncomeData
 
             foreach (var incomeId in incomeIds)
             {
-                var incomeForDelete = await context.Incomes.FirstOrDefaultAsync(x => x.Id == incomeId && x.UserId == user.Id);
+                var incomeForDelete = await context.Incomes.Where(x => x.user.Username == username).FirstOrDefaultAsync(x => x.Id == incomeId && x.UserId == user.Id);
                 if (incomeForDelete == null) return null;
                 context.Incomes.Remove(incomeForDelete);
                 incomes.Add(incomeForDelete);

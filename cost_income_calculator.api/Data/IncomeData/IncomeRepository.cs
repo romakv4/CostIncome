@@ -25,7 +25,7 @@ namespace cost_income_calculator.api.Data.IncomeData
 
         public async Task<IEnumerable<IncomeReturnDto>> GetAllIncomes(string username)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
 
             List<Income> incomes = new List<Income>();
 
@@ -36,7 +36,7 @@ namespace cost_income_calculator.api.Data.IncomeData
 
         public async Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomes(string username, DateTime date)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
 
             (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(date);
             var weeklyIncomes = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
@@ -46,17 +46,17 @@ namespace cost_income_calculator.api.Data.IncomeData
 
         public async Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomesByCategory(string username, DateTime date, string category)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
 
             (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(date);
-            var weeklyIncomesByCategory = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).Where(x => x.Type == category).ToListAsync();
+            var weeklyIncomesByCategory = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).Where(x => x.Type == category.ToLower()).ToListAsync();
 
             return mapper.Map<IEnumerable<IncomeReturnDto>>(weeklyIncomesByCategory);
         }
 
         public async Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomes(string username, DateTime date)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
 
             (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(date);
             var monthlyIncomes = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
@@ -66,17 +66,17 @@ namespace cost_income_calculator.api.Data.IncomeData
 
         public async Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomesByCategory(string username, DateTime date, string category)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
 
             (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(date);
-            var monthlyIncomesByCategory = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).Where(x => x.Type == category).ToListAsync();
+            var monthlyIncomesByCategory = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).Where(x => x.Type == category.ToLower()).ToListAsync();
 
             return mapper.Map<IEnumerable<IncomeReturnDto>>(monthlyIncomesByCategory);
         }
 
         public async Task<MonthIncomeDto> GetMaxIncomesCategoryInMonth(string username, DateTime date)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
             
             (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(date);
             var monthlyIncomes = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
@@ -87,7 +87,7 @@ namespace cost_income_calculator.api.Data.IncomeData
             {
                 costs.Add(new MonthIncomeDto { 
                     Type = category, 
-                    IncomeSum = monthlyIncomes.Where(x => x.Type == category).Select(x => x.Price).Sum() 
+                    IncomeSum = monthlyIncomes.Where(x => x.Type == category.ToLower()).Select(x => x.Price).Sum() 
                     });
             }
 
@@ -96,12 +96,12 @@ namespace cost_income_calculator.api.Data.IncomeData
 
         public async Task<Income> SetIncome(string username, string type, string description, double price, DateTime date)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
 
             var income = new Income
             {
                 UserId = user.Id,
-                Type = type,
+                Type = type.ToLower(),
                 Description = description,
                 Price = price,
                 Date = date
@@ -115,12 +115,12 @@ namespace cost_income_calculator.api.Data.IncomeData
 
         public async Task<Income> EditIncome(string username, int costId, string newType, string newDescription, double newPrice, DateTime newDate)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
 
             var currentIncome = await context.Incomes.FirstOrDefaultAsync(x => x.Id == costId && x.UserId == user.Id);
             if (currentIncome == null) return null;
 
-            currentIncome.Type = newType;
+            currentIncome.Type = newType.ToLower();
             currentIncome.Description = newDescription;
             currentIncome.Price = newPrice;
 
@@ -132,13 +132,13 @@ namespace cost_income_calculator.api.Data.IncomeData
 
         public async Task<List<Income>> DeleteIncomes(string username, int[] incomeIds)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
 
             List<Income> incomes = new List<Income>();
 
             foreach (var incomeId in incomeIds)
             {
-                var incomeForDelete = await context.Incomes.Where(x => x.user.Username == username).FirstOrDefaultAsync(x => x.Id == incomeId && x.UserId == user.Id);
+                var incomeForDelete = await context.Incomes.Where(x => x.user.Username == username.ToLower()).FirstOrDefaultAsync(x => x.Id == incomeId && x.UserId == user.Id);
                 if (incomeForDelete == null) return null;
                 context.Incomes.Remove(incomeForDelete);
                 incomes.Add(incomeForDelete);

@@ -14,7 +14,7 @@ namespace cost_income_calculator.api.Helpers
 
         public async Task<bool> UserExists(string username)
         {
-            if (await context.Users.AnyAsync(x => x.Username == username))
+            if (await context.Users.AnyAsync(x => x.Username == username.ToLower()))
                 return true;
 
             return false;

@@ -35,34 +35,45 @@ namespace cost_income_calculator.api.Controllers
         }
 
         [HttpPost("weekly")]
-        public async Task<IActionResult> GetWeeklyIncomes(PeriodicIncomesDto periodicCostsDto)
+        public async Task<IActionResult> GetWeeklyIncomes(PeriodicIncomesDto periodicIncomesDto)
         {
-            if (!await userHelper.UserExists(periodicCostsDto.Username))
+            if (!await userHelper.UserExists(periodicIncomesDto.Username))
                 return BadRequest("This username doesn't exists");
             
-            var weeklyIncomes = await repository.GetWeeklyIncomes(periodicCostsDto.Username, periodicCostsDto.Date);
+            var weeklyIncomes = await repository.GetWeeklyIncomes(periodicIncomesDto.Username, periodicIncomesDto.Date);
             
             return Ok(weeklyIncomes);
         }
 
-        [HttpPost("monthly")]
-        public async Task<IActionResult> GetMonthlyIncomes(PeriodicIncomesDto periodicCostsDto)
+        [HttpPost("weekly/{category}")]
+        public async Task<IActionResult> GetWeeklyIncomesByCategory(PeriodicIncomesDto periodicIncomesDto, string category)
         {
-            if (!await userHelper.UserExists(periodicCostsDto.Username))
+            if (!await userHelper.UserExists(periodicIncomesDto.Username))
                 return BadRequest("This username doesn't exists");
             
-            var monthlyIncomes = await repository.GetMonthlyIncomes(periodicCostsDto.Username, periodicCostsDto.Date);
+            var weeklyIncomesByCategory = await repository.GetWeeklyIncomesByCategory(periodicIncomesDto.Username, periodicIncomesDto.Date, category);
+            
+            return Ok(weeklyIncomesByCategory);
+        }
+
+        [HttpPost("monthly")]
+        public async Task<IActionResult> GetMonthlyIncomes(PeriodicIncomesDto periodicIncomesDto)
+        {
+            if (!await userHelper.UserExists(periodicIncomesDto.Username))
+                return BadRequest("This username doesn't exists");
+            
+            var monthlyIncomes = await repository.GetMonthlyIncomes(periodicIncomesDto.Username, periodicIncomesDto.Date);
             
             return Ok(monthlyIncomes);
         }
 
         [HttpPost("monthly/max")]
-        public async Task<IActionResult> GetMaxMonthlyIncomes(PeriodicIncomesDto periodicCostsDto)
+        public async Task<IActionResult> GetMaxMonthlyIncomes(PeriodicIncomesDto periodicIncomesDto)
         {
-            if (!await userHelper.UserExists(periodicCostsDto.Username))
+            if (!await userHelper.UserExists(periodicIncomesDto.Username))
                 return BadRequest("This username doesn't exists");
             
-            var maxMonthlyIncomes = await repository.GetMaxIncomesCategoryInMonth(periodicCostsDto.Username, periodicCostsDto.Date);
+            var maxMonthlyIncomes = await repository.GetMaxIncomesCategoryInMonth(periodicIncomesDto.Username, periodicIncomesDto.Date);
             
             return Ok(maxMonthlyIncomes);
         }

@@ -41,7 +41,7 @@ namespace cost_income_calculator.api.Controllers
             if (!await userHelper.UserExists(weeklyCostsDto.Username))
                 return BadRequest("This username doesn't exists");
             
-            var weeklyCosts = await repository.GetMonthlyCosts(weeklyCostsDto.Username, weeklyCostsDto.Date);
+            var weeklyCosts = await repository.GetWeeklyCosts(weeklyCostsDto.Username, weeklyCostsDto.Date);
             
             return Ok(weeklyCosts);
         }

@@ -14,7 +14,7 @@ namespace cost_income_calculator.api.Models
         [Required]
         public string Type { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string Description { get; set; }
 
         [Required]

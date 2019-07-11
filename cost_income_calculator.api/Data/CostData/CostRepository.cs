@@ -22,9 +22,9 @@ namespace cost_income_calculator.api.Data.CostData
             this.context = context;
         }
 
-        public async Task<IEnumerable<CostReturnDto>> GetAllCosts(string username)
+        public async Task<IEnumerable<CostReturnDto>> GetAllCosts(CostForGetDto costForGetDto)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == costForGetDto.Username.ToLower());
 
             List<Cost> costs = new List<Cost>();
 
@@ -33,51 +33,51 @@ namespace cost_income_calculator.api.Data.CostData
             return mapper.Map<IEnumerable<CostReturnDto>>(costs);
         }
 
-        public async Task<IEnumerable<CostReturnDto>> GetWeeklyCosts(string username, DateTime date)
+        public async Task<IEnumerable<CostReturnDto>> GetWeeklyCosts(PeriodicCostsDto periodicCostsDto)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == periodicCostsDto.Username.ToLower());
             
-            (DateTime, DateTime) dates = datesHelper.GetWeekDateRange(date);
+            (DateTime, DateTime) dates = datesHelper.GetWeekDateRange(periodicCostsDto.Date);
             var weeklyCosts = await context.Costs.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
 
             return mapper.Map<IEnumerable<CostReturnDto>>(weeklyCosts);
         }
 
-        public async Task<IEnumerable<CostReturnDto>> GetWeeklyCostsByCategory(string username, DateTime date, string category)
+        public async Task<IEnumerable<CostReturnDto>> GetWeeklyCostsByCategory(PeriodicCostsDto periodicCostsDto, string category)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == periodicCostsDto.Username.ToLower());
             
-            (DateTime, DateTime) dates = datesHelper.GetWeekDateRange(date);
+            (DateTime, DateTime) dates = datesHelper.GetWeekDateRange(periodicCostsDto.Date);
             var weeklyCostsByCategory = await context.Costs.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).Where(x => x.Type == category.ToLower()).ToListAsync();
 
             return mapper.Map<IEnumerable<CostReturnDto>>(weeklyCostsByCategory);
         }
 
-        public async Task<IEnumerable<CostReturnDto>> GetMonthlyCosts(string username, DateTime date)
+        public async Task<IEnumerable<CostReturnDto>> GetMonthlyCosts(PeriodicCostsDto periodicCostsDto)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == periodicCostsDto.Username.ToLower());
             
-            (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(date);
+            (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(periodicCostsDto.Date);
             var monthlyCosts = await context.Costs.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
 
             return mapper.Map<IEnumerable<CostReturnDto>>(monthlyCosts);
         }
 
-        public async Task<IEnumerable<CostReturnDto>> GetMonthlyCostsByCategory(string username, DateTime date, string category)
+        public async Task<IEnumerable<CostReturnDto>> GetMonthlyCostsByCategory(PeriodicCostsDto periodicCostsDto, string category)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == periodicCostsDto.Username.ToLower());
             
-            (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(date);
+            (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(periodicCostsDto.Date);
             var monthlyCostsByCategory = await context.Costs.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).Where(x => x.Type == category.ToLower()).ToListAsync();
 
             return mapper.Map<IEnumerable<CostReturnDto>>(monthlyCostsByCategory);
         }
 
-        public async Task<MonthCostDto> GetMaxCostsCategoryInMonth(string username, DateTime date)
+        public async Task<MonthCostDto> GetMaxCostsCategoryInMonth(PeriodicCostsDto periodicCostsDto)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == periodicCostsDto.Username.ToLower());
             
-            (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(date);
+            (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(periodicCostsDto.Date);
             var monthlyCosts = await context.Costs.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
             var categories = monthlyCosts.Select(x => x.Type).Distinct();
             
@@ -93,17 +93,17 @@ namespace cost_income_calculator.api.Data.CostData
             return costs.FirstOrDefault(x => x.CostSum == costs.Max(z => z.CostSum));
         }
 
-        public async Task<Cost> SetCost(string username, string type, string description, double price, DateTime date)
+        public async Task<Cost> SetCost(CostForSetDto costForSetDto)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == costForSetDto.Username.ToLower());
 
             var cost = new Cost
             {
                 UserId = user.Id,
-                Type = type.ToLower(),
-                Description = description,
-                Price = price,
-                Date = date
+                Type = costForSetDto.Type.ToLower(),
+                Description = costForSetDto.Description,
+                Price = costForSetDto.Price,
+                Date = costForSetDto.Date
             };
 
             await context.AddAsync(cost);
@@ -112,16 +112,16 @@ namespace cost_income_calculator.api.Data.CostData
             return cost;
         }
 
-        public async Task<Cost> EditCost(string username, int costId, string newType, string newDescription, double newPrice, DateTime newDate)
+        public async Task<Cost> EditCost(int costId, CostForEditDto costForEditDto)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == costForEditDto.Username.ToLower());
 
             var currentCost = await context.Costs.FirstOrDefaultAsync(x => x.Id == costId && x.UserId == user.Id);
             if (currentCost == null) return null;
 
-            currentCost.Type = newType.ToLower();
-            currentCost.Description = newDescription;
-            currentCost.Price = newPrice;
+            currentCost.Type = costForEditDto.Type.ToLower() ?? currentCost.Type;
+            currentCost.Description = costForEditDto.Description ?? currentCost.Description;
+            currentCost.Price = costForEditDto.Price == 0 ? currentCost.Price : costForEditDto.Price;
 
             context.Costs.Update(currentCost);
             await context.SaveChangesAsync();
@@ -129,13 +129,13 @@ namespace cost_income_calculator.api.Data.CostData
             return currentCost;
         }
 
-        public async Task<List<Cost>> DeleteCosts(string username, int[] costIds)
+        public async Task<List<Cost>> DeleteCosts(CostForDeleteDto costForDeleteDto)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == costForDeleteDto.Username.ToLower());
 
             List<Cost> costs = new List<Cost>();
 
-            foreach (var costId in costIds)
+            foreach (var costId in costForDeleteDto.Ids)
             {
                 var costForDelete = await context.Costs.FirstOrDefaultAsync(x => x.Id == costId && x.UserId == user.Id);
                 if (costForDelete == null) return null;

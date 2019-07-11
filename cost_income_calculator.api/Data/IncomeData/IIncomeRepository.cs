@@ -8,14 +8,14 @@ namespace cost_income_calculator.api.Data.IncomeData
 {
     public interface IIncomeRepository
     {
-        Task<IEnumerable<IncomeReturnDto>> GetAllIncomes(string username);
-        Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomes(string username, DateTime date);
-        Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomesByCategory(string username, DateTime date, string category);
-        Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomes(string username, DateTime date);
-        Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomesByCategory(string username, DateTime date, string category);
-        Task<MonthIncomeDto> GetMaxIncomesCategoryInMonth(string username, DateTime date);
-        Task<Income> SetIncome(string username, string type, string description, double price, DateTime date);
-        Task<Income> EditIncome(string username, int incomeId, string newType, string newDescription, double newPrice, DateTime newDate);
-        Task<List<Income>> DeleteIncomes(string username, int[] incomeIds);
+        Task<IEnumerable<IncomeReturnDto>> GetAllIncomes(IncomeForGetDto incomeForGetDto);
+        Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomes(PeriodicIncomesDto periodicIncomesDto);
+        Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomesByCategory(PeriodicIncomesDto periodicIncomesDto, string category);
+        Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomes(PeriodicIncomesDto periodicIncomesDto);
+        Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomesByCategory(PeriodicIncomesDto periodicIncomesDto, string category);
+        Task<MonthIncomeDto> GetMaxIncomesCategoryInMonth(PeriodicIncomesDto periodicIncomesDto);
+        Task<Income> SetIncome(IncomeForSetDto incomeForSetDto);
+        Task<Income> EditIncome(int costId, IncomeForEditDto incomeForEditDto);
+        Task<List<Income>> DeleteIncomes(IncomeForDeleteDto incomeForDeleteDto);
     }
 }

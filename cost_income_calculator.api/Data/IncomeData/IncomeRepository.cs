@@ -123,6 +123,7 @@ namespace cost_income_calculator.api.Data.IncomeData
             currentIncome.Type = incomeForEditDto.Type.ToLower() ?? currentIncome.Type;
             currentIncome.Description = incomeForEditDto.Description ?? currentIncome.Description;
             currentIncome.Price = incomeForEditDto.Price == 0 ? currentIncome.Price : incomeForEditDto.Price;
+            currentIncome.Date = incomeForEditDto.Date == DateTime.MinValue ? currentIncome.Date: incomeForEditDto.Date;
 
             context.Incomes.Update(currentIncome);
             await context.SaveChangesAsync();

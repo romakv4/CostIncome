@@ -25,7 +25,6 @@ namespace cost_income_calculator.api.Controllers
             this.userHelper = userHelper;
             this.config = config;
             this.repository = repository;
-
         }
 
         [HttpPost("register")]

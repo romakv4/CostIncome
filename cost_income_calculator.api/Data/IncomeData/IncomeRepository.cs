@@ -49,7 +49,8 @@ namespace cost_income_calculator.api.Data.IncomeData
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == periodicIncomesDto.Username.ToLower());
 
             (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(periodicIncomesDto.Date);
-            var weeklyIncomesByCategory = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).Where(x => x.Type == category.ToLower()).ToListAsync();
+            var weeklyIncomesByCategory = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date)
+                                                                .Where(x => x.Type == category.ToLower()).ToListAsync();
 
             return mapper.Map<IEnumerable<IncomeReturnDto>>(weeklyIncomesByCategory);
         }
@@ -69,7 +70,8 @@ namespace cost_income_calculator.api.Data.IncomeData
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == periodicIncomesDto.Username.ToLower());
 
             (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(periodicIncomesDto.Date);
-            var monthlyIncomesByCategory = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).Where(x => x.Type == category.ToLower()).ToListAsync();
+            var monthlyIncomesByCategory = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date)
+                                                                 .Where(x => x.Type == category.ToLower()).ToListAsync();
 
             return mapper.Map<IEnumerable<IncomeReturnDto>>(monthlyIncomesByCategory);
         }

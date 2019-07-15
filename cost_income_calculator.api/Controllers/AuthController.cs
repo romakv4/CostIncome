@@ -30,54 +30,68 @@ namespace cost_income_calculator.api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-            userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
-
-            if (await userHelper.UserExists(userForRegisterDto.Username))
-                return BadRequest("Username already exists");
-
-            var userToCreate = new User
+            try
             {
-                Username = userForRegisterDto.Username
-            };
+                userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
 
-            var createdUser = await repository.Register(userToCreate, userForRegisterDto.Password);
+                if (await userHelper.UserExists(userForRegisterDto.Username))
+                    return BadRequest("Username already exists");
 
-            return StatusCode(201);
+                var userToCreate = new User
+                {
+                    Username = userForRegisterDto.Username
+                };
+
+                var createdUser = await repository.Register(userToCreate, userForRegisterDto.Password);
+
+                return StatusCode(201);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            var userFromRepo = await repository.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
-
-            if (userFromRepo == null)
-                return Unauthorized();
-
-            var claims = new[]
+            try
             {
-                new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.Username)
-            };
+                var userFromRepo = await repository.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("AppSettings:Token").Value));
+                if (userFromRepo == null)
+                    return Unauthorized();
 
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+                var claims = new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
+                    new Claim(ClaimTypes.Name, userFromRepo.Username)
+                };
 
-            var tokenDescriptor = new SecurityTokenDescriptor
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("AppSettings:Token").Value));
+
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(claims),
+                    Expires = DateTime.Now.AddHours(1),
+                    SigningCredentials = creds
+                };
+
+                var tokenHandler = new JwtSecurityTokenHandler();
+
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+
+                return Ok(new
+                {
+                    token = tokenHandler.WriteToken(token)
+                });
+            }
+            catch
             {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddHours(1),
-                SigningCredentials = creds
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return Ok(new
-            {
-                token = tokenHandler.WriteToken(token)
-            });
+                return StatusCode(500);
+            }
         }
     }
 }

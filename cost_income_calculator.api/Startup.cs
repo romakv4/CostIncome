@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.IO;
+using System.Net;
 using System.Text;
 using AutoMapper;
 using cost_income_calculator.api.Data;
@@ -52,6 +53,11 @@ namespace cost_income_calculator.api
                         ValidateAudience = false
                     };
                 });
+
+            Directory.CreateDirectory("Logs");
+            if (!File.Exists("./Logs/errors.txt"))
+                File.Create("./Logs/errors.txt");
+                
             services.AddSingleton((ILogger)new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.File("./Logs/errors.txt", outputTemplate:

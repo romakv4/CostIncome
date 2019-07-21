@@ -39,6 +39,7 @@ namespace cost_income_calculator.api
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IDatesHelper, DatesHelper>();
+            services.AddScoped<ITokenHelper, TokenHelper>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<ICostRepository, CostRepository>();
             services.AddScoped<IIncomeRepository, IncomeRepository>();

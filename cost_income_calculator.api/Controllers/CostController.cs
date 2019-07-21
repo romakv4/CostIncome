@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using cost_income_calculator.api.Data.CostData;
 using cost_income_calculator.api.Dtos.CostDtos;
@@ -16,23 +19,31 @@ namespace cost_income_calculator.api.Controllers
         private readonly ICostRepository repository;
         private readonly IConfiguration config;
         private readonly IUserHelper userHelper;
+        private readonly ITokenHelper tokenHelper;
 
-        public CostController(ICostRepository repository, IConfiguration config, IUserHelper userHelper)
+        public CostController(
+            ICostRepository repository,
+            IConfiguration config,
+            IUserHelper userHelper,
+            ITokenHelper tokenHelper)
         {
+            this.tokenHelper = tokenHelper;
             this.userHelper = userHelper;
             this.config = config;
             this.repository = repository;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GetAllCosts(CostForGetDto costForGetDto)
+        [HttpGet]
+        public async Task<IActionResult> GetAllCosts()
         {
             try
             {
-                if (!await userHelper.UserExists(costForGetDto.Username))
+                string username = tokenHelper.GetUsername(HttpContext);
+
+                if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
-            
-                var costs = await repository.GetAllCosts(costForGetDto);
+
+                var costs = await repository.GetAllCosts(username);
                 return Ok(costs);
             }
             catch
@@ -41,16 +52,23 @@ namespace cost_income_calculator.api.Controllers
             }
         }
 
-        [HttpPost("weekly")]
-        public async Task<IActionResult> GetWeeklyCosts(PeriodicCostsDto periodicCostsDto)
+        [HttpGet("weekly")]
+        public async Task<IActionResult> GetWeeklyCosts(DateTime date)
         {
             try
             {
-                if (!await userHelper.UserExists(periodicCostsDto.Username))
+                string username = tokenHelper.GetUsername(HttpContext);
+
+                if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
-                
-                var weeklyCosts = await repository.GetWeeklyCosts(periodicCostsDto);
-                
+
+                var DTO = new PeriodicCostsDto {
+                    Username = username,
+                    Date = date
+                };
+
+                var weeklyCosts = await repository.GetWeeklyCosts(DTO);
+
                 return Ok(weeklyCosts);
             }
             catch
@@ -59,16 +77,23 @@ namespace cost_income_calculator.api.Controllers
             }
         }
 
-        [HttpPost("weekly/{category}")]
-        public async Task<IActionResult> GetWeeklyCostsByCategory(PeriodicCostsDto periodicCostsDto, string category)
+        [HttpGet("weekly/{category}")]
+        public async Task<IActionResult> GetWeeklyCostsByCategory(DateTime date, string category)
         {
             try
             {
-                if (!await userHelper.UserExists(periodicCostsDto.Username))
+                string username = tokenHelper.GetUsername(HttpContext);
+
+                if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
-            
-                var weeklyCostsByCategory = await repository.GetWeeklyCostsByCategory(periodicCostsDto, category);
-                
+
+                var DTO = new PeriodicCostsDto {
+                    Username = username,
+                    Date = date
+                };
+
+                var weeklyCostsByCategory = await repository.GetWeeklyCostsByCategory(DTO, category);
+
                 return Ok(weeklyCostsByCategory);
             }
             catch
@@ -77,16 +102,23 @@ namespace cost_income_calculator.api.Controllers
             }
         }
 
-        [HttpPost("monthly")]
-        public async Task<IActionResult> GetMonthlyCosts(PeriodicCostsDto periodicCostsDto)
+        [HttpGet("monthly")]
+        public async Task<IActionResult> GetMonthlyCosts(DateTime date)
         {
             try
             {
-                if (!await userHelper.UserExists(periodicCostsDto.Username))
+                string username = tokenHelper.GetUsername(HttpContext);
+
+                if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
-            
-                var monthlyCosts = await repository.GetMonthlyCosts(periodicCostsDto);
-                
+
+                var DTO = new PeriodicCostsDto {
+                    Username = username,
+                    Date = date
+                };
+
+                var monthlyCosts = await repository.GetMonthlyCosts(DTO);
+
                 return Ok(monthlyCosts);
             }
             catch
@@ -96,15 +128,22 @@ namespace cost_income_calculator.api.Controllers
         }
 
         [HttpPost("monthly/{category}")]
-        public async Task<IActionResult> GetMonthlyCostsByCategory(PeriodicCostsDto periodicCostsDto, string category)
+        public async Task<IActionResult> GetMonthlyCostsByCategory(DateTime date, string category)
         {
             try
             {
-                if (!await userHelper.UserExists(periodicCostsDto.Username))
+                string username = tokenHelper.GetUsername(HttpContext);
+
+                if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
-            
-                var monthlyCostsByCategory = await repository.GetMonthlyCostsByCategory(periodicCostsDto, category);
                 
+                var DTO = new PeriodicCostsDto {
+                    Username = username,
+                    Date = date
+                };
+
+                var monthlyCostsByCategory = await repository.GetMonthlyCostsByCategory(DTO, category);
+
                 return Ok(monthlyCostsByCategory);
             }
             catch
@@ -113,16 +152,23 @@ namespace cost_income_calculator.api.Controllers
             }
         }
 
-        [HttpPost("monthly/max")]
-        public async Task<IActionResult> GetMaxMonthlyCosts(PeriodicCostsDto periodicCostsDto)
+        [HttpGet("monthly/max")]
+        public async Task<IActionResult> GetMaxMonthlyCosts(DateTime date)
         {
             try
             {
-                if (!await userHelper.UserExists(periodicCostsDto.Username))
+                string username = tokenHelper.GetUsername(HttpContext);
+
+                if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
-            
-                var maxMonthlyCosts = await repository.GetMaxCostsCategoryInMonth(periodicCostsDto);
-                
+
+                var DTO = new PeriodicCostsDto {
+                    Username = username,
+                    Date = date
+                };
+
+                var maxMonthlyCosts = await repository.GetMaxCostsCategoryInMonth(DTO);
+
                 return Ok(maxMonthlyCosts);
             }
             catch
@@ -136,11 +182,13 @@ namespace cost_income_calculator.api.Controllers
         {
             try
             {
-                if (!await userHelper.UserExists(costForSetDto.Username))
+                string username = tokenHelper.GetUsername(HttpContext);
+
+                if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
 
                 var settedCost = await repository.SetCost(costForSetDto);
-                
+
                 return StatusCode(201);
             }
             catch
@@ -154,9 +202,11 @@ namespace cost_income_calculator.api.Controllers
         {
             try
             {
-                if (!await userHelper.UserExists(costForEditDto.Username))
+                string username = tokenHelper.GetUsername(HttpContext);
+
+                if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
-            
+
                 var editedCost = await repository.EditCost(id, costForEditDto);
 
                 return StatusCode(204);
@@ -172,7 +222,9 @@ namespace cost_income_calculator.api.Controllers
         {
             try
             {
-                if (!await userHelper.UserExists(costForDeleteDto.Username))
+                string username = tokenHelper.GetUsername(HttpContext);
+
+                if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
 
                 var deletedCosts = await repository.DeleteCosts(costForDeleteDto);

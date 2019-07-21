@@ -26,11 +26,11 @@ namespace cost_income_calculator.api.Data.IncomeData
             this.context = context;
         }
 
-        public async Task<IEnumerable<IncomeReturnDto>> GetAllIncomes(IncomeForGetDto incomeForGetDto)
+        public async Task<IEnumerable<IncomeReturnDto>> GetAllIncomes(string username)
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == incomeForGetDto.Username.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
 
                 List<Income> incomes = new List<Income>();
 

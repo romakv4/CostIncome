@@ -52,6 +52,28 @@ namespace cost_income_calculator.api.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetConcreteCost(int id)
+        {
+            try
+            {
+                string username = tokenHelper.GetUsername(HttpContext);
+
+                if (!await userHelper.UserExists(username))
+                    return BadRequest("This username doesn't exists");
+
+                var concreteCost = await repository.GetConcreteCost(username, id);
+
+                if (concreteCost == null) return NotFound();
+
+                return Ok(concreteCost);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+
         [HttpGet("weekly")]
         public async Task<IActionResult> GetWeeklyCosts(DateTime date)
         {
@@ -208,6 +230,8 @@ namespace cost_income_calculator.api.Controllers
                     return BadRequest("This username doesn't exists");
 
                 var editedCost = await repository.EditCost(id, costForEditDto);
+
+                if (editedCost == null) return NotFound();
 
                 return StatusCode(204);
             }

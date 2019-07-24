@@ -45,6 +45,25 @@ namespace cost_income_calculator.api.Data.IncomeData
             }
         }
 
+        public async Task<IncomeReturnDto> GetConcreteIncome(string username, int id)
+        {
+            try
+            {
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
+
+                if (!await context.Incomes.AnyAsync(x => x.Id == id)) return null;
+
+                var concreteIncome = await context.Incomes.Where(x => x.Id == id).SingleAsync();
+
+                return mapper.Map<IncomeReturnDto>(concreteIncome);
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message);
+                throw;
+            }
+        }
+
         public async Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomes(PeriodicIncomesDto periodicIncomesDto)
         {
             try
@@ -167,14 +186,15 @@ namespace cost_income_calculator.api.Data.IncomeData
             }
         }
 
-        public async Task<Income> EditIncome(int costId, IncomeForEditDto incomeForEditDto)
+        public async Task<Income> EditIncome(int incomeId, IncomeForEditDto incomeForEditDto)
         {
             try
             {
                 var user = await context.Users.FirstOrDefaultAsync(x => x.Username == incomeForEditDto.Username.ToLower());
 
-                var currentIncome = await context.Incomes.FirstOrDefaultAsync(x => x.Id == costId && x.UserId == user.Id);
-                if (currentIncome == null) return null;
+                if (!await context.Incomes.AnyAsync(x => x.Id == incomeId)) return null;
+
+                var currentIncome = await context.Incomes.FirstOrDefaultAsync(x => x.Id == incomeId && x.UserId == user.Id);
 
                 currentIncome.Type = incomeForEditDto.Type.ToLower() ?? currentIncome.Type;
                 currentIncome.Description = incomeForEditDto.Description ?? currentIncome.Description;

@@ -9,6 +9,7 @@ namespace cost_income_calculator.api.Data.CostData
     public interface ICostRepository
     {
         Task<IEnumerable<CostReturnDto>> GetAllCosts(string username);
+        Task<CostReturnDto> GetConcreteCost(string username, int id);
         Task<IEnumerable<CostReturnDto>> GetWeeklyCosts(PeriodicCostsDto periodicCostsDto);
         Task<IEnumerable<CostReturnDto>> GetWeeklyCostsByCategory(PeriodicCostsDto periodicCostsDto, string category);
         Task<IEnumerable<CostReturnDto>> GetMonthlyCosts(PeriodicCostsDto periodicCostsDto);

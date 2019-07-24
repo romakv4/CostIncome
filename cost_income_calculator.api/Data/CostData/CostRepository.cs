@@ -44,6 +44,25 @@ namespace cost_income_calculator.api.Data.CostData
             }
         }
 
+        public async Task<CostReturnDto> GetConcreteCost(string username, int id)
+        {
+            try
+            {
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
+
+                if (!await context.Costs.AnyAsync(x => x.Id == id)) return null;
+
+                var concreteCost = await context.Costs.Where(x => x.Id == id).SingleAsync();
+
+                return mapper.Map<CostReturnDto>(concreteCost);
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message);
+                throw;
+            }
+        }
+
         public async Task<IEnumerable<CostReturnDto>> GetWeeklyCosts(PeriodicCostsDto periodicCostsDto)
         {
             try
@@ -180,8 +199,9 @@ namespace cost_income_calculator.api.Data.CostData
             {
                 var user = await context.Users.FirstOrDefaultAsync(x => x.Username == costForEditDto.Username.ToLower());
 
+                if (!await context.Costs.AnyAsync(x => x.Id == costId)) return null;
+
                 var currentCost = await context.Costs.FirstOrDefaultAsync(x => x.Id == costId && x.UserId == user.Id);
-                if (currentCost == null) return null;
 
                 currentCost.Type = costForEditDto.Type.ToLower() ?? currentCost.Type;
                 currentCost.Description = costForEditDto.Description ?? currentCost.Description;

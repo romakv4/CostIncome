@@ -9,6 +9,7 @@ namespace cost_income_calculator.api.Data.IncomeData
     public interface IIncomeRepository
     {
         Task<IEnumerable<IncomeReturnDto>> GetAllIncomes(string username);
+        Task<IncomeReturnDto> GetConcreteIncome(string username, int id);
         Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomes(PeriodicIncomesDto periodicIncomesDto);
         Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomesByCategory(PeriodicIncomesDto periodicIncomesDto, string category);
         Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomes(PeriodicIncomesDto periodicIncomesDto);

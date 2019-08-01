@@ -6,6 +6,7 @@ using cost_income_calculator.api.Data;
 using cost_income_calculator.api.Data.AuthData;
 using cost_income_calculator.api.Data.CostData;
 using cost_income_calculator.api.Data.IncomeData;
+using cost_income_calculator.api.Data.LimitData;
 using cost_income_calculator.api.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -43,6 +44,7 @@ namespace cost_income_calculator.api
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<ICostRepository, CostRepository>();
             services.AddScoped<IIncomeRepository, IncomeRepository>();
+            services.AddScoped<ILimitRepository, LimitRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {

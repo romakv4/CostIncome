@@ -14,5 +14,6 @@ namespace cost_income_calculator.api.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Cost> Costs { get; set; }
         public DbSet<Income> Incomes { get; set; }
+        public DbSet<Limit> Limits { get; set; }
     }
 }

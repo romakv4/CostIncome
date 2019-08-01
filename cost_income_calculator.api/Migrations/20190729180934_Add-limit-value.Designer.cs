@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using cost_income_calculator.api.Data;
@@ -9,9 +10,10 @@ using cost_income_calculator.api.Data;
 namespace cost_income_calculator.api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190729180934_Add-limit-value")]
+    partial class Addlimitvalue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,26 +69,6 @@ namespace cost_income_calculator.api.Migrations
                     b.ToTable("Incomes");
                 });
 
-            modelBuilder.Entity("cost_income_calculator.api.Models.Limit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("From");
-
-                    b.Property<DateTime>("To");
-
-                    b.Property<int>("UserId");
-
-                    b.Property<double>("Value");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Limits");
-                });
-
             modelBuilder.Entity("cost_income_calculator.api.User", b =>
                 {
                     b.Property<int>("Id")
@@ -115,14 +97,6 @@ namespace cost_income_calculator.api.Migrations
                 {
                     b.HasOne("cost_income_calculator.api.User", "user")
                         .WithMany("Income")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("cost_income_calculator.api.Models.Limit", b =>
-                {
-                    b.HasOne("cost_income_calculator.api.User", "user")
-                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

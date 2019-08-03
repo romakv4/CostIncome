@@ -147,7 +147,7 @@ namespace cost_income_calculator.api.Controllers
             }
         }
 
-        [HttpPost("monthly/{category}")]
+        [HttpGet("monthly/{category}")]
         public async Task<IActionResult> GetMonthlyCostsByCategory(DateTime date, string category)
         {
             try

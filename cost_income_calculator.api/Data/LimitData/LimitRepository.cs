@@ -46,5 +46,32 @@ namespace cost_income_calculator.api.Data.LimitData
                 throw;
             }
         }
+
+        public async Task<Limit> EditLimit(int limitId, LimitForEditDto limitForEditDto)
+        {
+            try
+            {
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == limitForEditDto.Username.ToLower());
+
+                if (!await context.Limits.AnyAsync(x => x.Id == limitId)) return null;
+
+                var currentLimit = await context.Limits.FirstOrDefaultAsync(x => x.Id == limitId && x.UserId == user.Id);
+
+                currentLimit.Category = currentLimit.Category.ToLower() ?? currentLimit.Category;
+                currentLimit.Value = limitForEditDto.Value == 0 ? currentLimit.Value : limitForEditDto.Value;
+                currentLimit.From = limitForEditDto.From == DateTime.MinValue ? currentLimit.From : limitForEditDto.From;
+                currentLimit.To = limitForEditDto.To == DateTime.MinValue ? currentLimit.To : limitForEditDto.To;
+
+                context.Limits.Update(currentLimit);
+                await context.SaveChangesAsync();
+
+                return currentLimit;
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message);
+                throw;
+            }
+        }
     }
 }

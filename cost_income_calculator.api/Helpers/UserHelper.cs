@@ -2,14 +2,17 @@ using System;
 using System.Threading.Tasks;
 using cost_income_calculator.api.Data;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace cost_income_calculator.api.Helpers
 {
     public class UserHelper : IUserHelper
     {
         private readonly DataContext context;
-        public UserHelper(DataContext context)
+        private readonly ILogger logger;
+        public UserHelper(DataContext context, ILogger logger)
         {
+            this.logger = logger;
             this.context = context;
         }
 
@@ -17,16 +20,12 @@ namespace cost_income_calculator.api.Helpers
         {
             try
             {
-                if (await context.Users.AnyAsync(x => x.Username == username.ToLower()))
-                    return true;
-
-                return false;
+                return await context.Users.AnyAsync(x => x.Username == username.ToLower());
             }
             catch (Exception error)
             {
-                if (error is ArgumentNullException || error is InvalidOperationException)
-                    Console.WriteLine(error); // Log to file here
-                
+                logger.Error(error.Message);
+
                 return false;
             }
         }

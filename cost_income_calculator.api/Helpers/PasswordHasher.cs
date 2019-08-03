@@ -14,10 +14,7 @@ namespace cost_income_calculator.api.Helpers
 
         public bool VerifyPasswordHash(string password, string passwordHash)
         {
-            if (BCrypt.Net.BCrypt.Verify(password, passwordHash))
-                return true;
-            
-            return false;
+            return BCrypt.Net.BCrypt.Verify(password, passwordHash);
         }
     }
 }

@@ -19,9 +19,11 @@ namespace cost_income_calculator.api.Controllers
         private readonly IAuthRepository repository;
         private readonly IConfiguration config;
         private readonly IUserHelper userHelper;
+        private readonly ITokenHelper tokenHelper;
 
-        public AuthController(IAuthRepository repository, IConfiguration config, IUserHelper userHelper)
+        public AuthController(IAuthRepository repository, IConfiguration config, IUserHelper userHelper, ITokenHelper tokenHelper)
         {
+            this.tokenHelper = tokenHelper;
             this.userHelper = userHelper;
             this.config = config;
             this.repository = repository;
@@ -57,35 +59,14 @@ namespace cost_income_calculator.api.Controllers
         {
             try
             {
-                var userFromRepo = await repository.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
+                var user = await repository.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
-                if (userFromRepo == null)
+                if (user == null)
                     return Unauthorized();
-
-                var claims = new[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                    new Claim(ClaimTypes.Name, userFromRepo.Username)
-                };
-
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("AppSettings:Token").Value));
-
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(claims),
-                    Expires = DateTime.Now.AddHours(1),
-                    SigningCredentials = creds
-                };
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-
-                var token = tokenHandler.CreateToken(tokenDescriptor);
 
                 return Ok(new
                 {
-                    token = tokenHandler.WriteToken(token)
+                    token = tokenHelper.GenerateToken(user, config)
                 });
             }
             catch

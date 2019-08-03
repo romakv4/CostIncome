@@ -29,6 +29,7 @@ namespace cost_income_calculator.api.Data.LimitData
                 var limit = new Limit
                 {
                     UserId = user.Id,
+                    Category = limitForSetDto.Category,
                     Value = limitForSetDto.Value,
                     From = limitForSetDto.From,
                     To = limitForSetDto.To

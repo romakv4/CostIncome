@@ -12,6 +12,9 @@ namespace cost_income_calculator.api.Models
         public int UserId { get; set; }
 
         [Required]
+        public string Category { get; set; }
+
+        [Required]
         public double Value { get; set; }
 
         [Required]

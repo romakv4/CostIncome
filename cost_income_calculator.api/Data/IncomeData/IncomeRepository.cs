@@ -90,7 +90,7 @@ namespace cost_income_calculator.api.Data.IncomeData
 
                 (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(periodicIncomesDto.Date);
                 var weeklyIncomesByCategory = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date)
-                                                                    .Where(x => x.Type == category.ToLower()).ToListAsync();
+                                                                    .Where(x => x.Category == category.ToLower()).ToListAsync();
 
                 return mapper.Map<IEnumerable<IncomeReturnDto>>(weeklyIncomesByCategory);
             }
@@ -119,7 +119,7 @@ namespace cost_income_calculator.api.Data.IncomeData
 
                 (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(periodicIncomesDto.Date);
                 var monthlyIncomesByCategory = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date)
-                                                                    .Where(x => x.Type == category.ToLower()).ToListAsync();
+                                                                    .Where(x => x.Category == category.ToLower()).ToListAsync();
 
                 return mapper.Map<IEnumerable<IncomeReturnDto>>(monthlyIncomesByCategory);
             }
@@ -138,15 +138,15 @@ namespace cost_income_calculator.api.Data.IncomeData
 
                 (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(periodicIncomesDto.Date);
                 var monthlyIncomes = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
-                var categories = monthlyIncomes.Select(x => x.Type).Distinct();
+                var categories = monthlyIncomes.Select(x => x.Category).Distinct();
 
                 List<MonthIncomeDto> costs = new List<MonthIncomeDto>();
                 foreach (var category in categories)
                 {
                     costs.Add(new MonthIncomeDto
                     {
-                        Type = category.ToLower(),
-                        IncomeSum = monthlyIncomes.Where(x => x.Type == category.ToLower()).Select(x => x.Price).Sum()
+                        Category = category.ToLower(),
+                        IncomeSum = monthlyIncomes.Where(x => x.Category == category.ToLower()).Select(x => x.Price).Sum()
                     });
                 }
 
@@ -168,7 +168,7 @@ namespace cost_income_calculator.api.Data.IncomeData
                 var income = new Income
                 {
                     UserId = user.Id,
-                    Type = incomeForSetDto.Type.ToLower(),
+                    Category = incomeForSetDto.Category.ToLower(),
                     Description = incomeForSetDto.Description,
                     Price = incomeForSetDto.Price,
                     Date = incomeForSetDto.Date
@@ -196,7 +196,7 @@ namespace cost_income_calculator.api.Data.IncomeData
 
                 var currentIncome = await context.Incomes.FirstOrDefaultAsync(x => x.Id == incomeId && x.UserId == user.Id);
 
-                currentIncome.Type = incomeForEditDto.Type.ToLower() ?? currentIncome.Type;
+                currentIncome.Category = incomeForEditDto.Category.ToLower() ?? currentIncome.Category;
                 currentIncome.Description = incomeForEditDto.Description ?? currentIncome.Description;
                 currentIncome.Price = incomeForEditDto.Price == 0 ? currentIncome.Price : incomeForEditDto.Price;
                 currentIncome.Date = incomeForEditDto.Date == DateTime.MinValue ? currentIncome.Date : incomeForEditDto.Date;

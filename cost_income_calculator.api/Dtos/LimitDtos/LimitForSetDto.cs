@@ -9,6 +9,9 @@ namespace cost_income_calculator.api.Dtos.LimitDtos
         public string Username { get; set; }
 
         [Required]
+        public string Category { get; set; } = "All";
+
+        [Required]
         public double Value { get; set; }
 
         [Required]

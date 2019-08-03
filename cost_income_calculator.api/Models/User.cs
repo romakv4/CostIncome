@@ -17,5 +17,7 @@ namespace cost_income_calculator.api
         public List<Cost> Cost { get; set; }
 
         public List<Income> Income { get; set; }
+
+        public List<Limit> Limit { get; set; }
     }
 }

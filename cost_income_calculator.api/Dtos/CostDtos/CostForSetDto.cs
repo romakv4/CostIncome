@@ -8,7 +8,7 @@ namespace cost_income_calculator.api.Dtos.CostDtos
         [Required]
         public string Username { get; set; }
         [Required]
-        public string Type { get; set; }
+        public string Category { get; set; }
         [Required]
         public string Description { get; set; }
         [Required]

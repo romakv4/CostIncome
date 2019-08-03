@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using cost_income_calculator.api.Dtos.LimitDtos;
@@ -66,6 +67,33 @@ namespace cost_income_calculator.api.Data.LimitData
                 await context.SaveChangesAsync();
 
                 return currentLimit;
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message);
+                throw;
+            }
+        }
+
+        public async Task<List<Limit>> DeleteLimits(LimitForDeleteDto limitForDeleteDto)
+        {
+            try
+            {
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == limitForDeleteDto.Username.ToLower());
+
+                List<Limit> limits = new List<Limit>();
+
+                foreach (var limitId in limitForDeleteDto.Ids)
+                {
+                    var limitForDelete = await context.Limits.FirstOrDefaultAsync(x => x.Id == limitId && x.UserId == user.Id);
+                    if (limitForDelete == null) return null;
+                    context.Limits.Remove(limitForDelete);
+                    limits.Add(limitForDelete);
+                }
+
+                await context.SaveChangesAsync();
+
+                return limits;
             }
             catch (Exception e)
             {

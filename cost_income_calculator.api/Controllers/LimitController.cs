@@ -31,7 +31,7 @@ namespace cost_income_calculator.api.Controllers
         }
 
         [HttpPost("set")]
-        public async Task<IActionResult> SetCost(LimitForSetDto limitForSetDto)
+        public async Task<IActionResult> SetLimit(LimitForSetDto limitForSetDto)
         {
             try
             {
@@ -43,6 +43,44 @@ namespace cost_income_calculator.api.Controllers
                 var settedCost = await repository.SetLimit(limitForSetDto);
 
                 return StatusCode(201);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPut("edit/{id}")]
+        public async Task<IActionResult> EditLimit(int id, LimitForEditDto limitForEditDto)
+        {
+            try
+            {
+                if (!await userHelper.UserExists(limitForEditDto.Username))
+                    return BadRequest("This username doesn't exists");
+                
+                var editedLimit = await repository.EditLimit(id, limitForEditDto);
+
+                if (editedLimit == null) return NotFound();
+
+                return StatusCode(204);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpDelete("delete")]
+        public async Task<IActionResult> DeleteLimits(LimitForDeleteDto limitForDeleteDto)
+        {
+            try
+            {
+                if (!await userHelper.UserExists(limitForDeleteDto.Username))
+                    return BadRequest("This username doesn't exists");
+
+                var deletedIncomes = await repository.DeleteLimits(limitForDeleteDto);
+
+                return StatusCode(204);
             }
             catch
             {

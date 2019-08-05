@@ -21,6 +21,26 @@ namespace cost_income_calculator.api.Data.LimitData
             this.context = context;
 
         }
+
+        public async Task<IEnumerable<LimitReturnDto>> GetAllLimits(string username)
+        {
+            try
+            {
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
+
+                List<Limit> limits = new List<Limit>();
+
+                limits = await context.Limits.ToListAsync();
+
+                return mapper.Map<IEnumerable<LimitReturnDto>>(limits);
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message);
+                throw;
+            }
+        }
+
         public async Task<Limit> SetLimit(LimitForSetDto limitForSetDto)
         {
             try

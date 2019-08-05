@@ -7,6 +7,7 @@ namespace cost_income_calculator.api.Data.LimitData
 {
     public interface ILimitRepository
     {
+        Task<IEnumerable<LimitReturnDto>> GetAllLimits(string username);
         Task<Limit> SetLimit(LimitForSetDto limitForSetDto);
         Task<Limit> EditLimit(int limitId, LimitForEditDto limitForEditDto);
         Task<List<Limit>> DeleteLimits(LimitForDeleteDto limitForDeleteDto);

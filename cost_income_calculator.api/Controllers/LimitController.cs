@@ -30,6 +30,26 @@ namespace cost_income_calculator.api.Controllers
             this.repository = repository;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllLimits()
+        {
+            try
+            {
+                string username = tokenHelper.GetUsername(HttpContext);
+
+                if (!await userHelper.UserExists(username))
+                    return BadRequest("This username doesn't exists");
+                
+                var limits = await repository.GetAllLimits(username);
+                
+                return Ok(limits);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+
         [HttpPost("set")]
         public async Task<IActionResult> SetLimit(LimitForSetDto limitForSetDto)
         {

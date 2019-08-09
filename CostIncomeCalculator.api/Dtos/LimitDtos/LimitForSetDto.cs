@@ -12,7 +12,7 @@ namespace cost_income_calculator.api.Dtos.LimitDtos
         public string Category { get; set; }
 
         [Required]
-        public double Value { get; set; }
+        public decimal Value { get; set; }
 
         [Required]
         public DateTime From { get; set; }

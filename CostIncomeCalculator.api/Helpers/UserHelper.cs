@@ -6,6 +6,9 @@ using Serilog;
 
 namespace cost_income_calculator.api.Helpers
 {
+    /// <summary>
+    /// UserHelper class.
+    /// </summary>
     public class UserHelper : IUserHelper
     {
         private readonly DataContext context;
@@ -16,6 +19,11 @@ namespace cost_income_calculator.api.Helpers
             this.context = context;
         }
 
+        /// <summary>
+        /// User exists.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <returns>True if user exists, else false.</returns>
         public async Task<bool> UserExists(string username)
         {
             try

@@ -24,7 +24,7 @@ namespace cost_income_calculator.api.Data.CostData
             this.mapper = mapper;
             this.context = context;
         }
-
+        
         public async Task<IEnumerable<CostReturnDto>> GetAllCosts(string username)
         {
             try

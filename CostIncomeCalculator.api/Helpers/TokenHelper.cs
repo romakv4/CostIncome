@@ -9,8 +9,17 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace cost_income_calculator.api.Helpers
 {
+    /// <summary>
+    /// TokenHelper class.
+    /// </summary>
     public class TokenHelper : ITokenHelper
     {
+        /// <summary>
+        /// Generate token.
+        /// </summary>
+        /// <param name="user">User</param>
+        /// <param name="config">IConfiguration</param>
+        /// <returns>Token</returns>
         public string GenerateToken(User user, IConfiguration config)
         {
             var claims = new[]
@@ -37,6 +46,11 @@ namespace cost_income_calculator.api.Helpers
             return tokenHandler.WriteToken(token);
         }
 
+        /// <summary>
+        /// Get username from HttpContext.
+        /// </summary>
+        /// <param name="context">HttpContext</param>
+        /// <returns>Username</returns>
         public string GetUsername(HttpContext context)
         {
             return context.User.Identity.Name;

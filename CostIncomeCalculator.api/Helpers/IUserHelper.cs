@@ -8,7 +8,7 @@ namespace cost_income_calculator.api.Helpers
     public interface IUserHelper
     {
         /// <summary>
-        /// User exists.
+        /// Checks if the user exists in the database.
         /// </summary>
         /// <param name="username">string</param>
         /// <returns>True if user exists, else false.</returns>

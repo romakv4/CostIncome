@@ -14,6 +14,12 @@ namespace cost_income_calculator.api.Helpers
     {
         private readonly DataContext context;
         private readonly ILogger logger;
+
+        /// <summary>
+        /// UserHelper constructor.
+        /// </summary>
+        /// <param name="context">DataContext</param>
+        /// <param name="logger">ILogger</param>
         public UserHelper(DataContext context, ILogger logger)
         {
             this.logger = logger;
@@ -21,7 +27,7 @@ namespace cost_income_calculator.api.Helpers
         }
 
         /// <summary>
-        /// User exists.
+        /// Checks if the user exists in the database.
         /// </summary>
         /// <param name="username">string</param>
         /// <returns>True if user exists, else false.</returns>

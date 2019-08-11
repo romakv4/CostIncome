@@ -11,6 +11,7 @@ namespace cost_income_calculator.api.Helpers
 {
     /// <summary>
     /// TokenHelper class.
+    /// Contains methods to simply work with JWT tokens.
     /// </summary>
     public class TokenHelper : ITokenHelper
     {

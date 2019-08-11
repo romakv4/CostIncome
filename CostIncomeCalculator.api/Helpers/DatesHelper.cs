@@ -4,6 +4,7 @@ namespace cost_income_calculator.api.Helpers
 {   
     /// <summary>
     /// DatesHelper class.
+    /// Contains methods to simply work with dates.
     /// </summary>
     public class DatesHelper : IDatesHelper
     {

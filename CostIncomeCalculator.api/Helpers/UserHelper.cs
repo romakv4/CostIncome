@@ -8,6 +8,7 @@ namespace cost_income_calculator.api.Helpers
 {
     /// <summary>
     /// UserHelper class.
+    /// Contains methods to simply work with user.
     /// </summary>
     public class UserHelper : IUserHelper
     {

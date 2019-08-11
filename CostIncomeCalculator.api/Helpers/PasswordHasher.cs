@@ -2,6 +2,7 @@ namespace cost_income_calculator.api.Helpers
 {
     /// <summary>
     /// PasswordHasher class.
+    /// Contains methods to work with user password.
     /// </summary>
     public class PasswordHasher : IPasswordHasher
     {

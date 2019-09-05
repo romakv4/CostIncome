@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace cost_income_calculator.Migrations
+namespace CostIncomeCalculator.Migrations
 {
     public partial class Dateforcostandincome : Migration
     {

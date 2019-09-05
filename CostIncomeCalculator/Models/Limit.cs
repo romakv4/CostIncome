@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace cost_income_calculator.Models
+namespace CostIncomeCalculator.Models
 {
     /// <summary>
     /// Limit model.

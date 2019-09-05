@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace cost_income_calculator.Migrations
+namespace CostIncomeCalculator.Migrations
 {
     public partial class Initial : Migration
     {

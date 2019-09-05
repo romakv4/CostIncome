@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace cost_income_calculator.Helpers
+namespace CostIncomeCalculator.Helpers
 {
     /// <summary>
     /// TokenHelper class.

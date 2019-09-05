@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace cost_income_calculator.Dtos.LimitDtos
+namespace CostIncomeCalculator.Dtos.LimitDtos
 {
     public class LimitForDeleteDto
     {

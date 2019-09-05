@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
-namespace cost_income_calculator.Helpers
+namespace CostIncomeCalculator.Helpers
 {   
     /// <summary>
     /// ITokenHelper interface.

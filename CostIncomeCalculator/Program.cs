@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace cost_income_calculator
+namespace CostIncomeCalculator
 {
     public class Program
     {

@@ -1,7 +1,7 @@
-using cost_income_calculator.Models;
+using CostIncomeCalculator.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace cost_income_calculator.Data
+namespace CostIncomeCalculator.Data
 {
     public class DataContext : DbContext
     {

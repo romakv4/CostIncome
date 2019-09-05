@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using cost_income_calculator.Dtos.LimitDtos;
-using cost_income_calculator.Models;
+using CostIncomeCalculator.Dtos.LimitDtos;
+using CostIncomeCalculator.Models;
 
-namespace cost_income_calculator.Data.LimitData
+namespace CostIncomeCalculator.Data.LimitData
 {
     public interface ILimitRepository
     {

@@ -1,10 +1,10 @@
 using AutoMapper;
-using cost_income_calculator.Dtos.CostDtos;
-using cost_income_calculator.Dtos.IncomeDtos;
-using cost_income_calculator.Dtos.LimitDtos;
-using cost_income_calculator.Models;
+using CostIncomeCalculator.Dtos.CostDtos;
+using CostIncomeCalculator.Dtos.IncomeDtos;
+using CostIncomeCalculator.Dtos.LimitDtos;
+using CostIncomeCalculator.Models;
 
-namespace cost_income_calculator.Helpers
+namespace CostIncomeCalculator.Helpers
 {  
     /// <summary>
     /// <see cref="AutoMapper"/> profiles for mapping models on dto.

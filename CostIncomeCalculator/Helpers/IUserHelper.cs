@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace cost_income_calculator.Helpers
+namespace CostIncomeCalculator.Helpers
 {
     /// <summary>
     /// IUserHelper interface.

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace cost_income_calculator.Helpers
+namespace CostIncomeCalculator.Helpers
 {
     public static class Extensions
     {

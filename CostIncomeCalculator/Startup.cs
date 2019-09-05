@@ -2,12 +2,12 @@
 using System.Net;
 using System.Text;
 using AutoMapper;
-using cost_income_calculator.Data;
-using cost_income_calculator.Data.AuthData;
-using cost_income_calculator.Data.CostData;
-using cost_income_calculator.Data.IncomeData;
-using cost_income_calculator.Data.LimitData;
-using cost_income_calculator.Helpers;
+using CostIncomeCalculator.Data;
+using CostIncomeCalculator.Data.AuthData;
+using CostIncomeCalculator.Data.CostData;
+using CostIncomeCalculator.Data.IncomeData;
+using CostIncomeCalculator.Data.LimitData;
+using CostIncomeCalculator.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -20,7 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 
-namespace cost_income_calculator
+namespace CostIncomeCalculator
 {
     public class Startup
     {

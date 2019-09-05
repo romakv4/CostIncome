@@ -1,6 +1,6 @@
 using System;
 
-namespace cost_income_calculator.Dtos.IncomeDtos
+namespace CostIncomeCalculator.Dtos.IncomeDtos
 {
     public class IncomeReturnDto
     {

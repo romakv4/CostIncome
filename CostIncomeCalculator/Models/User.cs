@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using cost_income_calculator.Models;
+using CostIncomeCalculator.Models;
 
-namespace cost_income_calculator
+namespace CostIncomeCalculator
 {
     /// <summary>
     /// User model

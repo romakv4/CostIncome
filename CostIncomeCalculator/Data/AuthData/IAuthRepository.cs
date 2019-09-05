@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace cost_income_calculator.Data.AuthData
+namespace CostIncomeCalculator.Data.AuthData
 {
     public interface IAuthRepository
     {

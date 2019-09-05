@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using cost_income_calculator.Data;
+using CostIncomeCalculator.Data;
 
-namespace cost_income_calculator.Migrations
+namespace CostIncomeCalculator.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20190706110356_Salt-and-hash")]
@@ -21,7 +21,7 @@ namespace cost_income_calculator.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("cost_income_calculator.Models.Cost", b =>
+            modelBuilder.Entity("CostIncomeCalculator.Models.Cost", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -44,7 +44,7 @@ namespace cost_income_calculator.Migrations
                     b.ToTable("Costs");
                 });
 
-            modelBuilder.Entity("cost_income_calculator.Models.Income", b =>
+            modelBuilder.Entity("CostIncomeCalculator.Models.Income", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -67,7 +67,7 @@ namespace cost_income_calculator.Migrations
                     b.ToTable("Incomes");
                 });
 
-            modelBuilder.Entity("cost_income_calculator.User", b =>
+            modelBuilder.Entity("CostIncomeCalculator.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -85,19 +85,19 @@ namespace cost_income_calculator.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("cost_income_calculator.Models.Cost", b =>
+            modelBuilder.Entity("CostIncomeCalculator.Models.Cost", b =>
                 {
-                    b.HasOne("cost_income_calculator.User", "user")
+                    b.HasOne("CostIncomeCalculator.User", "user")
                         .WithOne("Cost")
-                        .HasForeignKey("cost_income_calculator.Models.Cost", "UserId")
+                        .HasForeignKey("CostIncomeCalculator.Models.Cost", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("cost_income_calculator.Models.Income", b =>
+            modelBuilder.Entity("CostIncomeCalculator.Models.Income", b =>
                 {
-                    b.HasOne("cost_income_calculator.User", "user")
+                    b.HasOne("CostIncomeCalculator.User", "user")
                         .WithOne("Income")
-                        .HasForeignKey("cost_income_calculator.Models.Income", "UserId")
+                        .HasForeignKey("CostIncomeCalculator.Models.Income", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

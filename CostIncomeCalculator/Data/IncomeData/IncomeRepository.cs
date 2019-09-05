@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using cost_income_calculator.Dtos.IncomeDtos;
-using cost_income_calculator.Helpers;
-using cost_income_calculator.Models;
+using CostIncomeCalculator.Dtos.IncomeDtos;
+using CostIncomeCalculator.Helpers;
+using CostIncomeCalculator.Models;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
-namespace cost_income_calculator.Data.IncomeData
+namespace CostIncomeCalculator.Data.IncomeData
 {
     public class IncomeRepository : IIncomeRepository
     {

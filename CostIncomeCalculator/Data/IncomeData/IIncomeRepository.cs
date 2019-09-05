@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using cost_income_calculator.Dtos.IncomeDtos;
-using cost_income_calculator.Models;
+using CostIncomeCalculator.Dtos.IncomeDtos;
+using CostIncomeCalculator.Models;
 
-namespace cost_income_calculator.Data.IncomeData
+namespace CostIncomeCalculator.Data.IncomeData
 {
     public interface IIncomeRepository
     {

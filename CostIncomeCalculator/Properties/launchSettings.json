@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "cost_income_calculator": {
+    "CostIncomeCalculator": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",

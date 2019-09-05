@@ -1,13 +1,13 @@
 using System;
 using System.Threading.Tasks;
-using cost_income_calculator.Data.IncomeData;
-using cost_income_calculator.Dtos.IncomeDtos;
-using cost_income_calculator.Helpers;
+using CostIncomeCalculator.Data.IncomeData;
+using CostIncomeCalculator.Dtos.IncomeDtos;
+using CostIncomeCalculator.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
-namespace cost_income_calculator.Controllers
+namespace CostIncomeCalculator.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]

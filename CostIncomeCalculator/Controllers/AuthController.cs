@@ -3,14 +3,14 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using cost_income_calculator.Data.AuthData;
-using cost_income_calculator.Dtos.UserDtos;
-using cost_income_calculator.Helpers;
+using CostIncomeCalculator.Data.AuthData;
+using CostIncomeCalculator.Dtos.UserDtos;
+using CostIncomeCalculator.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace cost_income_calculator.Controllers
+namespace CostIncomeCalculator.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

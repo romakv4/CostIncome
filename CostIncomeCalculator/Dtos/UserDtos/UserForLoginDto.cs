@@ -1,4 +1,4 @@
-namespace cost_income_calculator.Dtos.UserDtos
+namespace CostIncomeCalculator.Dtos.UserDtos
 {
     public class UserForLoginDto
     {

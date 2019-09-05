@@ -1,10 +1,10 @@
 using System;
 using System.Threading.Tasks;
-using cost_income_calculator.Data;
+using CostIncomeCalculator.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
-namespace cost_income_calculator.Helpers
+namespace CostIncomeCalculator.Helpers
 {
     /// <summary>
     /// UserHelper class.

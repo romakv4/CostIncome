@@ -1,6 +1,6 @@
 using System;
 
-namespace cost_income_calculator.Helpers
+namespace CostIncomeCalculator.Helpers
 {   
     /// <summary>
     /// DatesHelper class.

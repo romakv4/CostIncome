@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using cost_income_calculator.Helpers;
+using CostIncomeCalculator.Helpers;
 using Microsoft.EntityFrameworkCore;
 
-namespace cost_income_calculator.Data.AuthData
+namespace CostIncomeCalculator.Data.AuthData
 {
     public class AuthRepository : IAuthRepository
     {

@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 
-namespace cost_income_calculator.Dtos.CostDtos
+namespace CostIncomeCalculator.Dtos.CostDtos
 {
     public class PeriodicCostsDto
     {

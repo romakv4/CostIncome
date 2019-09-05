@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using cost_income_calculator.Dtos.LimitDtos;
-using cost_income_calculator.Models;
+using CostIncomeCalculator.Dtos.LimitDtos;
+using CostIncomeCalculator.Models;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
-namespace cost_income_calculator.Data.LimitData
+namespace CostIncomeCalculator.Data.LimitData
 {
     public class LimitRepository : ILimitRepository
     {

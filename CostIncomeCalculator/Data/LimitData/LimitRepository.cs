@@ -9,11 +9,20 @@ using Serilog;
 
 namespace CostIncomeCalculator.Data.LimitData
 {
+    /// <summary>
+    /// Contains methods to work with limits in database.
+    /// </summary>
     public class LimitRepository : ILimitRepository
     {
         private readonly DataContext context;
         private readonly IMapper mapper;
         private readonly ILogger logger;
+        /// <summary>
+        /// LimitRepository class constructor.
+        /// </summary>
+        /// <param name="context">Database context <see cref="DataContext"/></param>
+        /// <param name="mapper"><see cref="AutoMapper"/></param>
+        /// <param name="logger">Exceptions logger <see cref="Serilog"/></param>
         public LimitRepository(DataContext context, IMapper mapper, ILogger logger)
         {
             this.logger = logger;
@@ -22,6 +31,11 @@ namespace CostIncomeCalculator.Data.LimitData
 
         }
 
+        /// <summary>
+        /// Get all limits from database.
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <returns>Array of limits for concrete user from database.</returns>
         public async Task<IEnumerable<LimitReturnDto>> GetAllLimits(string username)
         {
             try
@@ -41,6 +55,11 @@ namespace CostIncomeCalculator.Data.LimitData
             }
         }
 
+        /// <summary>
+        /// Set limit to database.
+        /// </summary>
+        /// <param name="limitForSetDto"><see cref="LimitForSetDto"/></param>
+        /// <returns>If success return created limit object, else throw exception.</returns>
         public async Task<Limit> SetLimit(LimitForSetDto limitForSetDto)
         {
             try
@@ -68,6 +87,12 @@ namespace CostIncomeCalculator.Data.LimitData
             }
         }
 
+        /// <summary>
+        /// Edit limit by id in database.
+        /// </summary>
+        /// <param name="limitId">Identifier of limit in database.</param>
+        /// <param name="limitForEditDto"><see cref="LimitForEditDto"/></param>
+        /// <returns>If success return updated limit object, else throw exception.</returns>
         public async Task<Limit> EditLimit(int limitId, LimitForEditDto limitForEditDto)
         {
             try
@@ -95,6 +120,11 @@ namespace CostIncomeCalculator.Data.LimitData
             }
         }
 
+        /// <summary>
+        /// Delete limits from database by ids.
+        /// </summary>
+        /// <param name="limitForDeleteDto"><see cref="LimitForDeleteDto" /></param>
+        /// <returns>If success return deleted limits, else throw exception.</returns>
         public async Task<List<Limit>> DeleteLimits(LimitForDeleteDto limitForDeleteDto)
         {
             try

@@ -207,6 +207,10 @@ namespace CostIncomeCalculator.Controllers
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
 
+                if (costForSetDto.Price == decimal.MinValue ||
+                    costForSetDto.Date == DateTime.MinValue)
+                    return BadRequest("All fields required");
+
                 var settedCost = await repository.SetCost(costForSetDto);
 
                 return StatusCode(201);
@@ -226,6 +230,12 @@ namespace CostIncomeCalculator.Controllers
 
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
+
+                if (costForEditDto.Category.Length == 0 &&
+                    costForEditDto.Description == null &&
+                    costForEditDto.Price == 0 &&
+                    costForEditDto.Date == DateTime.MinValue)
+                    return BadRequest("Required at least one for edit cost");
 
                 var editedCost = await repository.EditCost(id, costForEditDto);
 
@@ -248,6 +258,9 @@ namespace CostIncomeCalculator.Controllers
 
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
+
+                if (costForDeleteDto.Ids.Length == 0)
+                    return BadRequest("Array of ids don't be empty");
 
                 var deletedCosts = await repository.DeleteCosts(costForDeleteDto);
 

@@ -5,6 +5,7 @@ using CostIncomeCalculator.Dtos.LimitDtos;
 using CostIncomeCalculator.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace CostIncomeCalculator.Controllers
 {
@@ -60,6 +61,17 @@ namespace CostIncomeCalculator.Controllers
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
 
+                if (limitForSetDto.Value == decimal.MinValue ||
+                    limitForSetDto.From == DateTime.MinValue ||
+                    limitForSetDto.To == DateTime.MinValue)
+                    return BadRequest("All fields required");
+
+                if (limitForSetDto.From == limitForSetDto.To)
+                    return BadRequest("Limit start date don't be equal limit stop date");
+                
+                if (limitForSetDto.From >= limitForSetDto.To)
+                    return BadRequest("Limit start date must be earlier limit stop date");
+
                 var settedCost = await repository.SetLimit(limitForSetDto);
 
                 return StatusCode(201);
@@ -77,6 +89,12 @@ namespace CostIncomeCalculator.Controllers
             {
                 if (!await userHelper.UserExists(limitForEditDto.Username))
                     return BadRequest("This username doesn't exists");
+
+                if (limitForEditDto.Category.Length == 0 &&
+                    limitForEditDto.Value == decimal.MinValue &&
+                    limitForEditDto.From == DateTime.MinValue &&
+                    limitForEditDto.To == DateTime.MinValue)
+                    return BadRequest("Required at least one value for edit limit");
                 
                 var editedLimit = await repository.EditLimit(id, limitForEditDto);
 
@@ -97,6 +115,9 @@ namespace CostIncomeCalculator.Controllers
             {
                 if (!await userHelper.UserExists(limitForDeleteDto.Username))
                     return BadRequest("This username doesn't exists");
+
+                if (limitForDeleteDto.Ids.Length == 0)
+                    return BadRequest("Array of ids don't be empty");
 
                 var deletedIncomes = await repository.DeleteLimits(limitForDeleteDto);
 

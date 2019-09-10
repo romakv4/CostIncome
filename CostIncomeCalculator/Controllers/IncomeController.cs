@@ -228,8 +228,8 @@ namespace CostIncomeCalculator.Controllers
                 if (!await userHelper.UserExists(incomeForEditDto.Username))
                     return BadRequest("This username doesn't exists");
 
-                if (incomeForEditDto.Category.Length == 0 &&
-                    incomeForEditDto.Description.Length == 0 &&
+                if (incomeForEditDto.Category == null &&
+                    incomeForEditDto.Description == null &&
                     incomeForEditDto.Price == decimal.MinValue &&
                     incomeForEditDto.Date == DateTime.MinValue)
                     return BadRequest("Required at least one value for edit cost");

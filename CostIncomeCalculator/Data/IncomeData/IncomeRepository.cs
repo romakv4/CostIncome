@@ -196,7 +196,7 @@ namespace CostIncomeCalculator.Data.IncomeData
 
                 var currentIncome = await context.Incomes.FirstOrDefaultAsync(x => x.Id == incomeId && x.UserId == user.Id);
 
-                currentIncome.Category = incomeForEditDto.Category.Length == 0 ? currentIncome.Category : incomeForEditDto.Category.ToLower();
+                currentIncome.Category = incomeForEditDto.Category == null ? currentIncome.Category : incomeForEditDto.Category.ToLower();
                 currentIncome.Description = incomeForEditDto.Description ?? currentIncome.Description;
                 currentIncome.Price = incomeForEditDto.Price == 0 ? currentIncome.Price : incomeForEditDto.Price;
                 currentIncome.Date = incomeForEditDto.Date == DateTime.MinValue ? currentIncome.Date : incomeForEditDto.Date;

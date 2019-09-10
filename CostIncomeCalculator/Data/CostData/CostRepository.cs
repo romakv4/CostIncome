@@ -203,7 +203,7 @@ namespace CostIncomeCalculator.Data.CostData
 
                 var currentCost = await context.Costs.FirstOrDefaultAsync(x => x.Id == costId && x.UserId == user.Id);
 
-                currentCost.Category = costForEditDto.Category.Length == 0 ? currentCost.Category : costForEditDto.Category.ToLower();
+                currentCost.Category = costForEditDto.Category == null ? currentCost.Category : costForEditDto.Category.ToLower();
                 currentCost.Description = costForEditDto.Description ?? currentCost.Description;
                 currentCost.Price = costForEditDto.Price == 0 ? currentCost.Price : costForEditDto.Price;
                 currentCost.Date = costForEditDto.Date == DateTime.MinValue ? currentCost.Date : costForEditDto.Date;

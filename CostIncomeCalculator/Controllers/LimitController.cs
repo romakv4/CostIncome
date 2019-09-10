@@ -90,7 +90,7 @@ namespace CostIncomeCalculator.Controllers
                 if (!await userHelper.UserExists(limitForEditDto.Username))
                     return BadRequest("This username doesn't exists");
 
-                if (limitForEditDto.Category.Length == 0 &&
+                if (limitForEditDto.Category == null &&
                     limitForEditDto.Value == decimal.MinValue &&
                     limitForEditDto.From == DateTime.MinValue &&
                     limitForEditDto.To == DateTime.MinValue)

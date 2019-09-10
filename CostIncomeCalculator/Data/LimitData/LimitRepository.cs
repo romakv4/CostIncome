@@ -103,7 +103,7 @@ namespace CostIncomeCalculator.Data.LimitData
 
                 var currentLimit = await context.Limits.FirstOrDefaultAsync(x => x.Id == limitId && x.UserId == user.Id);
 
-                currentLimit.Category = currentLimit.Category.ToLower() ?? currentLimit.Category;
+                currentLimit.Category = limitForEditDto.Category.Length == 0 ? currentLimit.Category : limitForEditDto.Category.ToLower();
                 currentLimit.Value = limitForEditDto.Value == 0 ? currentLimit.Value : limitForEditDto.Value;
                 currentLimit.From = limitForEditDto.From == DateTime.MinValue ? currentLimit.From : limitForEditDto.From;
                 currentLimit.To = limitForEditDto.To == DateTime.MinValue ? currentLimit.To : limitForEditDto.To;

@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using CostIncomeCalculator.Dtos._DtosCustomValidators;
 
 namespace CostIncomeCalculator.Dtos.CostDtos
 {
@@ -21,7 +20,6 @@ namespace CostIncomeCalculator.Dtos.CostDtos
 
         [Required]
         [DataType(DataType.Date)]
-        [DateValidator]
         public DateTime Date { get; set; }
     }
 }

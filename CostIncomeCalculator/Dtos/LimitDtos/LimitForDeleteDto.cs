@@ -19,6 +19,7 @@ namespace CostIncomeCalculator.Dtos.LimitDtos
         /// </summary>
         /// <value>int array</value>
         [Required]
+        [MinLength(1)]
         public int[] Ids { get; set; }
     }
 }

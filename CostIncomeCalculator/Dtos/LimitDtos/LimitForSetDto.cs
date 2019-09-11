@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using CostIncomeCalculator.Dtos._CustomValidation;
 
 namespace CostIncomeCalculator.Dtos.LimitDtos
 {
@@ -34,6 +35,7 @@ namespace CostIncomeCalculator.Dtos.LimitDtos
         /// </summary>
         /// <value>DateTime</value>
         [Required]
+        [Display(Name = "Limit start date")]
         public DateTime From { get; set; }
 
         /// <summary>
@@ -41,6 +43,8 @@ namespace CostIncomeCalculator.Dtos.LimitDtos
         /// </summary>
         /// <value>DateTime</value>
         [Required]
+        [DateGreaterThan("From")]
+        [Display(Name = "Limit end date")]
         public DateTime To { get; set; }
     }
 }

@@ -7,6 +7,7 @@ namespace CostIncomeCalculator.Dtos.CostDtos
         [Required]
         public string Username { get; set; }
         [Required]
+        [MinLength(1)]
         public int[] Ids { get; set; }
     }
 }

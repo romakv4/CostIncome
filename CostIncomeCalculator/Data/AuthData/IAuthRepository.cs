@@ -9,7 +9,7 @@ namespace CostIncomeCalculator.Data.AuthData
     public interface IAuthRepository
     {
         /// <summary>
-        /// User registration method. See iplementation here <see cref="CostIncomeCalculator.Data.AuthData.AuthRepository.Register" />.
+        /// User registration method. See iplementation here <see cref="AuthRepository.Register" />.
         /// </summary>
         /// <param name="user">User object for write to database.</param>
         /// <param name="password">Password.</param>
@@ -17,7 +17,7 @@ namespace CostIncomeCalculator.Data.AuthData
          Task<User> Register(User user, string password);
 
          /// <summary>
-         /// User login method. See implementation here <see cref="CostIncomeCalculator.Data.AuthData.AuthRepository.Login" />.
+         /// User login method. See implementation here <see cref="AuthRepository.Login" />.
          /// </summary>
          /// <param name="username">Username</param>
          /// <param name="password">Password</param>

@@ -16,7 +16,7 @@ namespace CostIncomeCalculator.Dtos.IncomeDtos
         /// <summary>
         /// Unique identificator of income in database.
         /// </summary>
-        /// <value></value>
+        /// <value>int</value>
         public int Id { get; set; }
 
         /// <summary>

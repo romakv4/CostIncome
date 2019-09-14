@@ -11,7 +11,7 @@ namespace CostIncomeCalculator.Dtos.IncomeDtos
         /// <summary>
         /// Username from database. Required.
         /// </summary>
-        /// <value></value>
+        /// <value>int</value>
         [Required]
         public string Username { get; set; }
 

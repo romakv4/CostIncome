@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore;
+﻿#pragma warning disable 1591
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace CostIncomeCalculator

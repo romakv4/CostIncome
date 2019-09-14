@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿#pragma warning disable 1591
+using System.IO;
 using System.Net;
 using System.Text;
 using AutoMapper;
@@ -30,7 +31,7 @@ namespace CostIncomeCalculator
         }
 
         public IConfiguration Configuration { get; }
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {

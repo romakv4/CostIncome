@@ -1,3 +1,4 @@
+using CostIncomeCalculator.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 

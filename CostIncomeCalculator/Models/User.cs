@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using CostIncomeCalculator.Models;
 
-namespace CostIncomeCalculator
+namespace CostIncomeCalculator.Models
 {
     /// <summary>
-    /// User model
+    /// User model.
     /// </summary>
     public class User
     {   

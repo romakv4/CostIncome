@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using CostIncomeCalculator.Helpers;
+using CostIncomeCalculator.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CostIncomeCalculator.Data.AuthData

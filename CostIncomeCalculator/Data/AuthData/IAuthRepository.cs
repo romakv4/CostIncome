@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using CostIncomeCalculator.Models;
 
 namespace CostIncomeCalculator.Data.AuthData
 {

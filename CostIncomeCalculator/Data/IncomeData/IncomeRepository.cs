@@ -242,9 +242,9 @@ namespace CostIncomeCalculator.Data.IncomeData
         /// <summary>
         /// Edit income method.
         /// </summary>
-        /// <param name="costId">Identifier of income in database.</param>
+        /// <param name="incomeId">Identifier of income in database.</param>
         /// <param name="incomeForEditDto"><see cref="IncomeForEditDto" /></param>
-        /// <returns></returns>
+        /// <returns>Edited <see cref="Income" /> object.</returns>
         public async Task<Income> EditIncome(int incomeId, IncomeForEditDto incomeForEditDto)
         {
             try
@@ -272,6 +272,11 @@ namespace CostIncomeCalculator.Data.IncomeData
             }
         }
 
+        /// <summary>
+        /// Delete income(s) method.
+        /// </summary>
+        /// <param name="incomeForDeleteDto"><see cref="IncomeForDeleteDto" /></param>
+        /// <returns>List of <see cref="Income" /></returns>
         public async Task<List<Income>> DeleteIncomes(IncomeForDeleteDto incomeForDeleteDto)
         {
             try

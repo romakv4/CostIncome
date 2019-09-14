@@ -26,25 +26,25 @@ namespace CostIncomeCalculator.Data
         /// <summary>
         /// Users database set.
         /// </summary>
-        /// <value>DbSet of <see cref="CostIncomeCalculator.Models.User" /></value>
+        /// <value>DbSet of <see cref="User" /></value>
         public DbSet<User> Users { get; set; }
 
         /// <summary>
         /// Costs database set.
         /// </summary>
-        /// <value>DbSet of <see cref="CostIncomeCalculator.Models.Cost" /></value>
+        /// <value>DbSet of <see cref="Cost" /></value>
         public DbSet<Cost> Costs { get; set; }
 
         /// <summary>
         /// Incomes database set.
         /// </summary>
-        /// <value>DbSet of <see cref="CostIncomeCalculator.Models.Income" /></value>
+        /// <value>DbSet of <see cref="Income" /></value>
         public DbSet<Income> Incomes { get; set; }
 
         /// <summary>
         /// Limits database set.
         /// </summary>
-        /// <value>DbSet of <see cref="CostIncomeCalculator.Models.Limit" /></value>
+        /// <value>DbSet of <see cref="Limit" /></value>
         public DbSet<Limit> Limits { get; set; }
     }
 }

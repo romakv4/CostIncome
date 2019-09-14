@@ -16,8 +16,8 @@ namespace CostIncomeCalculator.Data.AuthData
         /// <summary>
         /// AuthRepository constructor.
         /// </summary>
-        /// <param name="context"><see cref="CostIncomeCalculator.Data.DataContext" /></param>
-        /// <param name="passwordHasher"><see cref="CostIncomeCalculator.Helpers.PasswordHasher" /></param>
+        /// <param name="context"><see cref="DataContext" /></param>
+        /// <param name="passwordHasher"><see cref="PasswordHasher" /></param>
         public AuthRepository(DataContext context, IPasswordHasher passwordHasher)
         {
             this.passwordHasher = passwordHasher;
@@ -29,7 +29,7 @@ namespace CostIncomeCalculator.Data.AuthData
         /// </summary>
         /// <param name="username">Username in database.</param>
         /// <param name="password">User password.</param>
-        /// <returns>If success login <see cref="CostIncomeCalculator.Models.User" />, else null</returns>
+        /// <returns>If success login <see cref="User" />, else null</returns>
         public async Task<User> Login(string username, string password)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
@@ -48,9 +48,9 @@ namespace CostIncomeCalculator.Data.AuthData
         /// <summary>
         /// User registration method.
         /// </summary>
-        /// <param name="user"><see cref="CostIncomeCalculator.Models.User" /></param>
+        /// <param name="user"><see cref="User" /></param>
         /// <param name="password">User password.</param>
-        /// <returns><see cref="CostIncomeCalculator.Models.User" /></returns>
+        /// <returns><see cref="User" /></returns>
         public async Task<User> Register(User user, string password)
         {
             string passwordHash;

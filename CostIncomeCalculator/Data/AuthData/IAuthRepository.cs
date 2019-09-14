@@ -13,7 +13,7 @@ namespace CostIncomeCalculator.Data.AuthData
         /// </summary>
         /// <param name="user">User object for write to database.</param>
         /// <param name="password">Password.</param>
-        /// <returns><see cref="CostIncomeCalculator.Models.User" /></returns>
+        /// <returns><see cref="User" /></returns>
          Task<User> Register(User user, string password);
 
          /// <summary>
@@ -21,7 +21,7 @@ namespace CostIncomeCalculator.Data.AuthData
          /// </summary>
          /// <param name="username">Username</param>
          /// <param name="password">Password</param>
-         /// <returns>If success login <see cref="CostIncomeCalculator.Models.User" />, else null</returns>
+         /// <returns>If success login <see cref="User" />, else null</returns>
          Task<User> Login(string username, string password);
     }
 }

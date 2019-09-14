@@ -11,6 +11,9 @@ using Serilog;
 
 namespace CostIncomeCalculator.Data.IncomeData
 {
+    /// <summary>
+    /// Income repository class.
+    /// </summary>
     public class IncomeRepository : IIncomeRepository
     {
         private readonly DataContext context;
@@ -18,6 +21,13 @@ namespace CostIncomeCalculator.Data.IncomeData
         private readonly IDatesHelper datesHelper;
         private readonly ILogger logger;
 
+        /// <summary>
+        /// Income repository constructor.
+        /// </summary>
+        /// <param name="context"><see cref="DataContext" /></param>
+        /// <param name="mapper"><see cref="AutoMapperProfiles" /></param>
+        /// <param name="datesHelper"><see cref="DatesHelper" /></param>
+        /// <param name="logger">Serilog logger.</param>
         public IncomeRepository(DataContext context, IMapper mapper, IDatesHelper datesHelper, ILogger logger)
         {
             this.logger = logger;
@@ -26,6 +36,11 @@ namespace CostIncomeCalculator.Data.IncomeData
             this.context = context;
         }
 
+        /// <summary>
+        /// Get all user incomes method.
+        /// </summary>
+        /// <param name="username">Username.</param>
+        /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
         public async Task<IEnumerable<IncomeReturnDto>> GetAllIncomes(string username)
         {
             try
@@ -45,6 +60,12 @@ namespace CostIncomeCalculator.Data.IncomeData
             }
         }
 
+        /// <summary>
+        /// Get concrete user income method.
+        /// </summary>
+        /// <param name="username">Username.</param>
+        /// <param name="id">Identificator of income in database.</param>
+        /// <returns><see cref="IncomeReturnDto" /></returns>
         public async Task<IncomeReturnDto> GetConcreteIncome(string username, int id)
         {
             try
@@ -64,6 +85,11 @@ namespace CostIncomeCalculator.Data.IncomeData
             }
         }
 
+        /// <summary>
+        /// Get weekly incomes method.
+        /// </summary>
+        /// <param name="periodicIncomesDto"><see cref="PeriodicIncomesDto" /></param>
+        /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
         public async Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomes(PeriodicIncomesDto periodicIncomesDto)
         {
             try
@@ -82,6 +108,12 @@ namespace CostIncomeCalculator.Data.IncomeData
             }
         }
 
+        /// <summary>
+        /// Get weekly incomes by category method.
+        /// </summary>
+        /// <param name="periodicIncomesDto"><see cref="PeriodicIncomesDto" /></param>
+        /// <param name="category">Category to get incomes.</param>
+        /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
         public async Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomesByCategory(PeriodicIncomesDto periodicIncomesDto, string category)
         {
             try
@@ -101,6 +133,11 @@ namespace CostIncomeCalculator.Data.IncomeData
             }
         }
 
+        /// <summary>
+        /// Get monthly incomes methos.
+        /// </summary>
+        /// <param name="periodicIncomesDto"><see cref="PeriodicIncomesDto" /></param>
+        /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
         public async Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomes(PeriodicIncomesDto periodicIncomesDto)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Username == periodicIncomesDto.Username.ToLower());
@@ -111,6 +148,12 @@ namespace CostIncomeCalculator.Data.IncomeData
             return mapper.Map<IEnumerable<IncomeReturnDto>>(monthlyIncomes);
         }
 
+        /// <summary>
+        /// Get monthly incomes by category method.
+        /// </summary>
+        /// <param name="periodicIncomesDto"><see cref="PeriodicIncomesDto" /></param>
+        /// <param name="category">Category to get incomes.</param>
+        /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
         public async Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomesByCategory(PeriodicIncomesDto periodicIncomesDto, string category)
         {
             try
@@ -130,6 +173,11 @@ namespace CostIncomeCalculator.Data.IncomeData
             }
         }
 
+        /// <summary>
+        /// Get category of incomes with maximum sum method.
+        /// </summary>
+        /// <param name="periodicIncomesDto"><see cref="PeriodicIncomesDto" /></param>
+        /// <returns><see cref="MonthIncomeDto" /></returns>
         public async Task<MonthIncomeDto> GetMaxIncomesCategoryInMonth(PeriodicIncomesDto periodicIncomesDto)
         {
             try
@@ -159,6 +207,11 @@ namespace CostIncomeCalculator.Data.IncomeData
             }
         }
 
+        /// <summary>
+        /// Set income method.
+        /// </summary>
+        /// <param name="incomeForSetDto"><see cref="IncomeForSetDto" /></param>
+        /// <returns><see cref="Income" /></returns>
         public async Task<Income> SetIncome(IncomeForSetDto incomeForSetDto)
         {
             try
@@ -186,6 +239,12 @@ namespace CostIncomeCalculator.Data.IncomeData
             }
         }
 
+        /// <summary>
+        /// Edit income method.
+        /// </summary>
+        /// <param name="costId">Identifier of income in database.</param>
+        /// <param name="incomeForEditDto"><see cref="IncomeForEditDto" /></param>
+        /// <returns></returns>
         public async Task<Income> EditIncome(int incomeId, IncomeForEditDto incomeForEditDto)
         {
             try

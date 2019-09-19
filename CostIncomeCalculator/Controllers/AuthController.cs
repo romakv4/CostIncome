@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace CostIncomeCalculator.Controllers
 {
     /// <summary>
-    /// Authentication controller. Contains routes for registration and authorization.
+    /// Authentication controller. Contains endpoints for registration and authorization.
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]

@@ -10,7 +10,7 @@ namespace CostIncomeCalculator.Helpers
     public interface ITokenHelper
     {
         /// <summary>
-        /// Generate token.
+        /// Generate token. See implementation here <see cref="TokenHelper.GenerateToken" />.
         /// </summary>
         /// <param name="user">User</param>
         /// <param name="config">IConfiguration</param>
@@ -18,7 +18,7 @@ namespace CostIncomeCalculator.Helpers
         string GenerateToken(User user, IConfiguration config);
         
         /// <summary>
-        /// Get username from HttpContext.
+        /// Get username from HttpContext. See implementation here <see cref="TokenHelper.GetUsername" />.
         /// </summary>
         /// <param name="context">HttpContext</param>
         /// <returns>Username</returns>

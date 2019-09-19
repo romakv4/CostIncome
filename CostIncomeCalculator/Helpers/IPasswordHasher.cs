@@ -6,14 +6,14 @@ namespace CostIncomeCalculator.Helpers
     public interface IPasswordHasher
     {
         /// <summary>
-        /// Create hash of password.
+        /// Create hash of password. See implementation here <see cref="PasswordHasher.CreatePasswordHash" />.
         /// </summary>
         /// <param name="password">string</param>
         /// <param name="passwordHash">string</param>
         void CreatePasswordHash(string password, out string passwordHash);
 
         /// <summary>
-        /// Verify password hash.
+        /// Verify password hash. See implementation here <see cref="PasswordHasher.VerifyPasswordHash" />.
         /// </summary>
         /// <param name="password">string</param>
         /// <param name="passwordHash">string</param>

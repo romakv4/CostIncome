@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace CostIncomeCalculator.Controllers
 {
+    /// <summary>
+    /// Cost controller. Endpoint for work with costs.
+    /// </summary>
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -19,6 +22,13 @@ namespace CostIncomeCalculator.Controllers
         private readonly IUserHelper userHelper;
         private readonly ITokenHelper tokenHelper;
 
+        /// <summary>
+        /// Cost controller constructor.
+        /// </summary>
+        /// <param name="repository">Cost repository <see cref="ICostRepository" />.</param>
+        /// <param name="config">Configuration properties.</param>
+        /// <param name="userHelper">User helpers <see cref="IUserHelper" />.</param>
+        /// <param name="tokenHelper">JWT tokens helpers <see cref="ITokenHelper" />.</param>
         public CostController(
             ICostRepository repository,
             IConfiguration config,
@@ -31,6 +41,10 @@ namespace CostIncomeCalculator.Controllers
             this.repository = repository;
         }
 
+        /// <summary>
+        /// Get all users costs.
+        /// </summary>
+        /// <returns>Array of users costs.</returns>
         [HttpGet]
         public async Task<IActionResult> GetAllCosts()
         {
@@ -50,6 +64,11 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Get concrete cost by id.
+        /// </summary>
+        /// <param name="id">int</param>
+        /// <returns><see cref="CostReturnDto" /></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetConcreteCost(int id)
         {
@@ -72,6 +91,11 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all weekly users costs.
+        /// </summary>
+        /// <param name="date">DateTime</param>
+        /// <returns>Array of weekly users costs.</returns>
         [HttpGet("weekly")]
         public async Task<IActionResult> GetWeeklyCosts(DateTime date)
         {
@@ -97,6 +121,12 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Get weekly users costs by category.
+        /// </summary>
+        /// <param name="date">DateTime</param>
+        /// <param name="category">string</param>
+        /// <returns>Array of weekly users costs in concrete category.</returns>
         [HttpGet("weekly/{category}")]
         public async Task<IActionResult> GetWeeklyCostsByCategory(DateTime date, string category)
         {
@@ -122,6 +152,11 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all monthly users costs.
+        /// </summary>
+        /// <param name="date">DateTime</param>
+        /// <returns>Array of all monthly users costs.</returns>
         [HttpGet("monthly")]
         public async Task<IActionResult> GetMonthlyCosts(DateTime date)
         {
@@ -147,6 +182,12 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all monthly users costs by category.
+        /// </summary>
+        /// <param name="date">DateTime</param>
+        /// <param name="category">string</param>
+        /// <returns>Array of monthly users costs in concrete category.</returns>
         [HttpGet("monthly/{category}")]
         public async Task<IActionResult> GetMonthlyCostsByCategory(DateTime date, string category)
         {
@@ -172,6 +213,11 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Get category of users costs with maximum sum in month.
+        /// </summary>
+        /// <param name="date">DateTime.</param>
+        /// <returns></returns>
         [HttpGet("monthly/max")]
         public async Task<IActionResult> GetMaxMonthlyCosts(DateTime date)
         {
@@ -197,6 +243,11 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Set cost.
+        /// </summary>
+        /// <param name="costForSetDto"><see cref="CostForSetDto" /></param>
+        /// <returns>201 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
         [HttpPost("set")]
         public async Task<IActionResult> SetCost(CostForSetDto costForSetDto)
         {
@@ -221,6 +272,12 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Edit exist cost.
+        /// </summary>
+        /// <param name="id">int</param>
+        /// <param name="costForEditDto"><see cref="CostForEditDto" /></param>
+        /// <returns>204 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
         [HttpPut("edit/{id}")]
         public async Task<IActionResult> EditCost(int id, CostForEditDto costForEditDto)
         {
@@ -249,6 +306,11 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete exist cost.
+        /// </summary>
+        /// <param name="costForDeleteDto"><see cref="CostForDeleteDto" /></param>
+        /// <returns>204 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
         [HttpDelete("delete")]
         public async Task<IActionResult> DeleteCosts(CostForDeleteDto costForDeleteDto)
         {
@@ -258,9 +320,6 @@ namespace CostIncomeCalculator.Controllers
 
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
-
-                if (costForDeleteDto.Ids.Length == 0)
-                    return BadRequest("Array of ids don't be empty");
 
                 var deletedCosts = await repository.DeleteCosts(costForDeleteDto);
 

@@ -37,7 +37,7 @@ namespace CostIncomeCalculator.Data.CostData
         }
         
         /// <summary>
-        /// Get all user incomes method.
+        /// Get all user costs method.
         /// </summary>
         /// <param name="username">Username.</param>
         /// <returns>Array of <see cref="CostReturnDto" /></returns>
@@ -61,10 +61,10 @@ namespace CostIncomeCalculator.Data.CostData
         }
 
         /// <summary>
-        /// Get concrete user income method.
+        /// Get concrete user cost method.
         /// </summary>
         /// <param name="username">Username.</param>
-        /// <param name="id">Identificator of income in database.</param>
+        /// <param name="id">Identificator of cost in database.</param>
         /// <returns><see cref="CostReturnDto" /></returns>
         public async Task<CostReturnDto> GetConcreteCost(string username, int id)
         {
@@ -86,7 +86,7 @@ namespace CostIncomeCalculator.Data.CostData
         }
 
         /// <summary>
-        /// Get weekly incomes method.
+        /// Get weekly costs method.
         /// </summary>
         /// <param name="periodicCostsDto"><see cref="PeriodicCostsDto" /></param>
         /// <returns>Array of <see cref="CostReturnDto" /></returns>
@@ -109,10 +109,10 @@ namespace CostIncomeCalculator.Data.CostData
         }
 
         /// <summary>
-        /// Get weekly incomes by category method.
+        /// Get weekly costs by category method.
         /// </summary>
         /// <param name="periodicCostsDto"><see cref="PeriodicCostsDto" /></param>
-        /// <param name="category">Category to get incomes.</param>
+        /// <param name="category">Category to get costs.</param>
         /// <returns>Array of <see cref="CostReturnDto" /></returns>
         public async Task<IEnumerable<CostReturnDto>> GetWeeklyCostsByCategory(PeriodicCostsDto periodicCostsDto, string category)
         {
@@ -134,7 +134,7 @@ namespace CostIncomeCalculator.Data.CostData
         }
 
         /// <summary>
-        /// Get monthly incomes methos.
+        /// Get monthly costs methos.
         /// </summary>
         /// <param name="periodicCostsDto"><see cref="PeriodicCostsDto" /></param>
         /// <returns>Array of <see cref="CostReturnDto" /></returns>
@@ -157,10 +157,10 @@ namespace CostIncomeCalculator.Data.CostData
         }
 
         /// <summary>
-        /// Get monthly incomes by category method.
+        /// Get monthly costs by category method.
         /// </summary>
         /// <param name="periodicCostsDto"><see cref="PeriodicCostsDto" /></param>
-        /// <param name="category">Category to get incomes.</param>
+        /// <param name="category">Category to get costs.</param>
         /// <returns>Array of <see cref="CostReturnDto" /></returns>
         public async Task<IEnumerable<CostReturnDto>> GetMonthlyCostsByCategory(PeriodicCostsDto periodicCostsDto, string category)
         {
@@ -182,7 +182,7 @@ namespace CostIncomeCalculator.Data.CostData
         }
 
         /// <summary>
-        /// Get category of incomes with maximum sum method.
+        /// Get category of costs with maximum sum method.
         /// </summary>
         /// <param name="periodicCostsDto"><see cref="PeriodicCostsDto" /></param>
         /// <returns><see cref="MonthCostDto" /></returns>
@@ -216,10 +216,10 @@ namespace CostIncomeCalculator.Data.CostData
         }
 
         /// <summary>
-        /// Set income method.
+        /// Set cost method.
         /// </summary>
         /// <param name="costForSetDto"><see cref="CostForSetDto" /></param>
-        /// <returns><see cref="Income" /></returns>
+        /// <returns><see cref="Cost" /></returns>
         public async Task<Cost> SetCost(CostForSetDto costForSetDto)
         {
             try
@@ -248,11 +248,11 @@ namespace CostIncomeCalculator.Data.CostData
         }
 
         /// <summary>
-        /// Edit income method.
+        /// Edit cost method.
         /// </summary>
-        /// <param name="costId">Identifier of income in database.</param>
+        /// <param name="costId">Identifier of cost in database.</param>
         /// <param name="costForEditDto"><see cref="CostForEditDto" /></param>
-        /// <returns>Edited <see cref="Income" /> object.</returns>
+        /// <returns>Edited <see cref="Cost" /> object.</returns>
         public async Task<Cost> EditCost(int costId, CostForEditDto costForEditDto)
         {
             try
@@ -281,10 +281,10 @@ namespace CostIncomeCalculator.Data.CostData
         }
 
         /// <summary>
-        /// Delete income(s) method.
+        /// Delete cost(s) method.
         /// </summary>
         /// <param name="costForDeleteDto"><see cref="CostForDeleteDto" /></param>
-        /// <returns>List of <see cref="Income" /></returns>
+        /// <returns>List of <see cref="Cost" /></returns>
         public async Task<List<Cost>> DeleteCosts(CostForDeleteDto costForDeleteDto)
         {
             try

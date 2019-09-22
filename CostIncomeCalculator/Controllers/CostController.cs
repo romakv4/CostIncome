@@ -216,8 +216,8 @@ namespace CostIncomeCalculator.Controllers
         /// <summary>
         /// Get category of users costs with maximum sum in month.
         /// </summary>
-        /// <param name="date">DateTime.</param>
-        /// <returns></returns>
+        /// <param name="date">DateTime</param>
+        /// <returns>Category of costs with maximum sum.</returns>
         [HttpGet("monthly/max")]
         public async Task<IActionResult> GetMaxMonthlyCosts(DateTime date)
         {

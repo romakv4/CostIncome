@@ -13,16 +13,13 @@ namespace CostIncomeCalculator.Helpers
     public class UserHelper : IUserHelper
     {
         private readonly DataContext context;
-        private readonly ILogger logger;
 
         /// <summary>
         /// UserHelper constructor.
         /// </summary>
         /// <param name="context">DataContext</param>
-        /// <param name="logger">ILogger</param>
-        public UserHelper(DataContext context, ILogger logger)
+        public UserHelper(DataContext context)
         {
-            this.logger = logger;
             this.context = context;
         }
 
@@ -37,11 +34,9 @@ namespace CostIncomeCalculator.Helpers
             {
                 return await context.Users.AnyAsync(x => x.Username == username.ToLower());
             }
-            catch (Exception error)
+            catch
             {
-                logger.Error(error.Message);
-
-                return false;
+                throw;
             }
         }
     }

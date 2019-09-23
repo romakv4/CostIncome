@@ -258,10 +258,6 @@ namespace CostIncomeCalculator.Controllers
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
 
-                if (costForSetDto.Price == decimal.MinValue ||
-                    costForSetDto.Date == DateTime.MinValue)
-                    return BadRequest("All fields required");
-
                 var settedCost = await repository.SetCost(costForSetDto);
 
                 return StatusCode(201);

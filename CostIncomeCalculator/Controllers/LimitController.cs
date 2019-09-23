@@ -9,6 +9,9 @@ using System;
 
 namespace CostIncomeCalculator.Controllers
 {
+    /// <summary>
+    /// Limit controller. Endpoint for work with limits.
+    /// </summary>
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -19,6 +22,13 @@ namespace CostIncomeCalculator.Controllers
         private readonly IUserHelper userHelper;
         private readonly ITokenHelper tokenHelper;
 
+        /// <summary>
+        /// Limit controller constructor.
+        /// </summary>
+        /// <param name="repository">Limit repository <see cref="ILimitRepository" />.</param>
+        /// <param name="config">Configuration properties.</param>
+        /// <param name="userHelper">User helpers <see cref="IUserHelper" />.</param>
+        /// <param name="tokenHelper">JWT token helpers <see cref="ITokenHelper" />.</param>
         public LimitController(
             ILimitRepository repository,
             IConfiguration config,
@@ -31,6 +41,10 @@ namespace CostIncomeCalculator.Controllers
             this.repository = repository;
         }
 
+        /// <summary>
+        /// Get all users limits.
+        /// </summary>
+        /// <returns>Array of users limits.</returns>
         [HttpGet]
         public async Task<IActionResult> GetAllLimits()
         {
@@ -51,6 +65,11 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Set limit.
+        /// </summary>
+        /// <param name="limitForSetDto"><see cref="LimitForSetDto" /></param>
+        /// <returns>201 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
         [HttpPost("set")]
         public async Task<IActionResult> SetLimit(LimitForSetDto limitForSetDto)
         {
@@ -60,17 +79,6 @@ namespace CostIncomeCalculator.Controllers
 
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
-
-                if (limitForSetDto.Value == decimal.MinValue ||
-                    limitForSetDto.From == DateTime.MinValue ||
-                    limitForSetDto.To == DateTime.MinValue)
-                    return BadRequest("All fields required");
-
-                if (limitForSetDto.From == limitForSetDto.To)
-                    return BadRequest("Limit start date don't be equal limit stop date");
-                
-                if (limitForSetDto.From >= limitForSetDto.To)
-                    return BadRequest("Limit start date must be earlier limit stop date");
 
                 var settedCost = await repository.SetLimit(limitForSetDto);
 
@@ -82,6 +90,12 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Edit exist limit.
+        /// </summary>
+        /// <param name="id">int</param>
+        /// <param name="limitForEditDto"><see cref="LimitForEditDto" />.</param>
+        /// <returns>204 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
         [HttpPut("edit/{id}")]
         public async Task<IActionResult> EditLimit(int id, LimitForEditDto limitForEditDto)
         {
@@ -108,6 +122,11 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete exist limit.
+        /// </summary>
+        /// <param name="limitForDeleteDto"><see cref="LimitForDeleteDto" /></param>
+        /// <returns>204 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
         [HttpDelete("delete")]
         public async Task<IActionResult> DeleteLimits(LimitForDeleteDto limitForDeleteDto)
         {
@@ -115,9 +134,6 @@ namespace CostIncomeCalculator.Controllers
             {
                 if (!await userHelper.UserExists(limitForDeleteDto.Username))
                     return BadRequest("This username doesn't exists");
-
-                if (limitForDeleteDto.Ids.Length == 0)
-                    return BadRequest("Array of ids don't be empty");
 
                 var deletedIncomes = await repository.DeleteLimits(limitForDeleteDto);
 

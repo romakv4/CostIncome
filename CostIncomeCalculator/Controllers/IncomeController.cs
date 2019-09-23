@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace CostIncomeCalculator.Controllers
 {
+    /// <summary>
+    /// Income controller. Endpoint for work with income.
+    /// </summary>
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -19,6 +22,13 @@ namespace CostIncomeCalculator.Controllers
         private readonly IUserHelper userHelper;
         private readonly ITokenHelper tokenHelper;
 
+        /// <summary>
+        /// Income controller constructor.
+        /// </summary>
+        /// <param name="repository">Income repository <see cref="IIncomeRepository" />.</param>
+        /// <param name="config">Configuration properties.</param>
+        /// <param name="userHelper">User helpers <see cref="IUserHelper" />.</param>
+        /// <param name="tokenHelper">JWT tokens helpers <see cref="ITokenHelper" />.</param>
         public IncomeController(
             IIncomeRepository repository,
             IConfiguration config,
@@ -30,7 +40,11 @@ namespace CostIncomeCalculator.Controllers
             this.config = config;
             this.repository = repository;
         }
-
+        
+        /// <summary>
+        /// Get all users incomes.
+        /// </summary>
+        /// <returns>Array of users incomes.</returns>
         [HttpGet]
         public async Task<IActionResult> GetAllIncomes()
         {
@@ -51,6 +65,11 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        ///Get concrete income by id.
+        /// </summary>
+        /// <param name="id">int</param>
+        /// <returns><see cref="IncomeReturnDto" /></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetConcreteIncome(int id)
         {
@@ -73,6 +92,11 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all weekly users incomes.
+        /// </summary>
+        /// <param name="date">DateTime</param>
+        /// <returns>Array of weekly users costs.</returns>
         [HttpGet("weekly")]
         public async Task<IActionResult> GetWeeklyIncomes(DateTime date)
         {
@@ -98,6 +122,12 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Get weekly users incomes by category.
+        /// </summary>
+        /// <param name="date">DateTime</param>
+        /// <param name="category">string</param>
+        /// <returns>Array of weekly users incomes in concrete category.</returns>
         [HttpGet("weekly/{category}")]
         public async Task<IActionResult> GetWeeklyIncomesByCategory(DateTime date, string category)
         {
@@ -123,6 +153,11 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all monthly users incomes.
+        /// </summary>
+        /// <param name="date">DateTime</param>
+        /// <returns>Array of all monthly users costs.</returns>
         [HttpGet("monthly")]
         public async Task<IActionResult> GetMonthlyIncomes(DateTime date)
         {
@@ -148,6 +183,12 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all monthly users incomes by category.
+        /// </summary>
+        /// <param name="date">DateTime</param>
+        /// <param name="category">string</param>
+        /// <returns>Array of monthly users incomes in concrete category.</returns>
         [HttpGet("monthly/{category}")]
         public async Task<IActionResult> GetMonthlyIncomesByCategory(DateTime date, string category)
         {
@@ -173,6 +214,11 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Get category of users incomes with maximum sum in month.
+        /// </summary>
+        /// <param name="date">DateTime</param>
+        /// <returns>category of incomes with maximum sum.</returns>
         [HttpGet("monthly/max")]
         public async Task<IActionResult> GetMaxMonthlyIncomes(DateTime date)
         {
@@ -198,6 +244,11 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Set income.
+        /// </summary>
+        /// <param name="incomeForSetDto"><see cref="IncomeForSetDto" /></param>
+        /// <returns>201 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
         [HttpPost("set")]
         public async Task<IActionResult> SetIncome(IncomeForSetDto incomeForSetDto)
         {
@@ -205,10 +256,6 @@ namespace CostIncomeCalculator.Controllers
             {
                 if (!await userHelper.UserExists(incomeForSetDto.Username))
                     return BadRequest("This username doesn't exists");
-
-                if (incomeForSetDto.Price == decimal.MinValue ||
-                    incomeForSetDto.Date == DateTime.MinValue)
-                    return BadRequest("All fields required");
 
                 var settedIncome = await repository.SetIncome(incomeForSetDto);
                 
@@ -220,6 +267,12 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Edit exist cost.
+        /// </summary>
+        /// <param name="id">int</param>
+        /// <param name="incomeForEditDto"><see cref="IncomeForEditDto" /></param>
+        /// <returns>204 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
         [HttpPut("edit/{id}")]
         public async Task<IActionResult> EditIncome(int id, IncomeForEditDto incomeForEditDto)
         {
@@ -246,6 +299,11 @@ namespace CostIncomeCalculator.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete exist cost.
+        /// </summary>
+        /// <param name="incomeForDeleteDto"><see cref="IncomeForDeleteDto" /></param>
+        /// <returns>204 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
         [HttpDelete("delete")]
         public async Task<IActionResult> DeleteIncomes(IncomeForDeleteDto incomeForDeleteDto)
         {

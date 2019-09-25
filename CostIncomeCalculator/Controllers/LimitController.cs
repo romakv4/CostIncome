@@ -50,7 +50,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = tokenHelper.GetUsername(HttpContext);
+                string username = HttpContext.User.Identity.Name;
 
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
@@ -75,7 +75,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = tokenHelper.GetUsername(HttpContext);
+                string username = HttpContext.User.Identity.Name;
 
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");

@@ -4,6 +4,7 @@ using CostIncomeCalculator.Data.CostData;
 using CostIncomeCalculator.Dtos.CostDtos;
 using CostIncomeCalculator.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -50,7 +51,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = tokenHelper.GetUsername(HttpContext);
+                string username = HttpContext.User.Identity.Name;
 
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
@@ -74,7 +75,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = tokenHelper.GetUsername(HttpContext);
+                string username = HttpContext.User.Identity.Name;
 
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
@@ -101,7 +102,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = tokenHelper.GetUsername(HttpContext);
+                string username = HttpContext.User.Identity.Name;
 
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
@@ -132,7 +133,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = tokenHelper.GetUsername(HttpContext);
+                string username = HttpContext.User.Identity.Name;
 
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
@@ -162,7 +163,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = tokenHelper.GetUsername(HttpContext);
+                string username = HttpContext.User.Identity.Name;
 
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
@@ -193,7 +194,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = tokenHelper.GetUsername(HttpContext);
+                string username = HttpContext.User.Identity.Name;
 
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
@@ -223,7 +224,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = tokenHelper.GetUsername(HttpContext);
+                string username = HttpContext.User.Identity.Name;
 
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
@@ -253,7 +254,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = tokenHelper.GetUsername(HttpContext);
+                string username = HttpContext.User.Identity.Name;
 
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
@@ -279,7 +280,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = tokenHelper.GetUsername(HttpContext);
+                string username = HttpContext.User.Identity.Name;
 
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
@@ -312,8 +313,8 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = tokenHelper.GetUsername(HttpContext);
-
+                string username = HttpContext.User.Identity.Name;
+                
                 if (!await userHelper.UserExists(username))
                     return BadRequest("This username doesn't exists");
 

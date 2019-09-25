@@ -2,10 +2,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using CostIncomeCalculator.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CostIncomeCalculator.Helpers
@@ -19,10 +16,10 @@ namespace CostIncomeCalculator.Helpers
         /// <summary>
         /// Generate token.
         /// </summary>
-        /// <param name="user">User</param>
-        /// <param name="config">IConfiguration</param>
+        /// <param name="user"><see cref="User" /></param>
+        /// <param name="secret">string</param>
         /// <returns>Token</returns>
-        public string GenerateToken(User user, IConfiguration config)
+        public string GenerateToken(User user, string secret)
         {
             var claims = new[]
             {
@@ -30,7 +27,7 @@ namespace CostIncomeCalculator.Helpers
                 new Claim(ClaimTypes.Name, user.Username)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("AppSettings:Token").Value));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
@@ -46,16 +43,6 @@ namespace CostIncomeCalculator.Helpers
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
-        }
-
-        /// <summary>
-        /// Get username from HttpContext.
-        /// </summary>
-        /// <param name="context">HttpContext</param>
-        /// <returns>Username</returns>
-        public string GetUsername(HttpContext context)
-        {
-            return context.User.Identity.Name;
         }
     }
 }

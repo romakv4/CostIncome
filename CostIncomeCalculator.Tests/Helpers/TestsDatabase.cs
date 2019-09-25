@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CostIncomeCalculator.Tests.Helpers
 {
-    public class UserHelperFixture : IDisposable
+    public class TestsDatabase : IDisposable
     {
-        public UserHelperFixture()
+        public TestsDatabase()
         {
             var localDataContext = new DbContextOptionsBuilder<Data.DataContext>()
                                     .UseInMemoryDatabase(databaseName: "CostsIncomesTests")

@@ -1,15 +1,13 @@
-using System;
 using System.Threading.Tasks;
 using CostIncomeCalculator.Helpers;
-using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace CostIncomeCalculator.Tests.Helpers
 {
-    public class UserHelperTests : IClassFixture<UserHelperFixture>
+    public class UserHelperTests : IClassFixture<TestsDatabase>
     {
-        UserHelperFixture fixture;
-        public UserHelperTests(UserHelperFixture fixture)
+        TestsDatabase fixture;
+        public UserHelperTests(TestsDatabase fixture)
         {
             this.fixture = fixture;
         }

@@ -87,7 +87,7 @@ namespace CostIncomeCalculator.Controllers
 
                 return Ok(new
                 {
-                    token = tokenHelper.GenerateToken(user, config)
+                    token = tokenHelper.GenerateToken(user, config.GetSection("AppSettings:Token").Value)
                 });
             }
             catch

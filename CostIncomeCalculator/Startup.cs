@@ -74,6 +74,9 @@ namespace CostIncomeCalculator
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
 
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "CostIncomeCalculator.xml");
+                c.IncludeXmlComments(filePath);
+
                 c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
                 {
                     { "Bearer", new string[] { } }
@@ -120,6 +123,7 @@ namespace CostIncomeCalculator
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "CostIncomeAPI V1");
+                c.RoutePrefix = string.Empty;
             });
         }
     }

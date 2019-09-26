@@ -43,9 +43,22 @@ namespace CostIncomeCalculator.Controllers
         /// <summary>
         /// User registration endpoint.
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/auth/register
+        ///     {
+        ///         "username": "user",
+        ///         "password": "password"    
+        ///     }
+        /// </remarks>
         /// <param name="userForRegisterDto">Data for user registration <see cref="UserForRegisterDto" />.</param>
-        /// <returns>404 if username already exists and if login and password dont't specified. If successfully registration returns 201.</returns>
+        /// <returns>Registration status</returns>
+        /// <response code="201">If user successfully created.</response>
+        /// <response code="404">If username already exists in databse.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpPost("register")]
+        [Consumes("application/json")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
             try
@@ -73,9 +86,24 @@ namespace CostIncomeCalculator.Controllers
         /// <summary>
         /// User login endpoint.
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/auth/login
+        ///     {
+        ///         "username": "user",
+        ///         "password": "password"    
+        ///     }
+        /// </remarks>
         /// <param name="userForLoginDto">Data for user authorization <see cref="UserForLoginDto" />.</param>
-        /// <returns>Unathorized if user not exists in database. 404 if login or password don't specified. If success returns 200 and JWT access token.</returns>
+        /// <returns>JWT token for user.</returns>
+        /// <response code="200">If user successfully login.</response>
+        /// <response code="401">If user not exist in database.</response>
+        /// <response code="404">If username or password not specified.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpPost("login")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
             try

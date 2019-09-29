@@ -45,15 +45,15 @@ namespace CostIncomeCalculator.Controllers
         /// Get all users limits.
         /// </summary>
         /// <returns>Array of users limits.</returns>
+        /// <response code="200">With users limits payload.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet]
         public async Task<IActionResult> GetAllLimits()
         {
             try
             {
                 string username = HttpContext.User.Identity.Name;
-
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
                 
                 var limits = await repository.GetAllLimits(username);
                 
@@ -69,18 +69,16 @@ namespace CostIncomeCalculator.Controllers
         /// Set limit.
         /// </summary>
         /// <param name="limitForSetDto"><see cref="LimitForSetDto" /></param>
-        /// <returns>201 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
+        /// <returns>Operation status code.</returns>
+        /// <response code="201">If successfully created limit.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpPost("set")]
         public async Task<IActionResult> SetLimit(LimitForSetDto limitForSetDto)
         {
             try
             {
-                string username = HttpContext.User.Identity.Name;
-
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
-
-                var settedCost = await repository.SetLimit(limitForSetDto);
+                var settedLimit = await repository.SetLimit(limitForSetDto);
 
                 return StatusCode(201);
             }
@@ -95,15 +93,17 @@ namespace CostIncomeCalculator.Controllers
         /// </summary>
         /// <param name="id">int</param>
         /// <param name="limitForEditDto"><see cref="LimitForEditDto" />.</param>
-        /// <returns>204 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
+        /// <returns>Operation status code.</returns>
+        /// <response code="204">If successfully edited limit.</response>
+        /// <response code="400">If user don't specified at least one field for edit.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="404">If limit for edit not found by specified id.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpPut("edit/{id}")]
         public async Task<IActionResult> EditLimit(int id, LimitForEditDto limitForEditDto)
         {
             try
             {
-                if (!await userHelper.UserExists(limitForEditDto.Username))
-                    return BadRequest("This username doesn't exists");
-
                 if (limitForEditDto.Category == null &&
                     limitForEditDto.Value == decimal.MinValue &&
                     limitForEditDto.From == DateTime.MinValue &&
@@ -126,16 +126,19 @@ namespace CostIncomeCalculator.Controllers
         /// Delete exist limit.
         /// </summary>
         /// <param name="limitForDeleteDto"><see cref="LimitForDeleteDto" /></param>
-        /// <returns>204 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
+        /// <returns>Operation status code.</returns>
+        /// <response code="204">If successfully deleted limit.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="404">If limit(s) for delete not found by specified id.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpDelete("delete")]
         public async Task<IActionResult> DeleteLimits(LimitForDeleteDto limitForDeleteDto)
         {
             try
             {
-                if (!await userHelper.UserExists(limitForDeleteDto.Username))
-                    return BadRequest("This username doesn't exists");
+                var deletedLimits = await repository.DeleteLimits(limitForDeleteDto);
 
-                var deletedIncomes = await repository.DeleteLimits(limitForDeleteDto);
+                if (deletedLimits == null) return NotFound();
 
                 return StatusCode(204);
             }

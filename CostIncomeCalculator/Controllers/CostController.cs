@@ -47,7 +47,6 @@ namespace CostIncomeCalculator.Controllers
         /// </summary>
         /// <returns>Array of users costs.</returns>
         /// <response code="200">With users costs payload.</response>
-        /// <response code="400">If username not exists in database.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpGet]
@@ -57,10 +56,8 @@ namespace CostIncomeCalculator.Controllers
             {
                 string username = HttpContext.User.Identity.Name;
 
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
-
                 var costs = await repository.GetAllCosts(username);
+                
                 return Ok(costs);
             }
             catch
@@ -75,7 +72,6 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="id">int</param>
         /// <returns><see cref="CostReturnDto" /></returns>
         /// <response code="200">With concrete cost payload.</response>
-        /// <response code="400">If username not exists in database.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpGet("{id}")]
@@ -84,9 +80,6 @@ namespace CostIncomeCalculator.Controllers
             try
             {
                 string username = HttpContext.User.Identity.Name;
-
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
 
                 var concreteCost = await repository.GetConcreteCost(username, id);
 
@@ -106,7 +99,6 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="date">DateTime</param>
         /// <returns>Array of weekly users costs.</returns>
         /// <response code="200">With all weekly users costs payload.</response>
-        /// <response code="400">If username not exists in database.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpGet("weekly")]
@@ -115,9 +107,6 @@ namespace CostIncomeCalculator.Controllers
             try
             {
                 string username = HttpContext.User.Identity.Name;
-
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
 
                 var DTO = new PeriodicCostsDto {
                     Username = username,
@@ -141,7 +130,6 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="category">string</param>
         /// <returns>Array of weekly users costs in concrete category.</returns>
         /// <response code="200">With all weekly users costs in concrete category payload.</response>
-        /// <response code="400">If username not exists in database.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpGet("weekly/{category}")]
@@ -150,9 +138,6 @@ namespace CostIncomeCalculator.Controllers
             try
             {
                 string username = HttpContext.User.Identity.Name;
-
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
 
                 var DTO = new PeriodicCostsDto {
                     Username = username,
@@ -175,7 +160,6 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="date">DateTime</param>
         /// <returns>Array of all monthly users costs.</returns>
         /// <response code="200">With all monthly users costs payload.</response>
-        /// <response code="400">If username not exists in database.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpGet("monthly")]
@@ -184,9 +168,6 @@ namespace CostIncomeCalculator.Controllers
             try
             {
                 string username = HttpContext.User.Identity.Name;
-
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
 
                 var DTO = new PeriodicCostsDto {
                     Username = username,
@@ -210,7 +191,6 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="category">string</param>
         /// <returns>Array of monthly users costs in concrete category.</returns>
         /// <response code="200">With all monthly users costs in cocrete category payload.</response>
-        /// <response code="400">If username not exists in database.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpGet("monthly/{category}")]
@@ -219,9 +199,6 @@ namespace CostIncomeCalculator.Controllers
             try
             {
                 string username = HttpContext.User.Identity.Name;
-
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
                 
                 var DTO = new PeriodicCostsDto {
                     Username = username,
@@ -243,8 +220,7 @@ namespace CostIncomeCalculator.Controllers
         /// </summary>
         /// <param name="date">DateTime</param>
         /// <returns>Category of costs with maximum sum.</returns>
-        /// <response code="200">With monthly users costs with maximum sum in cocrete category payload.</response>
-        /// <response code="400">If username not exists in database.</response>
+        /// <response code="200">Maximum sum of costs in cocrete category payload.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpGet("monthly/max")]
@@ -253,9 +229,6 @@ namespace CostIncomeCalculator.Controllers
             try
             {
                 string username = HttpContext.User.Identity.Name;
-
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
 
                 var DTO = new PeriodicCostsDto {
                     Username = username,
@@ -278,7 +251,6 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="costForSetDto"><see cref="CostForSetDto" /></param>
         /// <returns>Operation status code.</returns>
         /// <response code="201">If successfully created cost.</response>
-        /// <response code="400">If username not exists in database.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpPost("set")]
@@ -286,11 +258,6 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = HttpContext.User.Identity.Name;
-
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
-
                 var settedCost = await repository.SetCost(costForSetDto);
 
                 return StatusCode(201);
@@ -308,7 +275,7 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="costForEditDto"><see cref="CostForEditDto" /></param>
         /// <returns>Operation status code.</returns>
         /// <response code="204">If successfully edited cost.</response>
-        /// <response code="400">If username not exists in database or usern don't specified at least one field for edit.</response>
+        /// <response code="400">If user don't specified at least one field for edit.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="404">If cost for edit not found by specified id.</response>
         /// <response code="500">If something went wrong.</response>
@@ -317,11 +284,6 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = HttpContext.User.Identity.Name;
-
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
-
                 if (costForEditDto.Category == null &&
                     costForEditDto.Description == null &&
                     costForEditDto.Price == decimal.MinValue &&
@@ -346,7 +308,6 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="costForDeleteDto"><see cref="CostForDeleteDto" /></param>
         /// <returns>204 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
         /// <response code="204">If successfully deleted cost.</response>
-        /// <response code="400">If username not exists in database or usern don't specified at least one field for edit.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="404">If cost(s) for delete not found by specified id.</response>
         /// <response code="500">If something went wrong.</response>
@@ -355,11 +316,6 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = HttpContext.User.Identity.Name;
-                
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
-
                 var deletedCosts = await repository.DeleteCosts(costForDeleteDto);
 
                 if (deletedCosts == null) return NotFound();

@@ -45,6 +45,9 @@ namespace CostIncomeCalculator.Controllers
         /// Get all users incomes.
         /// </summary>
         /// <returns>Array of users incomes.</returns>
+        /// <response code="200">With users incomes payload.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet]
         public async Task<IActionResult> GetAllIncomes()
         {
@@ -70,15 +73,15 @@ namespace CostIncomeCalculator.Controllers
         /// </summary>
         /// <param name="id">int</param>
         /// <returns><see cref="IncomeReturnDto" /></returns>
+        /// <response code="200">With concrete income payload.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetConcreteIncome(int id)
         {
             try
             {
                 string username = HttpContext.User.Identity.Name;
-
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
                 
                 var concreteIncome = await repository.GetConcreteIncome(username, id);
                 
@@ -96,16 +99,16 @@ namespace CostIncomeCalculator.Controllers
         /// Get all weekly users incomes.
         /// </summary>
         /// <param name="date">DateTime</param>
-        /// <returns>Array of weekly users costs.</returns>
+        /// <returns>Array of weekly users incomes.</returns>
+        /// <response code="200">With all weekly users incomes payload.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet("weekly")]
         public async Task<IActionResult> GetWeeklyIncomes(DateTime date)
         {
             try
             {
                 string username = HttpContext.User.Identity.Name;
-
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
 
                 var DTO = new PeriodicIncomesDto {
                     Username = username,
@@ -128,15 +131,15 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="date">DateTime</param>
         /// <param name="category">string</param>
         /// <returns>Array of weekly users incomes in concrete category.</returns>
+        /// <response code="200">With all weekly users incomes in concrete category payload.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet("weekly/{category}")]
         public async Task<IActionResult> GetWeeklyIncomesByCategory(DateTime date, string category)
         {
             try
             {
                 string username = HttpContext.User.Identity.Name;
-
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
 
                 var DTO = new PeriodicIncomesDto {
                     Username = username,
@@ -157,16 +160,16 @@ namespace CostIncomeCalculator.Controllers
         /// Get all monthly users incomes.
         /// </summary>
         /// <param name="date">DateTime</param>
-        /// <returns>Array of all monthly users costs.</returns>
+        /// <returns>Array of all monthly users incomes.</returns>
+        /// <response code="200">With all monthly users incomes payload.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet("monthly")]
         public async Task<IActionResult> GetMonthlyIncomes(DateTime date)
         {
             try
             {
                 string username = HttpContext.User.Identity.Name;
-                
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
 
                 var DTO = new PeriodicIncomesDto {
                     Username = username,
@@ -189,15 +192,15 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="date">DateTime</param>
         /// <param name="category">string</param>
         /// <returns>Array of monthly users incomes in concrete category.</returns>
+        /// <response code="200">With all monthly users incomes in cocrete category payload.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet("monthly/{category}")]
         public async Task<IActionResult> GetMonthlyIncomesByCategory(DateTime date, string category)
         {
             try
             {
                 string username = HttpContext.User.Identity.Name;
-
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
                 
                 var DTO = new PeriodicIncomesDto {
                     Username = username,
@@ -218,16 +221,16 @@ namespace CostIncomeCalculator.Controllers
         /// Get category of users incomes with maximum sum in month.
         /// </summary>
         /// <param name="date">DateTime</param>
-        /// <returns>category of incomes with maximum sum.</returns>
+        /// <returns>Category of incomes with maximum sum.</returns>
+        /// <response code="200">Maximum sum of incomes in cocrete category payload.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet("monthly/max")]
         public async Task<IActionResult> GetMaxMonthlyIncomes(DateTime date)
         {
             try
             {
                 string username = HttpContext.User.Identity.Name;
-
-                if (!await userHelper.UserExists(username))
-                    return BadRequest("This username doesn't exists");
 
                 var DTO = new PeriodicIncomesDto {
                     Username = username,
@@ -248,15 +251,15 @@ namespace CostIncomeCalculator.Controllers
         /// Set income.
         /// </summary>
         /// <param name="incomeForSetDto"><see cref="IncomeForSetDto" /></param>
-        /// <returns>201 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
+        /// <returns>Operation status code.</returns>
+        /// <response code="201">If successfully created income.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpPost("set")]
         public async Task<IActionResult> SetIncome(IncomeForSetDto incomeForSetDto)
         {
             try
             {
-                if (!await userHelper.UserExists(incomeForSetDto.Username))
-                    return BadRequest("This username doesn't exists");
-
                 var settedIncome = await repository.SetIncome(incomeForSetDto);
                 
                 return StatusCode(201);
@@ -268,19 +271,21 @@ namespace CostIncomeCalculator.Controllers
         }
 
         /// <summary>
-        /// Edit exist cost.
+        /// Edit exist income.
         /// </summary>
         /// <param name="id">int</param>
         /// <param name="incomeForEditDto"><see cref="IncomeForEditDto" /></param>
-        /// <returns>204 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
+        /// <returns>Operation status code.</returns>
+        /// <response code="204">If successfully edited income.</response>
+        /// <response code="400">If user don't specified at least one field for edit.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="404">If income for edit not found by specified id.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpPut("edit/{id}")]
         public async Task<IActionResult> EditIncome(int id, IncomeForEditDto incomeForEditDto)
         {
             try
             {
-                if (!await userHelper.UserExists(incomeForEditDto.Username))
-                    return BadRequest("This username doesn't exists");
-
                 if (incomeForEditDto.Category == null &&
                     incomeForEditDto.Description == null &&
                     incomeForEditDto.Price == decimal.MinValue &&
@@ -300,22 +305,22 @@ namespace CostIncomeCalculator.Controllers
         }
 
         /// <summary>
-        /// Delete exist cost.
+        /// Delete exist income.
         /// </summary>
         /// <param name="incomeForDeleteDto"><see cref="IncomeForDeleteDto" /></param>
-        /// <returns>204 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
+        /// <returns>Operation status code.</returns>
+        /// <response code="204">If successfully deleted income.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="404">If income(s) for delete not found by specified id.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpDelete("delete")]
         public async Task<IActionResult> DeleteIncomes(IncomeForDeleteDto incomeForDeleteDto)
         {
             try
             {
-                if (!await userHelper.UserExists(incomeForDeleteDto.Username))
-                    return BadRequest("This username doesn't exists");
-
-                if (incomeForDeleteDto.Ids.Length == 0)
-                    return BadRequest("Array of ids don't be empty");
-
                 var deletedIncomes = await repository.DeleteIncomes(incomeForDeleteDto);
+
+                if (deletedIncomes == null) return NotFound();
 
                 return StatusCode(204);
             }

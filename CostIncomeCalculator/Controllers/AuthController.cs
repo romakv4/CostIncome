@@ -55,7 +55,7 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="userForRegisterDto">Data for user registration <see cref="UserForRegisterDto" />.</param>
         /// <returns>Registration status</returns>
         /// <response code="201">If user successfully created.</response>
-        /// <response code="404">If username already exists in databse.</response>
+        /// <response code="400">If username already exists in databse.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpPost("register")]
         [Consumes("application/json")]
@@ -98,8 +98,8 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="userForLoginDto">Data for user authorization <see cref="UserForLoginDto" />.</param>
         /// <returns>JWT token for user.</returns>
         /// <response code="200">If user successfully login.</response>
+        /// <response code="400">If username or password not specified.</response>
         /// <response code="401">If user not exist in database.</response>
-        /// <response code="404">If username or password not specified.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpPost("login")]
         [Consumes("application/json")]

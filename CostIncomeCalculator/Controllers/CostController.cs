@@ -46,6 +46,10 @@ namespace CostIncomeCalculator.Controllers
         /// Get all users costs.
         /// </summary>
         /// <returns>Array of users costs.</returns>
+        /// <response code="200">With users costs payload.</response>
+        /// <response code="400">If username not exists in database.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet]
         public async Task<IActionResult> GetAllCosts()
         {
@@ -70,6 +74,10 @@ namespace CostIncomeCalculator.Controllers
         /// </summary>
         /// <param name="id">int</param>
         /// <returns><see cref="CostReturnDto" /></returns>
+        /// <response code="200">With concrete cost payload.</response>
+        /// <response code="400">If username not exists in database.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetConcreteCost(int id)
         {
@@ -97,6 +105,10 @@ namespace CostIncomeCalculator.Controllers
         /// </summary>
         /// <param name="date">DateTime</param>
         /// <returns>Array of weekly users costs.</returns>
+        /// <response code="200">With all weekly users costs payload.</response>
+        /// <response code="400">If username not exists in database.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet("weekly")]
         public async Task<IActionResult> GetWeeklyCosts(DateTime date)
         {
@@ -128,6 +140,10 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="date">DateTime</param>
         /// <param name="category">string</param>
         /// <returns>Array of weekly users costs in concrete category.</returns>
+        /// <response code="200">With all weekly users costs in concrete category payload.</response>
+        /// <response code="400">If username not exists in database.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet("weekly/{category}")]
         public async Task<IActionResult> GetWeeklyCostsByCategory(DateTime date, string category)
         {
@@ -158,6 +174,10 @@ namespace CostIncomeCalculator.Controllers
         /// </summary>
         /// <param name="date">DateTime</param>
         /// <returns>Array of all monthly users costs.</returns>
+        /// <response code="200">With all monthly users costs payload.</response>
+        /// <response code="400">If username not exists in database.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet("monthly")]
         public async Task<IActionResult> GetMonthlyCosts(DateTime date)
         {
@@ -189,6 +209,10 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="date">DateTime</param>
         /// <param name="category">string</param>
         /// <returns>Array of monthly users costs in concrete category.</returns>
+        /// <response code="200">With all monthly users costs in cocrete category payload.</response>
+        /// <response code="400">If username not exists in database.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet("monthly/{category}")]
         public async Task<IActionResult> GetMonthlyCostsByCategory(DateTime date, string category)
         {
@@ -219,6 +243,10 @@ namespace CostIncomeCalculator.Controllers
         /// </summary>
         /// <param name="date">DateTime</param>
         /// <returns>Category of costs with maximum sum.</returns>
+        /// <response code="200">With monthly users costs with maximum sum in cocrete category payload.</response>
+        /// <response code="400">If username not exists in database.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet("monthly/max")]
         public async Task<IActionResult> GetMaxMonthlyCosts(DateTime date)
         {
@@ -248,7 +276,11 @@ namespace CostIncomeCalculator.Controllers
         /// Set cost.
         /// </summary>
         /// <param name="costForSetDto"><see cref="CostForSetDto" /></param>
-        /// <returns>201 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
+        /// <returns>Operation status code.</returns>
+        /// <response code="201">If successfully created cost.</response>
+        /// <response code="400">If username not exists in database.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpPost("set")]
         public async Task<IActionResult> SetCost(CostForSetDto costForSetDto)
         {
@@ -274,7 +306,12 @@ namespace CostIncomeCalculator.Controllers
         /// </summary>
         /// <param name="id">int</param>
         /// <param name="costForEditDto"><see cref="CostForEditDto" /></param>
-        /// <returns>204 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
+        /// <returns>Operation status code.</returns>
+        /// <response code="204">If successfully edited cost.</response>
+        /// <response code="400">If username not exists in database or usern don't specified at least one field for edit.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="404">If cost for edit not found by specified id.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpPut("edit/{id}")]
         public async Task<IActionResult> EditCost(int id, CostForEditDto costForEditDto)
         {
@@ -308,6 +345,11 @@ namespace CostIncomeCalculator.Controllers
         /// </summary>
         /// <param name="costForDeleteDto"><see cref="CostForDeleteDto" /></param>
         /// <returns>204 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
+        /// <response code="204">If successfully deleted cost.</response>
+        /// <response code="400">If username not exists in database or usern don't specified at least one field for edit.</response>
+        /// <response code="401">If user unauthorized.</response>
+        /// <response code="404">If cost(s) for delete not found by specified id.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpDelete("delete")]
         public async Task<IActionResult> DeleteCosts(CostForDeleteDto costForDeleteDto)
         {
@@ -319,6 +361,8 @@ namespace CostIncomeCalculator.Controllers
                     return BadRequest("This username doesn't exists");
 
                 var deletedCosts = await repository.DeleteCosts(costForDeleteDto);
+
+                if (deletedCosts == null) return NotFound();
 
                 return StatusCode(204);
             }

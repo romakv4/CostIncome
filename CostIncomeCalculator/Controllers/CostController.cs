@@ -57,7 +57,7 @@ namespace CostIncomeCalculator.Controllers
                 string username = HttpContext.User.Identity.Name;
 
                 var costs = await repository.GetAllCosts(username);
-                
+
                 return Ok(costs);
             }
             catch
@@ -306,7 +306,7 @@ namespace CostIncomeCalculator.Controllers
         /// Delete exist cost.
         /// </summary>
         /// <param name="costForDeleteDto"><see cref="CostForDeleteDto" /></param>
-        /// <returns>204 if success. 404 if username doesn't exists in database or required fields don't specified.</returns>
+        /// <returns>Operation status code.</returns>
         /// <response code="204">If successfully deleted cost.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="404">If cost(s) for delete not found by specified id.</response>

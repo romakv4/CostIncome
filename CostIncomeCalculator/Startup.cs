@@ -27,9 +27,19 @@ namespace CostIncomeCalculator
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        // public Startup(IConfiguration configuration)
+        // {
+        //     Configuration = configuration;
+        // }
+
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var configBuilder = new ConfigurationBuilder()
+                                .SetBasePath(env.ContentRootPath)
+                                .AddJsonFile("appsettings.json", optional: true)
+                                .AddJsonFile("appsettings.development.json", optional: true)
+                                .AddEnvironmentVariables();
+            this.Configuration = configBuilder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -98,6 +108,12 @@ namespace CostIncomeCalculator
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CostIncomeAPI V1");
+                    c.RoutePrefix = string.Empty;
+                });
             }
             else
             {
@@ -119,12 +135,6 @@ namespace CostIncomeCalculator
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseMvc();
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CostIncomeAPI V1");
-                c.RoutePrefix = string.Empty;
-            });
         }
     }
 }

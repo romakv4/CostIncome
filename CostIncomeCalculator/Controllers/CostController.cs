@@ -14,7 +14,7 @@ namespace CostIncomeCalculator.Controllers
     /// Cost controller. Endpoint for work with costs.
     /// </summary>
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class CostController : ControllerBase
     {

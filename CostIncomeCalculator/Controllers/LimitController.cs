@@ -13,7 +13,7 @@ namespace CostIncomeCalculator.Controllers
     /// Limit controller. Endpoint for work with limits.
     /// </summary>
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class LimitController : ControllerBase
     {

@@ -4,5 +4,3 @@
 **/obj
 **/Logs
 **.code-workspace
-**/appsettings.json
-**/appsettings.Development.json

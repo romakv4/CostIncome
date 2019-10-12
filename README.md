@@ -2,7 +2,7 @@
 1. .Net core
 2. appsettings.Development.json and appsettings.json files in CostIncomeCalculator folder  
 
-### appsettings.Development.json
+### appsettings.json
 ```JSON
 { 
     "Logging": 
@@ -17,7 +17,7 @@
 }
 ```
 
-### appsettings.json
+### appsettings.Development.json
 ```JSON
 { 
     "AppSettings": { 

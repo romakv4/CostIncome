@@ -134,7 +134,7 @@ namespace CostIncomeCalculator.Data.CostData
         }
 
         /// <summary>
-        /// Get monthly costs methos.
+        /// Get monthly costs method.
         /// </summary>
         /// <param name="periodicCostsDto"><see cref="PeriodicCostsDto" /></param>
         /// <returns>Array of <see cref="CostReturnDto" /></returns>
@@ -173,40 +173,6 @@ namespace CostIncomeCalculator.Data.CostData
                                                                 .Where(x => x.Category.ToLower() == category.ToLower()).ToListAsync();
 
                 return mapper.Map<IEnumerable<CostReturnDto>>(monthlyCostsByCategory);
-            }
-            catch (Exception e)
-            {
-                logger.Error(e.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get category of costs with maximum sum method.
-        /// </summary>
-        /// <param name="periodicCostsDto"><see cref="PeriodicCostsDto" /></param>
-        /// <returns><see cref="MonthCostDto" /></returns>
-        public async Task<MonthCostDto> GetMaxCostsCategoryInMonth(PeriodicCostsDto periodicCostsDto)
-        {
-            try
-            {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == periodicCostsDto.Username.ToLower());
-
-                (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(periodicCostsDto.Date);
-                var monthlyCosts = await context.Costs.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
-                var categories = monthlyCosts.Select(x => x.Category).Distinct();
-
-                List<MonthCostDto> costs = new List<MonthCostDto>();
-                foreach (var category in categories)
-                {
-                    costs.Add(new MonthCostDto
-                    {
-                        Category = category,
-                        CostSum = monthlyCosts.Where(x => x.Category.ToLower() == category.ToLower()).Select(x => x.Price).Sum()
-                    });
-                }
-
-                return costs.FirstOrDefault(x => x.CostSum == costs.Max(z => z.CostSum));
             }
             catch (Exception e)
             {

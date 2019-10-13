@@ -174,40 +174,6 @@ namespace CostIncomeCalculator.Data.IncomeData
         }
 
         /// <summary>
-        /// Get category of incomes with maximum sum method.
-        /// </summary>
-        /// <param name="periodicIncomesDto"><see cref="PeriodicIncomesDto" /></param>
-        /// <returns><see cref="MonthIncomeDto" /></returns>
-        public async Task<MonthIncomeDto> GetMaxIncomesCategoryInMonth(PeriodicIncomesDto periodicIncomesDto)
-        {
-            try
-            {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == periodicIncomesDto.Username.ToLower());
-
-                (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(periodicIncomesDto.Date);
-                var monthlyIncomes = await context.Incomes.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
-                var categories = monthlyIncomes.Select(x => x.Category).Distinct();
-
-                List<MonthIncomeDto> costs = new List<MonthIncomeDto>();
-                foreach (var category in categories)
-                {
-                    costs.Add(new MonthIncomeDto
-                    {
-                        Category = category,
-                        IncomeSum = monthlyIncomes.Where(x => x.Category.ToLower() == category.ToLower()).Select(x => x.Price).Sum()
-                    });
-                }
-
-                return costs.FirstOrDefault(x => x.IncomeSum == costs.Max(z => z.IncomeSum));
-            }
-            catch (Exception e)
-            {
-                logger.Error(e.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Set income method.
         /// </summary>
         /// <param name="incomeForSetDto"><see cref="IncomeForSetDto" /></param>

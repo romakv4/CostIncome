@@ -57,13 +57,6 @@ namespace CostIncomeCalculator.Data.IncomeData
         Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomesByCategory(PeriodicIncomesDto periodicIncomesDto, string category);
 
         /// <summary>
-        /// Get category of incomes with maximum sum. See implementation here <see cref="IncomeRepository.GetMaxIncomesCategoryInMonth" />.
-        /// </summary>
-        /// <param name="periodicIncomesDto"><see cref="PeriodicIncomesDto" /></param>
-        /// <returns><see cref="MonthIncomeDto" /></returns>
-        Task<MonthIncomeDto> GetMaxIncomesCategoryInMonth(PeriodicIncomesDto periodicIncomesDto);
-
-        /// <summary>
         /// Set income method. See implementation here <see cref="IncomeRepository.SetIncome" />.
         /// </summary>
         /// <param name="incomeForSetDto"><see cref="IncomeForSetDto" /></param>

@@ -43,22 +43,61 @@ namespace CostIncomeCalculator.Controllers
         }
 
         /// <summary>
-        /// Get all users costs.
+        /// Get costs endpoint.
         /// </summary>
-        /// <returns>Array of users costs.</returns>
-        /// <response code="200">With users costs payload.</response>
-        /// <response code="401">If user unauthorized.</response>
-        /// <response code="500">If something went wrong.</response>
+        /// <param name="period">May be null, weekly or monthly.</param>
+        /// <param name="category">May be null or any category of costs defined by user.</param>
+        /// <param name="date">Date for periodic request.</param>
+        /// <returns><see cref="CostReturnDto" /></returns>
         [HttpGet]
-        public async Task<IActionResult> GetAllCosts()
+        public async Task<IActionResult> GetCosts([FromQuery] string period, string category, DateTime date)
         {
             try
             {
                 string username = HttpContext.User.Identity.Name;
 
-                var costs = await repository.GetAllCosts(username);
-
-                return Ok(costs);
+                if (period == null && category == null)
+                {
+                    var costs = await repository.GetAllCosts(username);
+                    return Ok(costs);
+                }
+                else if (period != null)
+                {
+                    var DTO = new PeriodicCostsDto {
+                        Username = username,
+                        Date = date
+                    };
+                    if (category == null)
+                    {   
+                        if (period == "weekly") {
+                            var costs = await repository.GetWeeklyCosts(DTO);
+                            return Ok(costs);
+                        }
+                        else if (period == "monthly")
+                        {
+                            var costs = await repository.GetMonthlyCosts(DTO);
+                            return Ok(costs);
+                        }
+                        return BadRequest();
+                    }
+                    else
+                    {
+                        if (period == "weekly") {
+                            var costs = await repository.GetWeeklyCostsByCategory(DTO, category);
+                            return Ok(costs);
+                        }
+                        else if (period == "monthly")
+                        {
+                            var costs = await repository.GetMonthlyCostsByCategory(DTO, category);
+                            return Ok(costs);
+                        }
+                        return BadRequest();
+                    }
+                }
+                else 
+                {
+                    return BadRequest();
+                }
             }
             catch
             {
@@ -86,158 +125,6 @@ namespace CostIncomeCalculator.Controllers
                 if (concreteCost == null) return NotFound();
 
                 return Ok(concreteCost);
-            }
-            catch
-            {
-                return StatusCode(500);
-            }
-        }
-
-        /// <summary>
-        /// Get all weekly users costs.
-        /// </summary>
-        /// <param name="date">DateTime</param>
-        /// <returns>Array of weekly users costs.</returns>
-        /// <response code="200">With all weekly users costs payload.</response>
-        /// <response code="401">If user unauthorized.</response>
-        /// <response code="500">If something went wrong.</response>
-        [HttpGet("weekly")]
-        public async Task<IActionResult> GetWeeklyCosts(DateTime date)
-        {
-            try
-            {
-                string username = HttpContext.User.Identity.Name;
-
-                var DTO = new PeriodicCostsDto {
-                    Username = username,
-                    Date = date
-                };
-
-                var weeklyCosts = await repository.GetWeeklyCosts(DTO);
-
-                return Ok(weeklyCosts);
-            }
-            catch
-            {
-                return StatusCode(500);
-            }
-        }
-
-        /// <summary>
-        /// Get weekly users costs by category.
-        /// </summary>
-        /// <param name="date">DateTime</param>
-        /// <param name="category">string</param>
-        /// <returns>Array of weekly users costs in concrete category.</returns>
-        /// <response code="200">With all weekly users costs in concrete category payload.</response>
-        /// <response code="401">If user unauthorized.</response>
-        /// <response code="500">If something went wrong.</response>
-        [HttpGet("weekly/{category}")]
-        public async Task<IActionResult> GetWeeklyCostsByCategory(DateTime date, string category)
-        {
-            try
-            {
-                string username = HttpContext.User.Identity.Name;
-
-                var DTO = new PeriodicCostsDto {
-                    Username = username,
-                    Date = date
-                };
-
-                var weeklyCostsByCategory = await repository.GetWeeklyCostsByCategory(DTO, category);
-
-                return Ok(weeklyCostsByCategory);
-            }
-            catch
-            {
-                return StatusCode(500);
-            }
-        }
-
-        /// <summary>
-        /// Get all monthly users costs.
-        /// </summary>
-        /// <param name="date">DateTime</param>
-        /// <returns>Array of all monthly users costs.</returns>
-        /// <response code="200">With all monthly users costs payload.</response>
-        /// <response code="401">If user unauthorized.</response>
-        /// <response code="500">If something went wrong.</response>
-        [HttpGet("monthly")]
-        public async Task<IActionResult> GetMonthlyCosts(DateTime date)
-        {
-            try
-            {
-                string username = HttpContext.User.Identity.Name;
-
-                var DTO = new PeriodicCostsDto {
-                    Username = username,
-                    Date = date
-                };
-
-                var monthlyCosts = await repository.GetMonthlyCosts(DTO);
-
-                return Ok(monthlyCosts);
-            }
-            catch
-            {
-                return StatusCode(500);
-            }
-        }
-
-        /// <summary>
-        /// Get all monthly users costs by category.
-        /// </summary>
-        /// <param name="date">DateTime</param>
-        /// <param name="category">string</param>
-        /// <returns>Array of monthly users costs in concrete category.</returns>
-        /// <response code="200">With all monthly users costs in cocrete category payload.</response>
-        /// <response code="401">If user unauthorized.</response>
-        /// <response code="500">If something went wrong.</response>
-        [HttpGet("monthly/{category}")]
-        public async Task<IActionResult> GetMonthlyCostsByCategory(DateTime date, string category)
-        {
-            try
-            {
-                string username = HttpContext.User.Identity.Name;
-                
-                var DTO = new PeriodicCostsDto {
-                    Username = username,
-                    Date = date
-                };
-
-                var monthlyCostsByCategory = await repository.GetMonthlyCostsByCategory(DTO, category);
-
-                return Ok(monthlyCostsByCategory);
-            }
-            catch
-            {
-                return StatusCode(500);
-            }
-        }
-
-        /// <summary>
-        /// Get category of users costs with maximum sum in month.
-        /// </summary>
-        /// <param name="date">DateTime</param>
-        /// <returns>Category of costs with maximum sum.</returns>
-        /// <response code="200">Maximum sum of costs in cocrete category payload.</response>
-        /// <response code="401">If user unauthorized.</response>
-        /// <response code="500">If something went wrong.</response>
-        [HttpGet("monthly/max")]
-        public async Task<IActionResult> GetMaxMonthlyCosts(DateTime date)
-        {
-            try
-            {
-                string username = HttpContext.User.Identity.Name;
-
-                var DTO = new PeriodicCostsDto {
-                    Username = username,
-                    Date = date
-                };
-
-                var maxMonthlyCosts = await repository.GetMaxCostsCategoryInMonth(DTO);
-
-                return Ok(maxMonthlyCosts);
             }
             catch
             {

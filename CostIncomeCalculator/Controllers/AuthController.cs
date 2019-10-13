@@ -1,15 +1,10 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CostIncomeCalculator.Data.AuthData;
 using CostIncomeCalculator.Dtos.UserDtos;
 using CostIncomeCalculator.Helpers;
 using CostIncomeCalculator.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 
 namespace CostIncomeCalculator.Controllers
 {

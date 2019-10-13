@@ -57,13 +57,6 @@ namespace CostIncomeCalculator.Data.CostData
         Task<IEnumerable<CostReturnDto>> GetMonthlyCostsByCategory(PeriodicCostsDto periodicCostsDto, string category);
         
         /// <summary>
-        /// Get category of costs with maximum sum. See implementation here <see cref="CostRepository.GetMaxCostsCategoryInMonth" />.
-        /// </summary>
-        /// <param name="periodicCostsDto"><see cref="PeriodicCostsDto" /></param>
-        /// <returns><see cref="MonthCostDto" /></returns>
-        Task<MonthCostDto> GetMaxCostsCategoryInMonth(PeriodicCostsDto periodicCostsDto);
-        
-        /// <summary>
         /// Set cost method. See implementation here <see cref="CostRepository.SetCost" />.
         /// </summary>
         /// <param name="costForSetDto"><see cref="CostForSetDto" /></param>

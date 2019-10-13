@@ -9,7 +9,6 @@ namespace CostIncomeCalculator.Dtos.CostDtos
     /// <see cref="Data.CostData.CostRepository.GetWeeklyCostsByCategory" />
     /// <see cref="Data.CostData.CostRepository.GetMonthlyCosts" />
     /// <see cref="Data.CostData.CostRepository.GetMonthlyCostsByCategory" />
-    /// <see cref="Data.CostData.CostRepository.GetMaxCostsCategoryInMonth" />
     /// </summary>
     public class PeriodicCostsDto
     {
@@ -19,7 +18,7 @@ namespace CostIncomeCalculator.Dtos.CostDtos
         /// <value>string</value>
         [Required]
         public string Username { get;set; }
-
+        
         /// <summary>
         /// Date for periodic functions work.
         /// </summary>

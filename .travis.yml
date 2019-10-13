@@ -1,2 +1,6 @@
 language: csharp
+mono: none
+dotnet: 2.2.401
 solution: CostIncome.sln
+before_script:
+  - dotnet restore

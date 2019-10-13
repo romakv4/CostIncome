@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/romakv4/CostIncome.svg?branch=develop)](https://travis-ci.com/romakv4/CostIncome)
+
 # Launch requirements
 1. .Net core
 2. appsettings.Development.json and appsettings.json files in CostIncomeCalculator folder  

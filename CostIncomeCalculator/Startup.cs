@@ -1,4 +1,5 @@
 ﻿#pragma warning disable 1591
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -66,6 +67,10 @@ namespace CostIncomeCalculator
                         ValidateAudience = false
                     };
                 });
+            services.AddApiVersioning(o => {
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.DefaultApiVersion = new ApiVersion(new DateTime(2019, 11, 1 ));
+            });
 
             Directory.CreateDirectory("Logs");
             if (!File.Exists("./Logs/errors.txt"))

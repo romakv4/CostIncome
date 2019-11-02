@@ -45,8 +45,6 @@ namespace CostIncomeCalculator.Data.CostData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
-
                 List<Cost> costs = new List<Cost>();
 
                 costs = await context.Costs.ToListAsync();
@@ -70,8 +68,6 @@ namespace CostIncomeCalculator.Data.CostData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
-
                 if (!await context.Costs.AnyAsync(x => x.Id == id)) return null;
 
                 var concreteCost = await context.Costs.Where(x => x.Id == id).SingleAsync();
@@ -94,8 +90,6 @@ namespace CostIncomeCalculator.Data.CostData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == periodicCostsDto.Username.ToLower());
-
                 (DateTime, DateTime) dates = datesHelper.GetWeekDateRange(periodicCostsDto.Date);
                 var weeklyCosts = await context.Costs.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
 
@@ -118,8 +112,6 @@ namespace CostIncomeCalculator.Data.CostData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == periodicCostsDto.Username.ToLower());
-
                 (DateTime, DateTime) dates = datesHelper.GetWeekDateRange(periodicCostsDto.Date);
                 var weeklyCostsByCategory = await context.Costs.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date)
                                                                 .Where(x => x.Category.ToLower() == category.ToLower()).ToListAsync();
@@ -142,8 +134,6 @@ namespace CostIncomeCalculator.Data.CostData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == periodicCostsDto.Username.ToLower());
-
                 (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(periodicCostsDto.Date);
                 var monthlyCosts = await context.Costs.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date).ToListAsync();
 
@@ -166,8 +156,6 @@ namespace CostIncomeCalculator.Data.CostData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == periodicCostsDto.Username.ToLower());
-
                 (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(periodicCostsDto.Date);
                 var monthlyCostsByCategory = await context.Costs.Where(x => x.Date >= dates.Item1.Date && x.Date <= dates.Item2.Date)
                                                                 .Where(x => x.Category.ToLower() == category.ToLower()).ToListAsync();

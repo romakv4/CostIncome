@@ -40,8 +40,6 @@ namespace CostIncomeCalculator.Data.LimitData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username.ToLower());
-
                 List<Limit> limits = new List<Limit>();
 
                 limits = await context.Limits.ToListAsync();

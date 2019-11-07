@@ -8,11 +8,12 @@ namespace CostIncomeCalculator.Dtos.UserDtos
     public class UserForLoginDto
     {
         /// <summary>
-        /// Username. Required.
+        /// User email. Required.
         /// </summary>
         /// <value>string</value>
         [Required]
-        public string Username { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
         /// <summary>
         /// Password. Required.
         /// </summary>

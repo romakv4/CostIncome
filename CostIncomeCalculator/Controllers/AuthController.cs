@@ -43,7 +43,7 @@ namespace CostIncomeCalculator.Controllers
         /// 
         ///     POST /api/auth/register
         ///     {
-        ///         "username": "user",
+        ///         "email": "user email",
         ///         "password": "password"    
         ///     }
         /// </remarks>
@@ -58,14 +58,14 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
+                userForRegisterDto.Email = userForRegisterDto.Email.ToLower();
 
-                if (await userHelper.UserExists(userForRegisterDto.Username))
-                    return BadRequest("Username already exists");
+                if (await userHelper.UserExists(userForRegisterDto.Email))
+                    return BadRequest("Email already exists");
 
                 var userToCreate = new User
                 {
-                    Username = userForRegisterDto.Username
+                    Email = userForRegisterDto.Email
                 };
 
                 var createdUser = await repository.Register(userToCreate, userForRegisterDto.Password);
@@ -86,7 +86,7 @@ namespace CostIncomeCalculator.Controllers
         /// 
         ///     POST /api/auth/login
         ///     {
-        ///         "username": "user",
+        ///         "email": "user email",
         ///         "password": "password"    
         ///     }
         /// </remarks>
@@ -103,7 +103,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                var user = await repository.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
+                var user = await repository.Login(userForLoginDto.Email.ToLower(), userForLoginDto.Password);
 
                 if (user == null)
                     return Unauthorized();

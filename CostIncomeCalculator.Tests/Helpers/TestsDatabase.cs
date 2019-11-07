@@ -13,7 +13,7 @@ namespace CostIncomeCalculator.Tests.Helpers
 
             context = new Data.DataContext(localDataContext);
 
-            user = new Models.User {Username="romakv4", PasswordHash="asd"};
+            user = new Models.User {Email="romakv4@example.com", PasswordHash="asd"};
 
             context.Add(user);
             context.SaveChanges();

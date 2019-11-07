@@ -54,17 +54,17 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = HttpContext.User.Identity.Name;
+                string email = HttpContext.User.Identity.Name;
 
                 if (period == null && category == null)
                 {
-                    var costs = await repository.GetAllIncomes(username);
+                    var costs = await repository.GetAllIncomes(email);
                     return Ok(costs);
                 }
                 else if (period != null)
                 {
                     var DTO = new PeriodicIncomesDto {
-                        Username = username,
+                        Email = email,
                         Date = date
                     };
                     if (category == null)
@@ -118,9 +118,9 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string username = HttpContext.User.Identity.Name;
+                string email = HttpContext.User.Identity.Name;
                 
-                var concreteIncome = await repository.GetConcreteIncome(username, id);
+                var concreteIncome = await repository.GetConcreteIncome(email, id);
                 
                 if (concreteIncome == null) return NotFound();
                 

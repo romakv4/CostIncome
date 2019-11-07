@@ -10,11 +10,11 @@ namespace CostIncomeCalculator.Dtos.IncomeDtos
     public class IncomeForEditDto
     {
         /// <summary>
-        /// Username from database. Required.
+        /// User email from database. Required.
         /// </summary>
         /// <value>string</value>
         [Required]
-        public string Username { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Category of income for edit.

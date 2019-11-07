@@ -26,13 +26,13 @@ namespace CostIncomeCalculator.Helpers
         /// <summary>
         /// Checks if the user exists in the database.
         /// </summary>
-        /// <param name="username">string</param>
+        /// <param name="email">string</param>
         /// <returns>True if user exists, else false.</returns>
-        public async Task<bool> UserExists(string username)
+        public async Task<bool> UserExists(string email)
         {
             try
             {
-                return await context.Users.AnyAsync(x => x.Username == username.ToLower());
+                return await context.Users.AnyAsync(x => x.Email == email.ToLower());
             }
             catch
             {

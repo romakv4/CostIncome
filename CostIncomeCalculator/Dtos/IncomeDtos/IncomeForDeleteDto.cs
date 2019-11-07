@@ -9,11 +9,11 @@ namespace CostIncomeCalculator.Dtos.IncomeDtos
     public class IncomeForDeleteDto
     {
         /// <summary>
-        /// Username from database. Required.
+        /// User email from database. Required.
         /// </summary>
         /// <value>int</value>
         [Required]
-        public string Username { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Identificators of rows for delete from database. Required.

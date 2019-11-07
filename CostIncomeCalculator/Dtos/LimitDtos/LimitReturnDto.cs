@@ -10,10 +10,10 @@ namespace CostIncomeCalculator.Dtos.LimitDtos
     public class LimitReturnDto
     {
         /// <summary>
-        /// Username in database.
+        /// User email in database.
         /// </summary>
         /// <value>string</value>
-        public string Username { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Category of limit.

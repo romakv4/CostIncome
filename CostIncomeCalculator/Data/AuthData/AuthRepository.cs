@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using CostIncomeCalculator.Helpers;
 using CostIncomeCalculator.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CostIncomeCalculator.Data.AuthData
@@ -27,12 +28,12 @@ namespace CostIncomeCalculator.Data.AuthData
         /// <summary>
         /// User login method.
         /// </summary>
-        /// <param name="username">Username in database.</param>
+        /// <param name="email">User email in database.</param>
         /// <param name="password">User password.</param>
         /// <returns>If success login <see cref="User" />, else null</returns>
-        public async Task<User> Login(string username, string password)
+        public async Task<User> Login(string email, string password)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
             if (user == null)
             {
                 return null;
@@ -62,6 +63,34 @@ namespace CostIncomeCalculator.Data.AuthData
             await context.SaveChangesAsync();
 
             return user;
+        }
+
+        /// <summary>
+        /// Change password method.
+        /// </summary>
+        /// <param name="email">User email</param>
+        /// <param name="oldPassword">Old user password</param>
+        /// <param name="newPassword">New user password</param>
+        /// <returns>If success change <see cref="User" />, else null</returns>
+        public async Task<User> ChangePassword(string email, string oldPassword, string newPassword)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            if (user == null)
+            {
+                return null;
+            }
+            if (passwordHasher.VerifyPasswordHash(oldPassword, user.PasswordHash))
+            {
+                string passwordHash;
+                passwordHasher.CreatePasswordHash(newPassword, out passwordHash);
+
+                user.PasswordHash = passwordHash;
+
+                await context.Users.AddAsync(user);
+                await context.SaveChangesAsync();
+                return user;
+            }
+            return null;
         }
     }
 }

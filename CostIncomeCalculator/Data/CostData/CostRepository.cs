@@ -178,7 +178,7 @@ namespace CostIncomeCalculator.Data.CostData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == costForSetDto.Username.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == costForSetDto.Email.ToLower());
 
                 var cost = new Cost
                 {
@@ -211,7 +211,7 @@ namespace CostIncomeCalculator.Data.CostData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == costForEditDto.Username.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == costForEditDto.Email.ToLower());
 
                 if (!await context.Costs.AnyAsync(x => x.Id == costId)) return null;
 
@@ -243,7 +243,7 @@ namespace CostIncomeCalculator.Data.CostData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == costForDeleteDto.Username.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == costForDeleteDto.Email.ToLower());
 
                 List<Cost> costs = new List<Cost>();
 

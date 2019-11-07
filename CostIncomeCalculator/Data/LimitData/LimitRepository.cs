@@ -62,7 +62,7 @@ namespace CostIncomeCalculator.Data.LimitData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == limitForSetDto.Username.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == limitForSetDto.Email.ToLower());
 
                 var limit = new Limit
                 {
@@ -95,7 +95,7 @@ namespace CostIncomeCalculator.Data.LimitData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == limitForEditDto.Username.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == limitForEditDto.Email.ToLower());
 
                 if (!await context.Limits.AnyAsync(x => x.Id == limitId)) return null;
 
@@ -127,7 +127,7 @@ namespace CostIncomeCalculator.Data.LimitData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == limitForDeleteDto.Username.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == limitForDeleteDto.Email.ToLower());
 
                 List<Limit> limits = new List<Limit>();
 

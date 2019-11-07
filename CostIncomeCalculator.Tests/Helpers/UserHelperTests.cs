@@ -16,7 +16,7 @@ namespace CostIncomeCalculator.Tests.Helpers
         public async Task UserExistsTest()
         {
             UserHelper helper = new UserHelper(fixture.context);
-            Assert.True(await helper.UserExists(fixture.user.Username));
+            Assert.True(await helper.UserExists(fixture.user.Email));
         }
 
         [Fact]

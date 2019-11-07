@@ -15,11 +15,11 @@ namespace CostIncomeCalculator.Models
         public int Id { get; set; }
         
         /// <summary>
-        /// Required parameter username.
+        /// Required parameter email.
         /// </summary>
         /// <value>string</value>
         [Required]
-        public string Username { get; set; }
+        public string Email { get; set; }
         
         /// <summary>
         /// Auto generated parameter password hash. Required.

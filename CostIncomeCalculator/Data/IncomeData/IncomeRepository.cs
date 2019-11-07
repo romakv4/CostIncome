@@ -170,7 +170,7 @@ namespace CostIncomeCalculator.Data.IncomeData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == incomeForSetDto.Username.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == incomeForSetDto.Email.ToLower());
 
                 var income = new Income
                 {
@@ -203,7 +203,7 @@ namespace CostIncomeCalculator.Data.IncomeData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == incomeForEditDto.Username.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == incomeForEditDto.Email.ToLower());
 
                 if (!await context.Incomes.AnyAsync(x => x.Id == incomeId)) return null;
 
@@ -235,7 +235,7 @@ namespace CostIncomeCalculator.Data.IncomeData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Username == incomeForDeleteDto.Username.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == incomeForDeleteDto.Email.ToLower());
 
                 List<Income> incomes = new List<Income>();
 

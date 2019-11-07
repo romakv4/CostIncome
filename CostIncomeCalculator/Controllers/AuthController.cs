@@ -118,5 +118,47 @@ namespace CostIncomeCalculator.Controllers
                 return StatusCode(500);
             }
         }
+
+        /// <summary>
+        /// User change password endpoint.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/auth/changepassword
+        ///     {
+        ///         "email": "user email",
+        ///         "oldpassword": "old user password",
+        ///         "newpassword": "new user password",
+        ///     }
+        /// </remarks>
+        /// <param name="userForChangePasswordDto">Data for user authorization <see cref="UserForChangePasswordDto" />.</param>
+        /// <returns>Status code of operation.</returns>
+        /// <response code="200">If user successfully changed the password.</response>
+        /// <response code="400">If have error in data.</response>
+        /// <response code="500">If something went wrong.</response>
+        [HttpPost("changepassword")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        public async Task<IActionResult> ChangePassword(UserForChangePasswordDto userForChangePasswordDto)
+        {
+            try
+            {
+                var user = await repository.ChangePassword(
+                    userForChangePasswordDto.Email.ToLower(),
+                    userForChangePasswordDto.OldPassword,
+                    userForChangePasswordDto.NewPassword
+                );
+
+                if (user == null)
+                    return BadRequest();
+
+                return Ok();
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
     }
 }

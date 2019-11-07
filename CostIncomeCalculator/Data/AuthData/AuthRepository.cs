@@ -76,21 +76,22 @@ namespace CostIncomeCalculator.Data.AuthData
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
             if (user == null)
-            {
                 return null;
-            }
-            if (passwordHasher.VerifyPasswordHash(oldPassword, user.PasswordHash))
-            {
-                string passwordHash;
-                passwordHasher.CreatePasswordHash(newPassword, out passwordHash);
 
-                user.PasswordHash = passwordHash;
+            if (oldPassword == newPassword)
+                return null;
 
-                await context.Users.AddAsync(user);
-                await context.SaveChangesAsync();
-                return user;
-            }
-            return null;
+            if (!passwordHasher.VerifyPasswordHash(oldPassword, user.PasswordHash))
+                return null;
+
+            string passwordHash;
+            passwordHasher.CreatePasswordHash(newPassword, out passwordHash);
+
+            user.PasswordHash = passwordHash;
+
+            context.Users.Update(user);
+            await context.SaveChangesAsync();
+            return user;
         }
     }
 }

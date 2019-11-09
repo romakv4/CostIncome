@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using CostIncomeCalculator.Helpers;
 using CostIncomeCalculator.Models;
@@ -91,6 +92,31 @@ namespace CostIncomeCalculator.Data.AuthData
 
             context.Users.Update(user);
             await context.SaveChangesAsync();
+            return user;
+        }
+
+        /// <summary>
+        /// Reset password method.
+        /// </summary>
+        /// <param name="email">User email</param>
+        /// <returns>If success reset <see cref="User" />, else null</returns>
+        public async Task<User> ResetPassword(string email)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            if (user == null)
+                return null;
+            
+            string[] guidParts = Guid.NewGuid().ToString().Split('-');
+            string newPassword = guidParts[guidParts.Length - 1];
+
+            string passwordHash;
+            passwordHasher.CreatePasswordHash(newPassword, out passwordHash);
+
+            user.PasswordHash = passwordHash;
+
+            context.Users.Update(user);
+            await context.SaveChangesAsync();
+
             return user;
         }
     }

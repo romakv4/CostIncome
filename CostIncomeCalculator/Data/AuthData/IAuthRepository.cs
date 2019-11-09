@@ -33,5 +33,12 @@ namespace CostIncomeCalculator.Data.AuthData
         /// <param name="newPassword">New user password</param>
         /// <returns>If success change <see cref="User" />, else null</returns>
         Task<User> ChangePassword(string email, string oldPassword, string newPassword);
+
+        /// <summary>
+        /// Reset password method. See implementation here <see cref="AuthRepository.ResetPassword" />.
+        /// </summary>
+        /// <param name="email">User email</param>
+        /// <returns>If success reset <see cref="User" />, else null</returns>
+        Task<User> ResetPassword(string email);
     }
 }

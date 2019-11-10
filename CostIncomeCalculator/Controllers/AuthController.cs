@@ -160,5 +160,40 @@ namespace CostIncomeCalculator.Controllers
                 return StatusCode(500);
             }
         }
+
+        /// <summary>
+        /// User reset password endpoint.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/auth/resetpassword
+        ///     {
+        ///         "email": "user email"
+        ///     }
+        /// </remarks>
+        /// <param name="email">User email.</param>
+        /// <returns>Status code of operation.</returns>
+        /// <response code="200">If user successfully reset the password.</response>
+        /// <response code="400">If user not exists in database.</response>
+        /// <response code="500">If something went wrong.</response>
+        [HttpPost("resetpassword")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        public async Task<IActionResult> ResetPassword(string email)
+        {
+            try
+            {
+                var user = await repository.ResetPassword(email);
+                if (user == null)
+                    return BadRequest();    
+
+                return Ok();
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
     }
 }

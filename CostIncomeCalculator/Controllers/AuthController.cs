@@ -186,9 +186,7 @@ namespace CostIncomeCalculator.Controllers
             {
                 var user = await repository.ResetPassword(email);
                 if (user == null)
-                    return BadRequest();
-
-                //Mailgun email sending here!
+                    return BadRequest();    
 
                 return Ok();
             }

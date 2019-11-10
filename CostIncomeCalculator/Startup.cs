@@ -57,6 +57,9 @@ namespace CostIncomeCalculator
             services.AddScoped<IIncomeRepository, IncomeRepository>();
             services.AddScoped<ILimitRepository, LimitRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddFluentEmail("noreply@costincome.com", "CostIncome")
+                    .AddMailGunSender(Configuration.GetSection("Mailgun:Domain").Value,
+                                        Configuration.GetSection("Mailgun:APIkey").Value);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters

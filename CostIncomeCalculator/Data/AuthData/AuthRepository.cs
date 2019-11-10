@@ -5,6 +5,7 @@ using CostIncomeCalculator.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FluentEmail.Core;
+using Serilog;
 
 namespace CostIncomeCalculator.Data.AuthData
 {
@@ -16,6 +17,7 @@ namespace CostIncomeCalculator.Data.AuthData
         private readonly DataContext context;
         private readonly IPasswordHasher passwordHasher;
         private readonly IFluentEmail fluentEmail;
+        private readonly ILogger logger;
 
         /// <summary>
         /// AuthRepository constructor.
@@ -23,32 +25,13 @@ namespace CostIncomeCalculator.Data.AuthData
         /// <param name="context"><see cref="DataContext" /></param>
         /// <param name="passwordHasher"><see cref="PasswordHasher" /></param>
         /// <param name="fluentEmail">FluentEmail email sender.</param>
-        public AuthRepository(DataContext context, IPasswordHasher passwordHasher, [FromServices] IFluentEmail fluentEmail)
+        /// <param name="logger">Serilog logger.</param>
+        public AuthRepository(DataContext context, IPasswordHasher passwordHasher, [FromServices] IFluentEmail fluentEmail, ILogger logger)
         {
+            this.logger = logger;
             this.fluentEmail = fluentEmail;
             this.passwordHasher = passwordHasher;
             this.context = context;
-        }
-
-        /// <summary>
-        /// User login method.
-        /// </summary>
-        /// <param name="email">User email in database.</param>
-        /// <param name="password">User password.</param>
-        /// <returns>If success login <see cref="User" />, else null</returns>
-        public async Task<User> Login(string email, string password)
-        {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
-            if (user == null)
-            {
-                return null;
-            }
-
-            if (passwordHasher.VerifyPasswordHash(password, user.PasswordHash))
-            {
-                return user;
-            }
-            return null;
         }
 
         /// <summary>
@@ -59,15 +42,52 @@ namespace CostIncomeCalculator.Data.AuthData
         /// <returns><see cref="User" /></returns>
         public async Task<User> Register(User user, string password)
         {
-            string passwordHash;
-            passwordHasher.CreatePasswordHash(password, out passwordHash);
+            try
+            {
+                string passwordHash;
+                passwordHasher.CreatePasswordHash(password, out passwordHash);
 
-            user.PasswordHash = passwordHash;
+                user.PasswordHash = passwordHash;
 
-            await context.Users.AddAsync(user);
-            await context.SaveChangesAsync();
+                await context.Users.AddAsync(user);
+                await context.SaveChangesAsync();
 
-            return user;
+                return user;
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// User login method.
+        /// </summary>
+        /// <param name="email">User email in database.</param>
+        /// <param name="password">User password.</param>
+        /// <returns>If success login <see cref="User" />, else null</returns>
+        public async Task<User> Login(string email, string password)
+        {
+            try
+            {
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
+                if (user == null)
+                {
+                    return null;
+                }
+
+                if (passwordHasher.VerifyPasswordHash(password, user.PasswordHash))
+                {
+                    return user;
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -79,24 +99,32 @@ namespace CostIncomeCalculator.Data.AuthData
         /// <returns>If success change <see cref="User" />, else null</returns>
         public async Task<User> ChangePassword(string email, string oldPassword, string newPassword)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
-            if (user == null)
-                return null;
+            try
+            {
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
+                if (user == null)
+                    return null;
 
-            if (oldPassword == newPassword)
-                return null;
+                if (oldPassword == newPassword)
+                    return null;
 
-            if (!passwordHasher.VerifyPasswordHash(oldPassword, user.PasswordHash))
-                return null;
+                if (!passwordHasher.VerifyPasswordHash(oldPassword, user.PasswordHash))
+                    return null;
 
-            string passwordHash;
-            passwordHasher.CreatePasswordHash(newPassword, out passwordHash);
+                string passwordHash;
+                passwordHasher.CreatePasswordHash(newPassword, out passwordHash);
 
-            user.PasswordHash = passwordHash;
+                user.PasswordHash = passwordHash;
 
-            context.Users.Update(user);
-            await context.SaveChangesAsync();
-            return user;
+                context.Users.Update(user);
+                await context.SaveChangesAsync();
+                return user;
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -106,30 +134,41 @@ namespace CostIncomeCalculator.Data.AuthData
         /// <returns>If success reset <see cref="User" />, else null</returns>
         public async Task<User> ResetPassword(string email)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
-            if (user == null)
-                return null;
+            try
+            {
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
+                if (user == null)
+                    return null;
 
-            string[] guidParts = Guid.NewGuid().ToString().Split('-');
-            string newPassword = guidParts[guidParts.Length - 1];
+                string[] guidParts = Guid.NewGuid().ToString().Split('-');
+                string newPassword = guidParts[guidParts.Length - 1];
 
-            string passwordHash;
-            passwordHasher.CreatePasswordHash(newPassword, out passwordHash);
+                string passwordHash;
+                passwordHasher.CreatePasswordHash(newPassword, out passwordHash);
 
-            user.PasswordHash = passwordHash;
+                user.PasswordHash = passwordHash;
 
-            context.Users.Update(user);
-            await context.SaveChangesAsync();
+                context.Users.Update(user);
+                await context.SaveChangesAsync();
 
-            await fluentEmail
-                .To(email)
-                .Subject("Reset password on CostIncome")
-                .Body($@"Dear {email}! 
-Your new password is {newPassword}.
-Please, change this autogenerated password as soon as possible!")
-                .SendAsync();
+                var currentDate = DateTime.Now.ToShortDateString();
 
-            return user;
+                await fluentEmail
+                    .To(email)
+                    .Subject($"Reset password on CostIncome {currentDate}")
+                    .Body($@"<p>Dear {email}!</p>
+                        <p>Your new password is <strong>{newPassword}.</strong></p>
+                        <hr/>
+                        <p><strong>Please, change this autogenerated password as soon as possible!</strong></p>", true)
+                    .SendAsync();
+
+                return user;
+            }
+            catch(Exception e)
+            {
+                logger.Error(e.Message);
+                throw;
+            }
         }
     }
 }

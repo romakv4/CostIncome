@@ -4,6 +4,7 @@ using CostIncomeCalculator.Helpers;
 using CostIncomeCalculator.Models;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using CostIncomeCalculator.CustomExceptions;
 
 namespace CostIncomeCalculator.Data.AuthData
 {
@@ -99,14 +100,13 @@ namespace CostIncomeCalculator.Data.AuthData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
-                if (user == null)
-                    return null;
-
                 if (oldPassword == newPassword)
-                    return null;
+                    throw new EqualsPasswordsException("New password must not be equals old password");
 
-                if (!passwordHasher.VerifyPasswordHash(oldPassword, user.PasswordHash))
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
+                
+                if (user == null 
+                    || !passwordHasher.VerifyPasswordHash(oldPassword, user.PasswordHash))
                     return null;
 
                 string passwordHash;

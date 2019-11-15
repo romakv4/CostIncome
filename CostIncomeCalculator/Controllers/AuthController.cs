@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using CostIncomeCalculator.CustomExceptions;
 using CostIncomeCalculator.Data.AuthData;
 using CostIncomeCalculator.Dtos.UserDtos;
 using CostIncomeCalculator.Helpers;
@@ -151,9 +153,13 @@ namespace CostIncomeCalculator.Controllers
                 );
 
                 if (user == null)
-                    return BadRequest();
+                    return Unauthorized();
 
                 return Ok();
+            }
+            catch (EqualsPasswordsException e)
+            {
+                return BadRequest(e.Message);
             }
             catch
             {

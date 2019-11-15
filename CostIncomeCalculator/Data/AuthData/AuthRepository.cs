@@ -100,14 +100,13 @@ namespace CostIncomeCalculator.Data.AuthData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
-                if (user == null)
-                    return null;
-
                 if (oldPassword == newPassword)
                     throw new EqualsPasswordsException("New password must not be equals old password");
 
-                if (!passwordHasher.VerifyPasswordHash(oldPassword, user.PasswordHash))
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
+                
+                if (user == null 
+                    || !passwordHasher.VerifyPasswordHash(oldPassword, user.PasswordHash))
                     return null;
 
                 string passwordHash;

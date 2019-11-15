@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FluentEmail.Core;
 using Serilog;
+using CostIncomeCalculator.CustomExceptions;
 
 namespace CostIncomeCalculator.Data.AuthData
 {
@@ -106,7 +107,7 @@ namespace CostIncomeCalculator.Data.AuthData
                     return null;
 
                 if (oldPassword == newPassword)
-                    return null;
+                    throw new EqualsPasswordsException("New password must not be equals old password");
 
                 if (!passwordHasher.VerifyPasswordHash(oldPassword, user.PasswordHash))
                     return null;

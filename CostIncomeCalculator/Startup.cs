@@ -52,6 +52,7 @@ namespace CostIncomeCalculator
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IDatesHelper, DatesHelper>();
             services.AddScoped<ITokenHelper, TokenHelper>();
+            services.AddScoped<IEmailHelper, EmailHelper>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<ICostRepository, CostRepository>();
             services.AddScoped<IIncomeRepository, IncomeRepository>();

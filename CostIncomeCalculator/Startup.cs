@@ -23,6 +23,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.OpenApi.Models;
 
 namespace CostIncomeCalculator
 {
@@ -88,22 +89,36 @@ namespace CostIncomeCalculator
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 
                 var filePath = Path.Combine(System.AppContext.BaseDirectory, "CostIncomeCalculator.xml");
                 c.IncludeXmlComments(filePath);
 
-                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
-                {
-                    { "Bearer", new string[] { } }
-                });
-
-                c.AddSecurityDefinition("Bearer", new ApiKeyScheme()
+                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
                     Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
                     Name = "Authorization",
-                    In = "header",
-                    Type = "apiKey"
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Name = "Bearer",
+                            In = ParameterLocation.Header
+                        },
+                        new List<string>()
+                    }
                 });
             });
         }

@@ -6,6 +6,8 @@ using CostIncomeCalculator.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace CostIncomeCalculator.Controllers
 {
@@ -50,6 +52,9 @@ namespace CostIncomeCalculator.Controllers
         /// <response code="401">If user unauthorized.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<LimitReturnDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllLimits()
         {
             try
@@ -72,9 +77,14 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="limitForSetDto"><see cref="LimitForSetDto" /></param>
         /// <returns>Operation status code.</returns>
         /// <response code="201">If successfully created limit.</response>
+        /// <response code="400">If provided data for limit is not valid.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpPost("set")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> SetLimit(LimitForSetDto limitForSetDto)
         {
             try
@@ -101,6 +111,11 @@ namespace CostIncomeCalculator.Controllers
         /// <response code="404">If limit for edit not found by specified id.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpPut("edit/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> EditLimit(int id, LimitForEditDto limitForEditDto)
         {
             try
@@ -129,10 +144,16 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="limitForDeleteDto"><see cref="LimitForDeleteDto" /></param>
         /// <returns>Operation status code.</returns>
         /// <response code="204">If successfully deleted limit.</response>
+        /// <response code="400">If user don't specified at least one id for delete.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="404">If limit(s) for delete not found by specified id.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpDelete("delete")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteLimits(LimitForDeleteDto limitForDeleteDto)
         {
             try

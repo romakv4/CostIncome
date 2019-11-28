@@ -1,12 +1,15 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using CostIncomeCalculator.CustomExceptions;
 using CostIncomeCalculator.Data.AuthData;
 using CostIncomeCalculator.Dtos.UserDtos;
 using CostIncomeCalculator.Helpers;
 using CostIncomeCalculator.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CostIncomeCalculator.Controllers
 {
@@ -56,6 +59,9 @@ namespace CostIncomeCalculator.Controllers
         /// <response code="500">If something went wrong.</response>
         [HttpPost("register")]
         [Consumes("application/json")]
+        [ProducesResponseType(typeof(void), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
             try
@@ -101,6 +107,10 @@ namespace CostIncomeCalculator.Controllers
         [HttpPost("login")]
         [Consumes("application/json")]
         [Produces("application/json")]
+        [ProducesResponseType(typeof(JwtSecurityTokenHandler), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
             try
@@ -142,6 +152,9 @@ namespace CostIncomeCalculator.Controllers
         [HttpPost("changepassword")]
         [Consumes("application/json")]
         [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ChangePassword(UserForChangePasswordDto userForChangePasswordDto)
         {
             try
@@ -186,6 +199,9 @@ namespace CostIncomeCalculator.Controllers
         [HttpPost("resetpassword")]
         [Consumes("application/json")]
         [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ResetPassword(string email)
         {
             try

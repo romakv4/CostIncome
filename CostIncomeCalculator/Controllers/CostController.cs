@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CostIncomeCalculator.Data.CostData;
 using CostIncomeCalculator.Dtos.CostDtos;
@@ -50,7 +51,15 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="category">May be null or any category of costs defined by user.</param>
         /// <param name="date">Date for periodic request.</param>
         /// <returns><see cref="CostReturnDto" /></returns>
+        /// <response code="200">Array with all user costs by provided parameters.</response>
+        /// <response code="400">If provided parameters are wrong.</response>
+        /// <response code="401">If user unathorized.</response>
+        /// <response code="500">If something went wrong.</response>
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<CostReturnDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCosts([FromQuery] string period, string category, DateTime date)
         {
             try
@@ -113,8 +122,13 @@ namespace CostIncomeCalculator.Controllers
         /// <returns><see cref="CostReturnDto" /></returns>
         /// <response code="200">With concrete cost payload.</response>
         /// <response code="401">If user unauthorized.</response>
+        /// <response code="404">If concrete cost not found in database.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(CostReturnDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetConcreteCost(int id)
         {
             try
@@ -139,9 +153,14 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="costForSetDto"><see cref="CostForSetDto" /></param>
         /// <returns>Operation status code.</returns>
         /// <response code="201">If successfully created cost.</response>
+        /// <response code="400">If provided data for cost is not valid.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpPost("set")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> SetCost(CostForSetDto costForSetDto)
         {
             try
@@ -168,6 +187,11 @@ namespace CostIncomeCalculator.Controllers
         /// <response code="404">If cost for edit not found by specified id.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpPut("edit/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> EditCost(int id, CostForEditDto costForEditDto)
         {
             try
@@ -196,10 +220,16 @@ namespace CostIncomeCalculator.Controllers
         /// <param name="costForDeleteDto"><see cref="CostForDeleteDto" /></param>
         /// <returns>Operation status code.</returns>
         /// <response code="204">If successfully deleted cost.</response>
+        /// <response code="400">If user don't specified at least one id for delete.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="404">If cost(s) for delete not found by specified id.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpDelete("delete")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteCosts(CostForDeleteDto costForDeleteDto)
         {
             try

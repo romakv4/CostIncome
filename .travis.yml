@@ -2,5 +2,11 @@ language: csharp
 mono: none
 dotnet: 2.2.401
 solution: CostIncome.sln
-script:
-  - dotnet build ./CostIncomeCalculator/CostIncomeCalculator.csproj
+jobs:
+  include:
+    stage: test
+    script: 
+      - dotnet test
+    stage: build
+    script:
+      - dotnet build ./CostIncomeCalculator/CostIncomeCalculator.csproj

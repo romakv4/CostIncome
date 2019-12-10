@@ -59,23 +59,26 @@ namespace CostIncomeCalculator.Data.CostData
         /// <summary>
         /// Set cost method. See implementation here <see cref="CostRepository.SetCost" />.
         /// </summary>
+        /// <param name="email">User email from JWT</param>
         /// <param name="costForSetDto"><see cref="CostForSetDto" /></param>
         /// <returns><see cref="Cost" /></returns>
-        Task<Cost> SetCost(CostForSetDto costForSetDto);
+        Task<Cost> SetCost(string email, CostForSetDto costForSetDto);
         
         /// <summary>
         /// Edit cost method. See implementation here <see cref="CostRepository.EditCost" />.
         /// </summary>
+        /// <param name="email">User email from JWT.</param>
         /// <param name="costId">Identifier of cost in database.</param>
         /// <param name="costForEditDto"><see cref="CostForEditDto" /></param>
         /// <returns>Edited <see cref="Cost" /> object.</returns>
-        Task<Cost> EditCost(int costId, CostForEditDto costForEditDto);
+        Task<Cost> EditCost(string email, int costId, CostForEditDto costForEditDto);
         
         /// <summary>
         /// Delete cost(s) method. See implementation here <see cref="CostRepository.DeleteCosts" />.
         /// </summary>
+        /// <param name="email">User email from JWT.</param>
         /// <param name="costForDeleteDto"><see cref="CostForDeleteDto" /></param>
         /// <returns>List of <see cref="Cost" /></returns>
-        Task<List<Cost>> DeleteCosts(CostForDeleteDto costForDeleteDto);
+        Task<List<Cost>> DeleteCosts(string email, CostForDeleteDto costForDeleteDto);
     }
 }

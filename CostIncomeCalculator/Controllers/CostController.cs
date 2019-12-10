@@ -164,8 +164,10 @@ namespace CostIncomeCalculator.Controllers
         public async Task<IActionResult> SetCost(CostForSetDto costForSetDto)
         {
             try
-            {
-                var settedCost = await repository.SetCost(costForSetDto);
+            {   
+                var email = HttpContext.User.Identity.Name;
+
+                var settedCost = await repository.SetCost(email, costForSetDto);
 
                 return StatusCode(201);
             }
@@ -202,7 +204,9 @@ namespace CostIncomeCalculator.Controllers
                     costForEditDto.Date == DateTime.MinValue)
                     return BadRequest("Required at least one for edit cost");
 
-                var editedCost = await repository.EditCost(id, costForEditDto);
+                var email = HttpContext.User.Identity.Name;
+
+                var editedCost = await repository.EditCost(email, id, costForEditDto);
 
                 if (editedCost == null) return NotFound();
 
@@ -234,7 +238,9 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                var deletedCosts = await repository.DeleteCosts(costForDeleteDto);
+                var email = HttpContext.User.Identity.Name;
+
+                var deletedCosts = await repository.DeleteCosts(email, costForDeleteDto);
 
                 if (deletedCosts == null) return NotFound();
 

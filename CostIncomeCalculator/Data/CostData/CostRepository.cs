@@ -172,13 +172,14 @@ namespace CostIncomeCalculator.Data.CostData
         /// <summary>
         /// Set cost method.
         /// </summary>
+        /// <param name="email">User email</param>
         /// <param name="costForSetDto"><see cref="CostForSetDto" /></param>
         /// <returns><see cref="Cost" /></returns>
-        public async Task<Cost> SetCost(CostForSetDto costForSetDto)
+        public async Task<Cost> SetCost(string email, CostForSetDto costForSetDto)
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == costForSetDto.Email.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email.ToLower());
 
                 var cost = new Cost
                 {
@@ -204,14 +205,15 @@ namespace CostIncomeCalculator.Data.CostData
         /// <summary>
         /// Edit cost method.
         /// </summary>
+        /// <param name="email">User email</param>
         /// <param name="costId">Identifier of cost in database.</param>
         /// <param name="costForEditDto"><see cref="CostForEditDto" /></param>
         /// <returns>Edited <see cref="Cost" /> object.</returns>
-        public async Task<Cost> EditCost(int costId, CostForEditDto costForEditDto)
+        public async Task<Cost> EditCost(string email, int costId, CostForEditDto costForEditDto)
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == costForEditDto.Email.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email.ToLower());
 
                 if (!await context.Costs.AnyAsync(x => x.Id == costId)) return null;
 
@@ -237,13 +239,14 @@ namespace CostIncomeCalculator.Data.CostData
         /// <summary>
         /// Delete cost(s) method.
         /// </summary>
+        /// <param name="email">User email</param>
         /// <param name="costForDeleteDto"><see cref="CostForDeleteDto" /></param>
         /// <returns>List of <see cref="Cost" /></returns>
-        public async Task<List<Cost>> DeleteCosts(CostForDeleteDto costForDeleteDto)
+        public async Task<List<Cost>> DeleteCosts(string email, CostForDeleteDto costForDeleteDto)
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == costForDeleteDto.Email.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email.ToLower());
 
                 List<Cost> costs = new List<Cost>();
 

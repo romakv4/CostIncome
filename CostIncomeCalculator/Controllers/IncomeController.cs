@@ -73,19 +73,15 @@ namespace CostIncomeCalculator.Controllers
                 }
                 else if (period != null)
                 {
-                    var DTO = new PeriodicIncomesDto {
-                        Email = email,
-                        Date = date
-                    };
                     if (category == null)
                     {   
                         if (period == "weekly") {
-                            var costs = await repository.GetWeeklyIncomes(DTO);
+                            var costs = await repository.GetWeeklyIncomes(email, date);
                             return Ok(costs);
                         }
                         else if (period == "monthly")
                         {
-                            var costs = await repository.GetMonthlyIncomes(DTO);
+                            var costs = await repository.GetMonthlyIncomes(email, date);
                             return Ok(costs);
                         }
                         return BadRequest();
@@ -93,12 +89,12 @@ namespace CostIncomeCalculator.Controllers
                     else
                     {
                         if (period == "weekly") {
-                            var costs = await repository.GetWeeklyIncomesByCategory(DTO, category);
+                            var costs = await repository.GetWeeklyIncomesByCategory(email, date, category);
                             return Ok(costs);
                         }
                         else if (period == "monthly")
                         {
-                            var costs = await repository.GetMonthlyIncomesByCategory(DTO, category);
+                            var costs = await repository.GetMonthlyIncomesByCategory(email, date, category);
                             return Ok(costs);
                         }
                         return BadRequest();

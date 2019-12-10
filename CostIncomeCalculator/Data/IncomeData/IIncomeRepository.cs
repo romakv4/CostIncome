@@ -29,32 +29,36 @@ namespace CostIncomeCalculator.Data.IncomeData
         /// <summary>
         /// Get weekly incomes. See implementation here <see cref="IncomeRepository.GetWeeklyIncomes" />.
         /// </summary>
-        /// <param name="periodicIncomesDto"><see cref="PeriodicIncomesDto" /></param>
+        /// <param name="email">User email</param>
+        /// <param name="date">Date of the week</param>
         /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
-        Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomes(PeriodicIncomesDto periodicIncomesDto);
+        Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomes(string email, DateTime date);
 
         /// <summary>
         /// Get weekly incomes by category. See implementation here <see cref="IncomeRepository.GetWeeklyIncomesByCategory" />.
         /// </summary>
-        /// <param name="periodicIncomesDto"><see cref="PeriodicIncomesDto" /></param>
+        /// <param name="email">User email</param>
+        /// <param name="date">Date of the week</param>
         /// <param name="category">Category to get incomes.</param>
         /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
-        Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomesByCategory(PeriodicIncomesDto periodicIncomesDto, string category);
+        Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomesByCategory(string email, DateTime date, string category);
 
         /// <summary>
         /// Get monthly incomes. See implementation here <see cref="IncomeRepository.GetMonthlyIncomes" />.
         /// </summary>
-        /// <param name="periodicIncomesDto"><see cref="PeriodicIncomesDto" /></param>
+        /// <param name="email">User email</param>
+        /// <param name="date">Date of the week</param>
         /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
-        Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomes(PeriodicIncomesDto periodicIncomesDto);
+        Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomes(string email, DateTime date);
 
         /// <summary>
         /// Get monthly incomes by category. See implementation here <see cref="IncomeRepository.GetMonthlyIncomesByCategory" />.
         /// </summary>
-        /// <param name="periodicIncomesDto"><see cref="PeriodicIncomesDto" /></param>
+        /// <param name="email">User email</param>
+        /// <param name="date">Date of the week</param>
         /// <param name="category">Category to get incomes.</param>
         /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
-        Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomesByCategory(PeriodicIncomesDto periodicIncomesDto, string category);
+        Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomesByCategory(string email, DateTime date, string category);
 
         /// <summary>
         /// Set income method. See implementation here <see cref="IncomeRepository.SetIncome" />.

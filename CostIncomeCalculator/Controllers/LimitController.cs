@@ -89,7 +89,9 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                var settedLimit = await repository.SetLimit(limitForSetDto);
+                string email = HttpContext.User.Identity.Name;
+
+                var settedLimit = await repository.SetLimit(email, limitForSetDto);
 
                 return StatusCode(201);
             }
@@ -126,7 +128,9 @@ namespace CostIncomeCalculator.Controllers
                     limitForEditDto.To == DateTime.MinValue)
                     return BadRequest("Required at least one value for edit limit");
                 
-                var editedLimit = await repository.EditLimit(id, limitForEditDto);
+                string email = HttpContext.User.Identity.Name;
+
+                var editedLimit = await repository.EditLimit(email, id, limitForEditDto);
 
                 if (editedLimit == null) return NotFound();
 
@@ -158,7 +162,9 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                var deletedLimits = await repository.DeleteLimits(limitForDeleteDto);
+                string email = HttpContext.User.Identity.Name;
+
+                var deletedLimits = await repository.DeleteLimits(email, limitForDeleteDto);
 
                 if (deletedLimits == null) return NotFound();
 

@@ -73,19 +73,15 @@ namespace CostIncomeCalculator.Controllers
                 }
                 else if (period != null)
                 {
-                    var DTO = new PeriodicIncomesDto {
-                        Email = email,
-                        Date = date
-                    };
                     if (category == null)
                     {   
                         if (period == "weekly") {
-                            var costs = await repository.GetWeeklyIncomes(DTO);
+                            var costs = await repository.GetWeeklyIncomes(email, date);
                             return Ok(costs);
                         }
                         else if (period == "monthly")
                         {
-                            var costs = await repository.GetMonthlyIncomes(DTO);
+                            var costs = await repository.GetMonthlyIncomes(email, date);
                             return Ok(costs);
                         }
                         return BadRequest();
@@ -93,12 +89,12 @@ namespace CostIncomeCalculator.Controllers
                     else
                     {
                         if (period == "weekly") {
-                            var costs = await repository.GetWeeklyIncomesByCategory(DTO, category);
+                            var costs = await repository.GetWeeklyIncomesByCategory(email, date, category);
                             return Ok(costs);
                         }
                         else if (period == "monthly")
                         {
-                            var costs = await repository.GetMonthlyIncomesByCategory(DTO, category);
+                            var costs = await repository.GetMonthlyIncomesByCategory(email, date, category);
                             return Ok(costs);
                         }
                         return BadRequest();
@@ -165,7 +161,9 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                var settedIncome = await repository.SetIncome(incomeForSetDto);
+                string email = HttpContext.User.Identity.Name;
+
+                var settedIncome = await repository.SetIncome(email, incomeForSetDto);
                 
                 return StatusCode(201);
             }
@@ -201,8 +199,10 @@ namespace CostIncomeCalculator.Controllers
                     incomeForEditDto.Price == decimal.MinValue &&
                     incomeForEditDto.Date == DateTime.MinValue)
                     return BadRequest("Required at least one value for edit cost");
+
+                string email = HttpContext.User.Identity.Name;
                 
-                var editedIncome = await repository.EditIncome(id, incomeForEditDto);
+                var editedIncome = await repository.EditIncome(email, id, incomeForEditDto);
 
                 if (editedIncome == null) return NotFound();
 
@@ -234,7 +234,9 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                var deletedIncomes = await repository.DeleteIncomes(incomeForDeleteDto);
+                string email = HttpContext.User.Identity.Name;
+
+                var deletedIncomes = await repository.DeleteIncomes(email, incomeForDeleteDto);
 
                 if (deletedIncomes == null) return NotFound();
 

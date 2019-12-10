@@ -56,13 +56,14 @@ namespace CostIncomeCalculator.Data.LimitData
         /// <summary>
         /// Set limit to database.
         /// </summary>
+        /// <param name="email">User email</param>
         /// <param name="limitForSetDto">Limit object for set <see cref="LimitForSetDto" /></param>
         /// <returns>If success return created limit object, else throw exception.</returns>
-        public async Task<Limit> SetLimit(LimitForSetDto limitForSetDto)
+        public async Task<Limit> SetLimit(string email, LimitForSetDto limitForSetDto)
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == limitForSetDto.Email.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email.ToLower());
 
                 var limit = new Limit
                 {
@@ -88,14 +89,15 @@ namespace CostIncomeCalculator.Data.LimitData
         /// <summary>
         /// Edit limit by id in database.
         /// </summary>
+        /// <param name="email">User email</param>
         /// <param name="limitId">Identifier of limit in database.</param>
         /// <param name="limitForEditDto">Limit object for edit <see cref="LimitForEditDto" /></param>
         /// <returns>If success return updated limit object, else throw exception.</returns>
-        public async Task<Limit> EditLimit(int limitId, LimitForEditDto limitForEditDto)
+        public async Task<Limit> EditLimit(string email, int limitId, LimitForEditDto limitForEditDto)
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == limitForEditDto.Email.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email.ToLower());
 
                 if (!await context.Limits.AnyAsync(x => x.Id == limitId)) return null;
 
@@ -121,13 +123,14 @@ namespace CostIncomeCalculator.Data.LimitData
         /// <summary>
         /// Delete limits from database by ids.
         /// </summary>
+        /// <param name="email">User email</param>
         /// <param name="limitForDeleteDto">Limit object for delete <see cref="LimitForDeleteDto" /></param>
         /// <returns>If success return deleted limits, else throw exception.</returns>
-        public async Task<List<Limit>> DeleteLimits(LimitForDeleteDto limitForDeleteDto)
+        public async Task<List<Limit>> DeleteLimits(string email, LimitForDeleteDto limitForDeleteDto)
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == limitForDeleteDto.Email.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email.ToLower());
 
                 List<Limit> limits = new List<Limit>();
 

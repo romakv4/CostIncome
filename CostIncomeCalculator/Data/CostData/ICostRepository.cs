@@ -29,53 +29,60 @@ namespace CostIncomeCalculator.Data.CostData
         /// <summary>
         /// Get weekly costs. See implementation here <see cref="CostRepository.GetWeeklyCosts" />.
         /// </summary>
-        /// <param name="periodicCostsDto"><see cref="PeriodicCostsDto" /></param>
+        /// <param name="email">User email</param>
+        /// <param name="date">Date of the week</param>
         /// <returns>Array of <see cref="CostReturnDto" /></returns>
-        Task<IEnumerable<CostReturnDto>> GetWeeklyCosts(PeriodicCostsDto periodicCostsDto);
+        Task<IEnumerable<CostReturnDto>> GetWeeklyCosts(string email, DateTime date);
 
         /// <summary>
         /// Get weekly costs by category. See implementation here <see cref="CostRepository.GetWeeklyCostsByCategory" />.
         /// </summary>
-        /// <param name="periodicCostsDto"><see cref="PeriodicCostsDto" /></param>
+        /// <param name="email">User email</param>
+        /// <param name="date">Date of the week</param>
         /// <param name="category">Category to get costs.</param>
         /// <returns>Array of <see cref="CostReturnDto" /></returns>
-        Task<IEnumerable<CostReturnDto>> GetWeeklyCostsByCategory(PeriodicCostsDto periodicCostsDto, string category);
+        Task<IEnumerable<CostReturnDto>> GetWeeklyCostsByCategory(string email, DateTime date, string category);
 
         /// <summary>
         /// Get monthly costs. See implementation here <see cref="CostRepository.GetMonthlyCosts" />.
         /// </summary>
-        /// <param name="periodicCostsDto"><see cref="PeriodicCostsDto" /></param>
+        /// <param name="email">User email</param>
+        /// <param name="date">Date of the month</param>
         /// <returns>Array of <see cref="CostReturnDto" /></returns>
-        Task<IEnumerable<CostReturnDto>> GetMonthlyCosts(PeriodicCostsDto periodicCostsDto);
+        Task<IEnumerable<CostReturnDto>> GetMonthlyCosts(string email, DateTime date);
 
         /// <summary>
         /// Get monthly costs by category. See implementation here <see cref="CostRepository.GetMonthlyCostsByCategory" />.
         /// </summary>
-        /// <param name="periodicCostsDto"><see cref="PeriodicCostsDto" /></param>
+        /// <param name="email">User email</param>
+        /// <param name="date">Date of the week</param>
         /// <param name="category">Category to get costs.</param>
         /// <returns>Array of <see cref="CostReturnDto" /></returns>
-        Task<IEnumerable<CostReturnDto>> GetMonthlyCostsByCategory(PeriodicCostsDto periodicCostsDto, string category);
+        Task<IEnumerable<CostReturnDto>> GetMonthlyCostsByCategory(string email, DateTime date, string category);
         
         /// <summary>
         /// Set cost method. See implementation here <see cref="CostRepository.SetCost" />.
         /// </summary>
+        /// <param name="email">User email from JWT</param>
         /// <param name="costForSetDto"><see cref="CostForSetDto" /></param>
         /// <returns><see cref="Cost" /></returns>
-        Task<Cost> SetCost(CostForSetDto costForSetDto);
+        Task<Cost> SetCost(string email, CostForSetDto costForSetDto);
         
         /// <summary>
         /// Edit cost method. See implementation here <see cref="CostRepository.EditCost" />.
         /// </summary>
+        /// <param name="email">User email from JWT.</param>
         /// <param name="costId">Identifier of cost in database.</param>
         /// <param name="costForEditDto"><see cref="CostForEditDto" /></param>
         /// <returns>Edited <see cref="Cost" /> object.</returns>
-        Task<Cost> EditCost(int costId, CostForEditDto costForEditDto);
+        Task<Cost> EditCost(string email, int costId, CostForEditDto costForEditDto);
         
         /// <summary>
         /// Delete cost(s) method. See implementation here <see cref="CostRepository.DeleteCosts" />.
         /// </summary>
+        /// <param name="email">User email from JWT.</param>
         /// <param name="costForDeleteDto"><see cref="CostForDeleteDto" /></param>
         /// <returns>List of <see cref="Cost" /></returns>
-        Task<List<Cost>> DeleteCosts(CostForDeleteDto costForDeleteDto);
+        Task<List<Cost>> DeleteCosts(string email, CostForDeleteDto costForDeleteDto);
     }
 }

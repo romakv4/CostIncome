@@ -9,13 +9,6 @@ namespace CostIncomeCalculator.Dtos.LimitDtos
     public class LimitForEditDto
     {
         /// <summary>
-        /// User email from database. Required.
-        /// </summary>
-        /// <value>string</value>
-        [Required]
-        public string Email { get; set; }
-
-        /// <summary>
         /// Category of limit for edit.
         /// </summary>
         /// <value>string</value>

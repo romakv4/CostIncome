@@ -29,53 +29,60 @@ namespace CostIncomeCalculator.Data.IncomeData
         /// <summary>
         /// Get weekly incomes. See implementation here <see cref="IncomeRepository.GetWeeklyIncomes" />.
         /// </summary>
-        /// <param name="periodicIncomesDto"><see cref="PeriodicIncomesDto" /></param>
+        /// <param name="email">User email</param>
+        /// <param name="date">Date of the week</param>
         /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
-        Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomes(PeriodicIncomesDto periodicIncomesDto);
+        Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomes(string email, DateTime date);
 
         /// <summary>
         /// Get weekly incomes by category. See implementation here <see cref="IncomeRepository.GetWeeklyIncomesByCategory" />.
         /// </summary>
-        /// <param name="periodicIncomesDto"><see cref="PeriodicIncomesDto" /></param>
+        /// <param name="email">User email</param>
+        /// <param name="date">Date of the week</param>
         /// <param name="category">Category to get incomes.</param>
         /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
-        Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomesByCategory(PeriodicIncomesDto periodicIncomesDto, string category);
+        Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomesByCategory(string email, DateTime date, string category);
 
         /// <summary>
         /// Get monthly incomes. See implementation here <see cref="IncomeRepository.GetMonthlyIncomes" />.
         /// </summary>
-        /// <param name="periodicIncomesDto"><see cref="PeriodicIncomesDto" /></param>
+        /// <param name="email">User email</param>
+        /// <param name="date">Date of the week</param>
         /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
-        Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomes(PeriodicIncomesDto periodicIncomesDto);
+        Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomes(string email, DateTime date);
 
         /// <summary>
         /// Get monthly incomes by category. See implementation here <see cref="IncomeRepository.GetMonthlyIncomesByCategory" />.
         /// </summary>
-        /// <param name="periodicIncomesDto"><see cref="PeriodicIncomesDto" /></param>
+        /// <param name="email">User email</param>
+        /// <param name="date">Date of the week</param>
         /// <param name="category">Category to get incomes.</param>
         /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
-        Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomesByCategory(PeriodicIncomesDto periodicIncomesDto, string category);
+        Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomesByCategory(string email, DateTime date, string category);
 
         /// <summary>
         /// Set income method. See implementation here <see cref="IncomeRepository.SetIncome" />.
         /// </summary>
+        /// <param name="email">User email from JWT.</param>
         /// <param name="incomeForSetDto"><see cref="IncomeForSetDto" /></param>
         /// <returns><see cref="Income" /></returns>
-        Task<Income> SetIncome(IncomeForSetDto incomeForSetDto);
+        Task<Income> SetIncome(string email, IncomeForSetDto incomeForSetDto);
 
         /// <summary>
         /// Edit income method. See implementation here <see cref="IncomeRepository.EditIncome" />.
         /// </summary>
+        /// <param name="email">User email</param>
         /// <param name="incomeId">Identifier of income in database.</param>
         /// <param name="incomeForEditDto"><see cref="IncomeForEditDto" /></param>
         /// <returns>Edited <see cref="Income" /> object.</returns>
-        Task<Income> EditIncome(int incomeId, IncomeForEditDto incomeForEditDto);
+        Task<Income> EditIncome(string email, int incomeId, IncomeForEditDto incomeForEditDto);
 
         /// <summary>
         /// Delete income(s) method. See implementation here <see cref="IncomeRepository.DeleteIncomes" />.
         /// </summary>
+        /// <param name="email">User email</param>
         /// <param name="incomeForDeleteDto"><see cref="IncomeForDeleteDto" /></param>
         /// <returns>List of <see cref="Income" /></returns>
-        Task<List<Income>> DeleteIncomes(IncomeForDeleteDto incomeForDeleteDto);
+        Task<List<Income>> DeleteIncomes(string email, IncomeForDeleteDto incomeForDeleteDto);
     }
 }

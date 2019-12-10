@@ -80,7 +80,7 @@ namespace CostIncomeCalculator.Controllers
         /// <response code="400">If provided data for limit is not valid.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="500">If something went wrong.</response>
-        [HttpPost("set")]
+        [HttpPost()]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -110,7 +110,7 @@ namespace CostIncomeCalculator.Controllers
         /// <response code="401">If user unauthorized.</response>
         /// <response code="404">If limit for edit not found by specified id.</response>
         /// <response code="500">If something went wrong.</response>
-        [HttpPut("edit/{id}")]
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -148,7 +148,7 @@ namespace CostIncomeCalculator.Controllers
         /// <response code="401">If user unauthorized.</response>
         /// <response code="404">If limit(s) for delete not found by specified id.</response>
         /// <response code="500">If something went wrong.</response>
-        [HttpDelete("delete")]
+        [HttpDelete()]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

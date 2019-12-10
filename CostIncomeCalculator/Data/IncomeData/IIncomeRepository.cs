@@ -59,23 +59,26 @@ namespace CostIncomeCalculator.Data.IncomeData
         /// <summary>
         /// Set income method. See implementation here <see cref="IncomeRepository.SetIncome" />.
         /// </summary>
+        /// <param name="email">User email from JWT.</param>
         /// <param name="incomeForSetDto"><see cref="IncomeForSetDto" /></param>
         /// <returns><see cref="Income" /></returns>
-        Task<Income> SetIncome(IncomeForSetDto incomeForSetDto);
+        Task<Income> SetIncome(string email, IncomeForSetDto incomeForSetDto);
 
         /// <summary>
         /// Edit income method. See implementation here <see cref="IncomeRepository.EditIncome" />.
         /// </summary>
+        /// <param name="email">User email</param>
         /// <param name="incomeId">Identifier of income in database.</param>
         /// <param name="incomeForEditDto"><see cref="IncomeForEditDto" /></param>
         /// <returns>Edited <see cref="Income" /> object.</returns>
-        Task<Income> EditIncome(int incomeId, IncomeForEditDto incomeForEditDto);
+        Task<Income> EditIncome(string email, int incomeId, IncomeForEditDto incomeForEditDto);
 
         /// <summary>
         /// Delete income(s) method. See implementation here <see cref="IncomeRepository.DeleteIncomes" />.
         /// </summary>
+        /// <param name="email">User email</param>
         /// <param name="incomeForDeleteDto"><see cref="IncomeForDeleteDto" /></param>
         /// <returns>List of <see cref="Income" /></returns>
-        Task<List<Income>> DeleteIncomes(IncomeForDeleteDto incomeForDeleteDto);
+        Task<List<Income>> DeleteIncomes(string email, IncomeForDeleteDto incomeForDeleteDto);
     }
 }

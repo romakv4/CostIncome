@@ -8,13 +8,6 @@ namespace CostIncomeCalculator.Dtos.LimitDtos
     public class LimitForDeleteDto
     {
         /// <summary>
-        /// User email from database. Required.
-        /// </summary>
-        /// <value>string</value>
-        [Required]
-        public string Email { get; set; }
-
-        /// <summary>
         /// Identificators of rows for delete from database. Required.
         /// </summary>
         /// <value>int array</value>

@@ -165,7 +165,9 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                var settedIncome = await repository.SetIncome(incomeForSetDto);
+                string email = HttpContext.User.Identity.Name;
+
+                var settedIncome = await repository.SetIncome(email, incomeForSetDto);
                 
                 return StatusCode(201);
             }
@@ -201,8 +203,10 @@ namespace CostIncomeCalculator.Controllers
                     incomeForEditDto.Price == decimal.MinValue &&
                     incomeForEditDto.Date == DateTime.MinValue)
                     return BadRequest("Required at least one value for edit cost");
+
+                string email = HttpContext.User.Identity.Name;
                 
-                var editedIncome = await repository.EditIncome(id, incomeForEditDto);
+                var editedIncome = await repository.EditIncome(email, id, incomeForEditDto);
 
                 if (editedIncome == null) return NotFound();
 
@@ -234,7 +238,9 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                var deletedIncomes = await repository.DeleteIncomes(incomeForDeleteDto);
+                string email = HttpContext.User.Identity.Name;
+
+                var deletedIncomes = await repository.DeleteIncomes(email, incomeForDeleteDto);
 
                 if (deletedIncomes == null) return NotFound();
 

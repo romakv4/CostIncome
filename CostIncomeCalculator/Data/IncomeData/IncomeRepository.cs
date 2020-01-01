@@ -235,11 +235,9 @@ namespace CostIncomeCalculator.Data.IncomeData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email.ToLower());
-
                 if (!await context.Incomes.AnyAsync(x => x.Id == incomeId)) return null;
 
-                var currentIncome = await context.Incomes.FirstOrDefaultAsync(x => x.Id == incomeId && x.UserId == user.Id);
+                var currentIncome = await context.Incomes.FirstOrDefaultAsync(x => x.Id == incomeId && x.user.Email == email);
 
                 currentIncome.Category = incomeForEditDto.Category ?? currentIncome.Category;
                 currentIncome.Description = incomeForEditDto.Description ?? currentIncome.Description;
@@ -268,13 +266,11 @@ namespace CostIncomeCalculator.Data.IncomeData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email.ToLower());
-
                 List<Income> incomes = new List<Income>();
 
                 foreach (var incomeId in incomeForDeleteDto.Ids)
                 {
-                    var incomeForDelete = await context.Incomes.FirstOrDefaultAsync(x => x.Id == incomeId && x.UserId == user.Id);
+                    var incomeForDelete = await context.Incomes.FirstOrDefaultAsync(x => x.Id == incomeId && x.user.Email == email);
                     if (incomeForDelete == null) return null;
                     context.Incomes.Remove(incomeForDelete);
                     incomes.Add(incomeForDelete);

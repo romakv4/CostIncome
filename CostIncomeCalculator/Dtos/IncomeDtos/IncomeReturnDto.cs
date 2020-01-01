@@ -7,9 +7,7 @@ namespace CostIncomeCalculator.Dtos.IncomeDtos
     /// <see cref="Data.IncomeData.IncomeRepository.GetAllIncomes"/>
     /// <see cref="Data.IncomeData.IncomeRepository.GetConcreteIncome"/>
     /// <see cref="Data.IncomeData.IncomeRepository.GetWeeklyIncomes"/>
-    /// <see cref="Data.IncomeData.IncomeRepository.GetWeeklyIncomesByCategory"/>
     /// <see cref="Data.IncomeData.IncomeRepository.GetMonthlyIncomes"/>
-    /// <see cref="Data.IncomeData.IncomeRepository.GetMonthlyIncomesByCategory"/>
     /// </summary>
     public class IncomeReturnDto
     {

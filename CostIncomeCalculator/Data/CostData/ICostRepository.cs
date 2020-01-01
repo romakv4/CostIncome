@@ -31,34 +31,18 @@ namespace CostIncomeCalculator.Data.CostData
         /// </summary>
         /// <param name="email">User email</param>
         /// <param name="date">Date of the week</param>
+        /// <param name="category">Category to get costs. May be null.</param>
         /// <returns>Array of <see cref="CostReturnDto" /></returns>
-        Task<IEnumerable<CostReturnDto>> GetWeeklyCosts(string email, DateTime date);
-
-        /// <summary>
-        /// Get weekly costs by category. See implementation here <see cref="CostRepository.GetWeeklyCostsByCategory" />.
-        /// </summary>
-        /// <param name="email">User email</param>
-        /// <param name="date">Date of the week</param>
-        /// <param name="category">Category to get costs.</param>
-        /// <returns>Array of <see cref="CostReturnDto" /></returns>
-        Task<IEnumerable<CostReturnDto>> GetWeeklyCostsByCategory(string email, DateTime date, string category);
+        Task<IEnumerable<CostReturnDto>> GetWeeklyCosts(string email, DateTime date, string category);
 
         /// <summary>
         /// Get monthly costs. See implementation here <see cref="CostRepository.GetMonthlyCosts" />.
         /// </summary>
         /// <param name="email">User email</param>
         /// <param name="date">Date of the month</param>
+        /// <param name="category">Category to get costs. May be null.</param>
         /// <returns>Array of <see cref="CostReturnDto" /></returns>
-        Task<IEnumerable<CostReturnDto>> GetMonthlyCosts(string email, DateTime date);
-
-        /// <summary>
-        /// Get monthly costs by category. See implementation here <see cref="CostRepository.GetMonthlyCostsByCategory" />.
-        /// </summary>
-        /// <param name="email">User email</param>
-        /// <param name="date">Date of the week</param>
-        /// <param name="category">Category to get costs.</param>
-        /// <returns>Array of <see cref="CostReturnDto" /></returns>
-        Task<IEnumerable<CostReturnDto>> GetMonthlyCostsByCategory(string email, DateTime date, string category);
+        Task<IEnumerable<CostReturnDto>> GetMonthlyCosts(string email, DateTime date, string category);
         
         /// <summary>
         /// Set cost method. See implementation here <see cref="CostRepository.SetCost" />.

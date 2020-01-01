@@ -90,50 +90,23 @@ namespace CostIncomeCalculator.Data.CostData
         /// </summary>
         /// <param name="email">User email</param>
         /// <param name="date">Date of the week</param>
+        /// <param name="category">Category to get costs. May be null.</param>
         /// <returns>Array of <see cref="CostReturnDto" /></returns>
-        public async Task<IEnumerable<CostReturnDto>> GetWeeklyCosts(string email, DateTime date)
+        public async Task<IEnumerable<CostReturnDto>> GetWeeklyCosts(string email, DateTime date, string category)
         {
             try
             {
                 (DateTime, DateTime) dates = datesHelper.GetWeekDateRange(date);
-                var weeklyCosts = await context.Costs
+                var weeklyCosts = context.Costs
                                         .Where(x =>
                                                 x.user.Email == email && 
                                                 x.Date >= dates.Item1.Date &&
                                                 x.Date <= dates.Item2.Date
-                                        ).ToListAsync();
+                                        );
 
-                return mapper.Map<IEnumerable<CostReturnDto>>(weeklyCosts);
-            }
-            catch (Exception e)
-            {
-                logger.Error(e.Message);
-                throw;
-            }
-        }
+                if (category != null) weeklyCosts.Where(x => x.Category.ToLower() == category.ToLower());
 
-        /// <summary>
-        /// Get weekly costs by category method.
-        /// </summary>
-        /// <param name="email">User email</param>
-        /// <param name="date">Date of the week</param>
-        /// <param name="category">Category to get costs.</param>
-        /// <returns>Array of <see cref="CostReturnDto" /></returns>
-        public async Task<IEnumerable<CostReturnDto>> GetWeeklyCostsByCategory(string email, DateTime date, string category)
-        {
-            try
-            {
-                (DateTime, DateTime) dates = datesHelper.GetWeekDateRange(date);
-                var weeklyCostsByCategory = await context.Costs
-                                                    .Where(x =>
-                                                            x.user.Email == email &&
-                                                            x.Date >= dates.Item1.Date &&
-                                                            x.Date <= dates.Item2.Date
-                                                    ).Where(x =>
-                                                            x.Category.ToLower() == category.ToLower()
-                                                    ).ToListAsync();
-
-                return mapper.Map<IEnumerable<CostReturnDto>>(weeklyCostsByCategory);
+                return mapper.Map<IEnumerable<CostReturnDto>>(await weeklyCosts.ToListAsync());
             }
             catch (Exception e)
             {
@@ -147,50 +120,23 @@ namespace CostIncomeCalculator.Data.CostData
         /// </summary>
         /// <param name="email">User email</param>
         /// <param name="date">Date of the week</param>
+        /// <param name="category">Category to get costs. May be null.</param>
         /// <returns>Array of <see cref="CostReturnDto" /></returns>
-        public async Task<IEnumerable<CostReturnDto>> GetMonthlyCosts(string email, DateTime date)
+        public async Task<IEnumerable<CostReturnDto>> GetMonthlyCosts(string email, DateTime date, string category)
         {
             try
             {
                 (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(date);
-                var monthlyCosts = await context.Costs
+                var monthlyCosts = context.Costs
                                         .Where(x =>
                                                 x.user.Email == email &&
                                                 x.Date >= dates.Item1.Date &&
                                                 x.Date <= dates.Item2.Date
-                                        ).ToListAsync();
+                                        );
 
-                return mapper.Map<IEnumerable<CostReturnDto>>(monthlyCosts);
-            }
-            catch (Exception e)
-            {
-                logger.Error(e.Message);
-                throw;
-            }
-        }
+                if (category != null) monthlyCosts.Where(x => x.Category.ToLower() == category.ToLower());
 
-        /// <summary>
-        /// Get monthly costs by category method.
-        /// </summary>
-        /// <param name="email">User email</param>
-        /// <param name="date">Date of the week</param>
-        /// <param name="category">Category to get costs.</param>
-        /// <returns>Array of <see cref="CostReturnDto" /></returns>
-        public async Task<IEnumerable<CostReturnDto>> GetMonthlyCostsByCategory(string email, DateTime date, string category)
-        {
-            try
-            {
-                (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(date);
-                var monthlyCostsByCategory = await context.Costs
-                                                .Where(x =>
-                                                        x.user.Email == email &&
-                                                        x.Date >= dates.Item1.Date &&
-                                                        x.Date <= dates.Item2.Date)
-                                                .Where(x =>
-                                                        x.Category.ToLower() == category.ToLower()
-                                                ).ToListAsync();
-
-                return mapper.Map<IEnumerable<CostReturnDto>>(monthlyCostsByCategory);
+                return mapper.Map<IEnumerable<CostReturnDto>>(await monthlyCosts.ToListAsync());
             }
             catch (Exception e)
             {

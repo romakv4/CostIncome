@@ -7,9 +7,7 @@ namespace CostIncomeCalculator.Dtos.CostDtos
     /// <see cref="Data.CostData.CostRepository.GetAllCosts"/>
     /// <see cref="Data.CostData.CostRepository.GetConcreteCost"/>
     /// <see cref="Data.CostData.CostRepository.GetWeeklyCosts"/>
-    /// <see cref="Data.CostData.CostRepository.GetWeeklyCostsByCategory"/>
     /// <see cref="Data.CostData.CostRepository.GetMonthlyCosts"/>
-    /// <see cref="Data.CostData.CostRepository.GetMonthlyCostsByCategory"/>
     /// </summary>
     public class CostReturnDto
     {

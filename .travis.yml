@@ -4,9 +4,9 @@ dotnet: 2.2.401
 solution: CostIncome.sln
 jobs:
   include:
-    - stage: test
-      script: 
-        - dotnet test
     - stage: build
       script:
         - dotnet build ./CostIncomeCalculator/CostIncomeCalculator.csproj
+    - stage: test
+      script: 
+        - dotnet test

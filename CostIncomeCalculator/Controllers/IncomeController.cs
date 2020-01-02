@@ -73,32 +73,16 @@ namespace CostIncomeCalculator.Controllers
                 }
                 else if (period != null)
                 {
-                    if (category == null)
-                    {   
-                        if (period == "weekly") {
-                            var costs = await repository.GetWeeklyIncomes(email, date);
-                            return Ok(costs);
-                        }
-                        else if (period == "monthly")
-                        {
-                            var costs = await repository.GetMonthlyIncomes(email, date);
-                            return Ok(costs);
-                        }
-                        return BadRequest();
+                    if (period == "weekly") {
+                        var costs = await repository.GetWeeklyIncomes(email, date, category);
+                        return Ok(costs);
                     }
-                    else
+                    else if (period == "monthly")
                     {
-                        if (period == "weekly") {
-                            var costs = await repository.GetWeeklyIncomesByCategory(email, date, category);
-                            return Ok(costs);
-                        }
-                        else if (period == "monthly")
-                        {
-                            var costs = await repository.GetMonthlyIncomesByCategory(email, date, category);
-                            return Ok(costs);
-                        }
-                        return BadRequest();
+                        var costs = await repository.GetMonthlyIncomes(email, date, category);
+                        return Ok(costs);
                     }
+                    return BadRequest();
                 }
                 else 
                 {

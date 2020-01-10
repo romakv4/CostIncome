@@ -9,7 +9,6 @@ using CostIncomeCalculator.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 
 namespace CostIncomeCalculator.Controllers
 {

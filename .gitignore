@@ -6,3 +6,4 @@
 **.code-workspace
 **/appsettings.json
 **/appsettings.Development.json
+client/package-lock.json

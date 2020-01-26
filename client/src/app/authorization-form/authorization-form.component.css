@@ -1,0 +1,50 @@
+.formField {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.formField label {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.formField input {
+    height: 32px;
+    font-size: large;
+    width: 300px;
+    border-radius: 5px;
+    outline: none;
+    padding: 5px;
+}
+
+.formField input:focus {
+    border: 1px solid gray;
+}
+
+.validFormField {
+    border: 1px solid black;
+}
+
+.erroredFormField {
+    border: 1px solid red;
+}
+
+.formField p {
+    margin-top: 5px;
+    color: red;
+}
+
+.actionsBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.actionsBlock a {
+    padding: 0;
+}
+
+.actionsBlock a:visited {
+    color: black;
+}

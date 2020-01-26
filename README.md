@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/romakv4/CostIncome.svg?branch=develop)](https://travis-ci.com/romakv4/CostIncome)
 
-# Launch requirements
+# Server launch requirements
 1. .Net core
 2. Mailgun account
 3. appsettings.Development.json and appsettings.json files in CostIncomeCalculator folder  
@@ -43,3 +43,13 @@
 ```
 4. PostgreSQL server
 5. Create SQL database and apply migrations
+
+# Client launch instructions
+1. Navigate to `client` folder
+2. Execute `npm install` command
+3. Execute `npm start` command
+
+# Storybook launch instructions
+1. Navigate to `client` folder
+2. Execute `npm install` command if you haven't done it before
+3. Execute `npm run storybook` command

@@ -48,13 +48,14 @@ namespace CostIncomeCalculator.Controllers
         ///     POST /api/auth/register
         ///     {
         ///         "email": "user email",
-        ///         "password": "password"    
+        ///         "password": "password",
+        ///         "repeatpassword: "password"
         ///     }
         /// </remarks>
         /// <param name="userForRegisterDto">Data for user registration <see cref="UserForRegisterDto" />.</param>
         /// <returns>Registration status</returns>
         /// <response code="201">If user successfully created.</response>
-        /// <response code="400">If username already exists in databse.</response>
+        /// <response code="400">If username already exists in database.</response>
         /// <response code="500">If something went wrong.</response>
         [HttpPost("register")]
         [Consumes("application/json")]

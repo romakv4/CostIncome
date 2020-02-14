@@ -22,5 +22,13 @@ namespace CostIncomeCalculator.Dtos.UserDtos
         [Required]
         [StringLength(30, MinimumLength = 8, ErrorMessage = "You must specify password between 8 and 30 characters")]
         public string Password { get; set; }
+
+        /// <summary>
+        /// Repeat password. Required. Must be equal with original password.
+        /// </summary>
+        /// <value>string</value>
+        [Required]
+        [Compare("Password", ErrorMessage = "Don't equals passwords")]
+        public string Repeat { get; set; }
     }
 }

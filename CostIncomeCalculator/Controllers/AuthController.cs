@@ -69,7 +69,7 @@ namespace CostIncomeCalculator.Controllers
                 userForRegisterDto.Email = userForRegisterDto.Email.ToLower();
 
                 if (await userHelper.UserExists(userForRegisterDto.Email))
-                    return BadRequest("Email already exists");
+                    return BadRequest(new { email = "Email already exists" });
 
                 var userToCreate = new User
                 {

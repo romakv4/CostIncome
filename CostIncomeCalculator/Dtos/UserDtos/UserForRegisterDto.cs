@@ -28,7 +28,7 @@ namespace CostIncomeCalculator.Dtos.UserDtos
         /// </summary>
         /// <value>string</value>
         [Required]
-        [Compare("Password", ErrorMessage = "Don't equals passwords")]
-        public string Repeat { get; set; }
+        [Compare(nameof(Password), ErrorMessage = "Don't equals passwords")]
+        public string ConfirmPassword { get; set; }
     }
 }

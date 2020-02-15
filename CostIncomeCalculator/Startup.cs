@@ -58,7 +58,8 @@ namespace CostIncomeCalculator
             services.AddScoped<ICostRepository, CostRepository>();
             services.AddScoped<IIncomeRepository, IncomeRepository>();
             services.AddScoped<ILimitRepository, LimitRepository>();
-            services.AddMvcCore().AddApiExplorer();
+            services.AddMvcCore().AddApiExplorer().AddDataAnnotations();
+            services.AddRouting(options => options.LowercaseUrls = true);
             services.AddFluentEmail("noreply@costincome.com", "CostIncome")
                     .AddMailGunSender(Configuration.GetSection("Mailgun:Domain").Value,
                                         Configuration.GetSection("Mailgun:APIkey").Value);

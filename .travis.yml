@@ -2,14 +2,14 @@ language: csharp
 mono: none
 dotnet: 3.1.100
 solution: CostIncome.sln
-jobs:
+matrix:
   include:
-    - stage: Build on linux bionic beaver
+    - name: Build on linux bionic beaver
       os: linux
       dist: bionic
       script:
         - dotnet build ./CostIncomeCalculator/CostIncomeCalculator.csproj
-    - stage: Test on linux bionic beaver
+    - name: Test on linux bionic beaver
       os: linux
       dist: bionic
       script: 

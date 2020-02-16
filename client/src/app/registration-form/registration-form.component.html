@@ -10,7 +10,7 @@
                 type="email"
                 formControlName="email"
                 class="validFormField"
-                [ngClass]="{ 'erroredFormField': submitted && f.email.errors }">
+                [ngClass]="{ 'erroredFormField': submitted && (f.email.errors || serverErrors) }">
 
             <p *ngIf="submitted && f.email.errors">
                 <span *ngIf="f.email.errors.required">
@@ -18,6 +18,11 @@
                 </span>
                 <span *ngIf="f.email.errors.email">
                     Invalid e-mail
+                </span>
+            </p>
+            <p *ngIf="serverErrors">
+                <span *ngIf="serverErrors.email">
+                    {{ serverErrors.email }}
                 </span>
             </p>
         </div>
@@ -39,24 +44,34 @@
                     Password must be longer than {{ f.password.errors.minlength.requiredLength }} characters
                 </span>
             </p>
+            <p *ngIf="serverErrors">
+                <span *ngIf="serverErrors.password">
+                    {{ serverErrors.password }}
+                </span>
+            </p>
         </div>
         <div class="formField">
-            <label for="repeatPassword">
+            <label for="confirmPassword">
                 Repeat password
             </label>
-            <input id="repeatPassword"
+            <input id="confirmPassword"
                 appValidateEqualValue="password"
                 type="password"
-                formControlName="repeatPassword"
+                formControlName="confirmPassword"
                 class="validFormField"
-                [ngClass]="{ 'erroredFormField': submitted && f.repeatPassword.errors }">
+                [ngClass]="{ 'erroredFormField': submitted && f.confirmPassword.errors }">
 
-            <p *ngIf="submitted && f.repeatPassword.errors">
-                <span *ngIf="f.repeatPassword.errors.required">
+            <p *ngIf="submitted && f.confirmPassword.errors">
+                <span *ngIf="f.confirmPassword.errors.required">
                     Password repeat is required
                 </span>
-                <span *ngIf="f.repeatPassword.errors.notEqual">
+                <span *ngIf="f.confirmPassword.errors.notEqual">
                     Doesn't match password
+                </span>
+            </p>
+            <p *ngIf="serverErrors">
+                <span *ngIf="serverErrors.confirmPassword">
+                    {{ serverErrors.confirmPassword }}
                 </span>
             </p>
         </div>
@@ -69,4 +84,11 @@
             </a>
         </div>
     </form>
+    <div>
+        <p *ngIf="registrationSuccess">
+            <span>
+                Registration error
+            </span>
+        </p>
+    </div>
 </div>

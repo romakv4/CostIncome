@@ -78,11 +78,11 @@ namespace CostIncomeCalculator.Controllers
 
                 var createdUser = await repository.Register(userToCreate, userForRegisterDto.Password);
 
-                return StatusCode(201);
+                return StatusCode(201, new { success = true } );
             }
             catch
             {
-                return StatusCode(500);
+                return StatusCode(500, new { success = false } );
             }
         }
 

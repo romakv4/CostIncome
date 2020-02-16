@@ -4,13 +4,13 @@ dotnet: 3.1.100
 solution: CostIncome.sln
 jobs:
   include:
-    - stage: build
-      os:
-        - linux
+    - stage: Build on linux bionic beaver
+      os: linux
+      dist: bionic
       script:
         - dotnet build ./CostIncomeCalculator/CostIncomeCalculator.csproj
-    - stage: test
-      os:
-        - linux
+    - stage: Test on linux bionic beaver
+      os: linux
+      dist: bionic
       script: 
         - dotnet test

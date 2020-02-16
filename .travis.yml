@@ -1,8 +1,7 @@
 language: csharp
-os:
- - linux
-dist:
-  -bionic
+mono: none
+os: linux
+dist: bionic
 dotnet: 3.1.100
 solution: CostIncome.sln
 jobs:

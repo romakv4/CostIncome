@@ -10,7 +10,7 @@
                 type="email"
                 formControlName="email"
                 class="validFormField"
-                [ngClass]="{ 'erroredFormField': submitted && f.email.errors }">
+                [ngClass]="{ 'erroredFormField': submitted && (f.email.errors || (serverErrors && serverErrors.email)) }">
 
             <p *ngIf="submitted && f.email.errors">
                 <span *ngIf="f.email.errors.required">
@@ -18,6 +18,11 @@
                 </span>
                 <span *ngIf="f.email.errors.email">
                     Invalid e-mail
+                </span>
+            </p>
+            <p *ngIf="serverErrors">
+                <span *ngIf="serverErrors.email">
+                    {{ serverErrors.email }}
                 </span>
             </p>
         </div>

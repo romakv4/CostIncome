@@ -118,16 +118,17 @@ namespace CostIncomeCalculator.Controllers
                 var user = await repository.Login(userForLoginDto.Email.ToLower(), userForLoginDto.Password);
 
                 if (user == null)
-                    return Unauthorized();
+                    return Unauthorized(new {email = "User with specified email not exist"});
 
                 return Ok(new
                 {
+                    success = true,
                     token = tokenHelper.GenerateToken(user, config.GetSection("AppSettings:Token").Value)
                 });
             }
             catch
             {
-                return StatusCode(500);
+                return StatusCode(500, new { success = false });
             }
         }
 

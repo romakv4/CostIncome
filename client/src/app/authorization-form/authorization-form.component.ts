@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { Success } from '../types/authResponse';
 
 @Component({
   selector: 'app-authorization-form',
@@ -9,10 +11,13 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class AuthorizationFormComponent implements OnInit {
 
   authorizationForm;
-  submitted = false;
+  serverErrors;
+  submitted: boolean = false;
+  authorizationSuccess: boolean;
 
   constructor(
     private formBulder: FormBuilder,
+    private authService: AuthService,
   ) {
     this.authorizationForm = this.formBulder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -27,6 +32,19 @@ export class AuthorizationFormComponent implements OnInit {
 
   onSubmit(userData: any) {
     this.submitted = true;
+    if (this.authorizationForm.invalid) {
+      return;
+    }
+    this.authService.authorize(userData)
+      .subscribe(
+        (response: Success) => {
+          this.authorizationSuccess = response.success;
+          if (this.authorizationSuccess) {
+            localStorage.setItem("token", response.token);
+          }
+        },
+        errorResponse => { this.serverErrors = errorResponse.error }
+      );
   }
 
 }

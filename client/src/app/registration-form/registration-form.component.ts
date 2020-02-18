@@ -14,8 +14,8 @@ export class RegistrationFormComponent {
 
   registrationForm;
   serverErrors;
-  registrationSuccess = null;
-  submitted = false;
+  registrationSuccess: boolean = null;
+  submitted: boolean = false;
 
   constructor(
     private formBulder: FormBuilder,

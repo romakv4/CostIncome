@@ -19,6 +19,6 @@ export class AuthService {
   }
 
   authorize(userData: SignInUserData) {
-    console.log(userData);
+    return this.http.post('http://localhost:5000/api/auth/login', userData);
   }
 }

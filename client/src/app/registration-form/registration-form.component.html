@@ -10,7 +10,7 @@
                 type="email"
                 formControlName="email"
                 class="validFormField"
-                [ngClass]="{ 'erroredFormField': submitted && (f.email.errors || serverErrors) }">
+                [ngClass]="{ 'erroredFormField': submitted && (f.email.errors || (serverErrors && serverErrors.email)) }">
 
             <p *ngIf="submitted && f.email.errors">
                 <span *ngIf="f.email.errors.required">
@@ -85,9 +85,10 @@
         </div>
     </form>
     <div>
-        <p *ngIf="registrationSuccess">
+        <br>
+        <p *ngIf="registrationSuccess === false" style="color: red;">
             <span>
-                Registration error
+                Server error, Please try again
             </span>
         </p>
     </div>

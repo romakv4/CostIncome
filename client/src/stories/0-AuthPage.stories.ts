@@ -1,12 +1,12 @@
-import { HomeComponent } from '../app/home/home.component';
+import { AuthPageComponent } from '../app/auth-page/auth-page.component';
 
 export default {
   title: 'Home',
-  component: HomeComponent,
+  component: AuthPageComponent,
 };
 
 export const ToStorybook = () => ({
-  component: HomeComponent,
+  component: AuthPageComponent,
   props: {},
 });
 

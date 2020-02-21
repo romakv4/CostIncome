@@ -40,7 +40,7 @@ export class AuthorizationFormComponent implements OnInit {
         (response: Success) => {
           this.authorizationSuccess = response.success;
           if (this.authorizationSuccess) {
-            localStorage.setItem("token", response.token);
+            sessionStorage.setItem("token", response.token);
           }
         },
         errorResponse => { this.serverErrors = errorResponse.error }

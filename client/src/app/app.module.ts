@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { ValidateEqualValueDirective } from './directives/validate-equal-value.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HomeComponent } from './home/home.component';
+import { AuthPageComponent } from './auth-page/auth-page.component';
 import { AuthorizationFormComponent } from './authorization-form/authorization-form.component';
 
 @NgModule({
@@ -15,7 +15,7 @@ import { AuthorizationFormComponent } from './authorization-form/authorization-f
     AppComponent,
     RegistrationFormComponent,
     ValidateEqualValueDirective,
-    HomeComponent,
+    AuthPageComponent,
     AuthorizationFormComponent,
   ],
   imports: [

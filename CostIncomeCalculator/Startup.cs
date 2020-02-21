@@ -25,6 +25,7 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CostIncomeCalculator
 {
@@ -48,6 +49,7 @@ namespace CostIncomeCalculator
         {
             services.AddDbContext<DataContext>(x => x.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors();
+            services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IUserHelper, UserHelper>();
@@ -152,9 +154,10 @@ namespace CostIncomeCalculator
                 });
             }
 
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseRouting();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }

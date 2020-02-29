@@ -192,7 +192,7 @@ namespace CostIncomeCalculator.Controllers
         ///         "email": "user email"
         ///     }
         /// </remarks>
-        /// <param name="email">User email.</param>
+        /// <param name="userForResetPasswordDto">Data for reset user password <see cref="UserForResetPasswordDto" />.</param>
         /// <returns>Status code of operation.</returns>
         /// <response code="200">If user successfully reset the password.</response>
         /// <response code="400">If user not exists in database.</response>
@@ -203,19 +203,19 @@ namespace CostIncomeCalculator.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> ResetPassword(string email)
+        public async Task<IActionResult> ResetPassword(UserForResetPasswordDto userForResetPasswordDto)
         {
             try
             {
-                var user = await repository.ResetPassword(email);
+                var user = await repository.ResetPassword(userForResetPasswordDto.Email);
                 if (user == null)
-                    return BadRequest();    
+                    return BadRequest(new {email = "User with specified email not exist"});    
 
-                return Ok();
+                return Ok(new { success = true });
             }
             catch
             {
-                return StatusCode(500);
+                return StatusCode(500, new { success = false });
             }
         }
     }

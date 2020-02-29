@@ -1,8 +1,11 @@
-export type SignUpUserData = SignInUserData & Required<{
-    repeatPassword: String
+export type ResetPassUserData = Required<{
+    email: string;
 }>
 
-export type SignInUserData = Required<{
-    email: String
-    password: String
+export type SignInUserData = ResetPassUserData & Required<{
+    password: string;
+}>
+
+export type SignUpUserData = SignInUserData & Required<{
+    repeatPassword: string;
 }>

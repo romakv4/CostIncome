@@ -41,14 +41,14 @@ export class RegistrationFormComponent {
         (response: Success) => {
           this.registrationSuccess = response.success;
           if (this.registrationSuccess) {
-            this.redirectToLogin();
+            this.router.navigate(['authorization']);
           }
         },
         errorResponse => { this.serverErrors = errorResponse.error }
       );
   }
 
-  redirectToLogin () {
-    this.router.navigate(["authorization"]);
+  resetServerErrors() {
+    if (this.serverErrors !== null) this.serverErrors = null;
   }
 }

@@ -9,6 +9,7 @@ import { ValidateEqualValueDirective } from './directives/validate-equal-value.d
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthPageComponent } from './auth-page/auth-page.component';
 import { AuthorizationFormComponent } from './authorization-form/authorization-form.component';
+import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AuthorizationFormComponent } from './authorization-form/authorization-f
     ValidateEqualValueDirective,
     AuthPageComponent,
     AuthorizationFormComponent,
+    ResetPasswordFormComponent,
   ],
   imports: [
     BrowserModule,

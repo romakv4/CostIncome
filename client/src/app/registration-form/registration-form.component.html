@@ -10,7 +10,8 @@
                 type="email"
                 formControlName="email"
                 class="validFormField"
-                [ngClass]="{ 'erroredFormField': submitted && (f.email.errors || (serverErrors && serverErrors.email)) }">
+                [ngClass]="{ 'erroredFormField': submitted && (f.email.errors || (serverErrors && serverErrors.email)) }"
+                (input)="resetServerErrors()">
 
             <p *ngIf="submitted && f.email.errors">
                 <span *ngIf="f.email.errors.required">

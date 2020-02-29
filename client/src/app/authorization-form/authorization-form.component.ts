@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Success } from '../types/authResponse';
+import { SignInUserData } from '../types/user';
 
 @Component({
   selector: 'app-authorization-form',
@@ -30,7 +31,7 @@ export class AuthorizationFormComponent implements OnInit {
 
   get f() { return this.authorizationForm.controls; }
 
-  onSubmit(userData: any) {
+  onSubmit(userData: SignInUserData) {
     this.submitted = true;
     if (this.authorizationForm.invalid) {
       return;
@@ -45,6 +46,10 @@ export class AuthorizationFormComponent implements OnInit {
         },
         errorResponse => { this.serverErrors = errorResponse.error }
       );
+  }
+
+  resetServerErrors() {
+    if (this.serverErrors !== null) this.serverErrors = null;
   }
 
 }

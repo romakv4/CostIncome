@@ -1,32 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Success } from '../types/authResponse';
 import { SignInUserData } from '../types/user';
+import { ErrorsService } from '../services/errors.service';
 
 @Component({
   selector: 'app-authorization-form',
   templateUrl: './authorization-form.component.html',
   styleUrls: ['./authorization-form.component.css']
 })
-export class AuthorizationFormComponent implements OnInit {
+export class AuthorizationFormComponent {
 
   authorizationForm;
-  serverErrors;
+  serverErrors; 
+  resetServerErrors = this.errorsService.resetServerErrors;
   submitted: boolean = false;
   authorizationSuccess: boolean;
 
   constructor(
     private formBulder: FormBuilder,
     private authService: AuthService,
+    private errorsService: ErrorsService,
   ) {
     this.authorizationForm = this.formBulder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     })
-  }
-
-  ngOnInit() {
   }
 
   get f() { return this.authorizationForm.controls; }
@@ -47,9 +47,4 @@ export class AuthorizationFormComponent implements OnInit {
         errorResponse => { this.serverErrors = errorResponse.error }
       );
   }
-
-  resetServerErrors() {
-    if (this.serverErrors !== null) this.serverErrors = null;
-  }
-
 }

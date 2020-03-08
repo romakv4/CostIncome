@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { SignUpUserData } from '../types/user';
 import { Success } from "../types/authResponse";
 import { Router } from '@angular/router';
+import { ErrorsService } from '../services/errors.service';
 
 @Component({
   selector: 'app-registration-form',
@@ -14,6 +15,7 @@ export class RegistrationFormComponent {
 
   registrationForm;
   serverErrors;
+  resetServerErrors = this.errorsService.resetServerErrors;
   registrationSuccess: boolean = null;
   submitted: boolean = false;
 
@@ -21,6 +23,7 @@ export class RegistrationFormComponent {
     private formBulder: FormBuilder,
     private authService: AuthService,
     private router: Router,
+    private errorsService: ErrorsService,
   ) { 
     this.registrationForm = this.formBulder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -46,9 +49,5 @@ export class RegistrationFormComponent {
         },
         errorResponse => { this.serverErrors = errorResponse.error }
       );
-  }
-
-  resetServerErrors() {
-    if (this.serverErrors !== null) this.serverErrors = null;
   }
 }

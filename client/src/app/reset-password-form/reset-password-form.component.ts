@@ -4,6 +4,8 @@ import { ResetPassUserData } from '../types/user';
 import { Success } from '../types/authResponse';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RedirectService } from '../services/redirect.service';
+import { ErrorsService } from '../services/errors.service';
 
 @Component({
   selector: 'app-reset-password-form',
@@ -13,6 +15,7 @@ import { Router } from '@angular/router';
 export class ResetPasswordFormComponent {
   resetPasswordForm;
   serverErrors = null;
+  resetServerErrors = this.errorsService.resetServerErrors;
   secondsBeforeRedirect = 5;
   resetPasswordSuccess: boolean = null;
   submitted: boolean = false;
@@ -21,6 +24,8 @@ export class ResetPasswordFormComponent {
     private router: Router,
     private authService: AuthService,
     private formBulder: FormBuilder,
+    private errorsService: ErrorsService,
+    private redirects: RedirectService,
   ) { 
     this.resetPasswordForm = this.formBulder.group({
       email: ['', [Validators.required, Validators.email]]
@@ -39,15 +44,8 @@ export class ResetPasswordFormComponent {
         (response: Success) => {
           if (response.success) {
             this.resetPasswordSuccess = response.success;
-            let interval = setInterval(() => {
-              this.secondsBeforeRedirect--;
-              if(this.secondsBeforeRedirect === 0) {
-                clearInterval(interval);
-              }
-            }, 1000);
-            setTimeout(() => {
-              this.router.navigate(['authorization']);
-            }, 5000);
+            this.redirects.delayCounter(this);
+            this.redirects.delayedRedirect(5000, 'authorization', this.router);
           }
         },
         errorResponse => {
@@ -55,9 +53,4 @@ export class ResetPasswordFormComponent {
         }
       );
   }
-
-  resetServerErrors() {
-    if (this.serverErrors !== null) this.serverErrors = null;
-  }
-
 }

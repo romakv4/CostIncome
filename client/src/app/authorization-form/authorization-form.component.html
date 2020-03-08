@@ -11,7 +11,8 @@
                 formControlName="email"
                 class="validFormField"
                 [ngClass]="{ 'erroredFormField': submitted && (f.email.errors || (serverErrors && serverErrors.email)) }"
-                (input)="resetServerErrors()">
+                (input)="resetServerErrors(this)"
+                tabindex="1">
 
             <p *ngIf="submitted && f.email.errors">
                 <span *ngIf="f.email.errors.required">
@@ -28,17 +29,20 @@
             </p>
         </div>
         <div class="formField">
-            <label for="password" class="withLinkLabel">
-                Password
-                <a class="reset-pass-link" href="/resetpassword">
+            <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                <label for="password" class="withLinkLabel">
+                    Password       
+                </label>
+                <a class="reset-pass-link" href="/resetpassword" tabindex="5">
                     Forgot password?
-                </a>         
-            </label>
+                </a>
+            </div>
             <input id="password"
                 type="password"
                 formControlName="password"
                 class="validFormField"
-                [ngClass]="{ 'erroredFormField': submitted && f.password.errors }">
+                [ngClass]="{ 'erroredFormField': submitted && f.password.errors }"
+                tabindex="2">
 
             <p *ngIf="submitted && f.password.errors">
                 <span *ngIf="f.password.errors.required">
@@ -50,10 +54,10 @@
             </p>
         </div>
         <div class="actionsBlock">
-            <button type="submit">
+            <button type="submit" tabindex="3">
                 Sign in
             </button>
-            <a href="/">
+            <a href="/" tabindex="4">
                 <i class="material-icons">home</i>
             </a>
         </div>

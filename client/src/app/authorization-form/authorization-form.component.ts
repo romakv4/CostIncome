@@ -5,6 +5,7 @@ import { Success } from '../types/authResponse';
 import { SignInUserData } from '../types/user';
 import { ErrorsService } from '../services/errors.service';
 import { TokenService } from '../services/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-authorization-form',
@@ -24,6 +25,7 @@ export class AuthorizationFormComponent {
     private authService: AuthService,
     private errorsService: ErrorsService,
     private tokenService: TokenService,
+    private router: Router,
   ) {
     this.authorizationForm = this.formBulder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -44,6 +46,7 @@ export class AuthorizationFormComponent {
           this.authorizationSuccess = response.success;
           if (this.authorizationSuccess) {
             this.tokenService.setToken(response.token);
+            this.tokenService.isLoggedIn() && this.router.navigate(['home']);
           }
         },
         errorResponse => { this.serverErrors = errorResponse.error }

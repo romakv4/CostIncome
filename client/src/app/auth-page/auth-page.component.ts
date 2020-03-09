@@ -1,12 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TokenService } from '../services/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-page',
   templateUrl: './auth-page.component.html',
   styleUrls: ['./auth-page.component.css']
 })
-export class AuthPageComponent {
+export class AuthPageComponent implements OnInit {
+  
+  constructor(
+    private tokenService: TokenService,
+    private router: Router,
+  ) { }
 
-  constructor() { }
+  ngOnInit() {
+    this.redirectToHomePage();
+  }
+
+  redirectToHomePage() {
+    if (this.tokenService.isLoggedIn()) {
+      this.router.navigate(['home']);
+    }
+  }
 
 }

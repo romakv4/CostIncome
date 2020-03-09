@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthPageComponent } from './auth-page/auth-page.component';
 import { AuthorizationFormComponent } from './authorization-form/authorization-form.component';
 import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ResetPasswordFormComponent } from './reset-password-form/reset-password
     AuthPageComponent,
     AuthorizationFormComponent,
     ResetPasswordFormComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,8 +8,6 @@ export class TokenService {
 
   jwtHelper = new JwtHelperService();
 
-  constructor() { }
-
   setToken(token) {
     sessionStorage.setItem('token', token);
   }

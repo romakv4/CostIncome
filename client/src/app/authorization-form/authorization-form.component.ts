@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { Success } from '../types/authResponse';
 import { SignInUserData } from '../types/user';
 import { ErrorsService } from '../services/errors.service';
+import { TokenService } from '../services/token.service';
 
 @Component({
   selector: 'app-authorization-form',
@@ -22,6 +23,7 @@ export class AuthorizationFormComponent {
     private formBulder: FormBuilder,
     private authService: AuthService,
     private errorsService: ErrorsService,
+    private tokenService: TokenService,
   ) {
     this.authorizationForm = this.formBulder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -41,7 +43,7 @@ export class AuthorizationFormComponent {
         (response: Success) => {
           this.authorizationSuccess = response.success;
           if (this.authorizationSuccess) {
-            sessionStorage.setItem("token", response.token);
+            this.tokenService.setToken(response.token);
           }
         },
         errorResponse => { this.serverErrors = errorResponse.error }

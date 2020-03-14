@@ -22,11 +22,6 @@
                     Invalid e-mail
                 </span>
             </p>
-            <p *ngIf="serverErrors">
-                <span *ngIf="serverErrors.email">
-                    {{ serverErrors.email }}
-                </span>
-            </p>
         </div>
         <div class="formField">
             <div style="display: flex; align-items: baseline; justify-content: space-between;">
@@ -62,4 +57,12 @@
             </a>
         </div>
     </form>
+    <div>
+        <br>
+        <p *ngIf="serverErrors">
+            <span *ngIf="serverErrors.login" style="color: red;">
+                {{ serverErrors.login }}
+            </span>
+        </p>
+    </div>
 </div>

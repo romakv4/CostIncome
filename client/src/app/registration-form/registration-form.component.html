@@ -87,9 +87,9 @@
     </form>
     <div>
         <br>
-        <p *ngIf="registrationSuccess === false" style="color: red;">
+        <p *ngIf="registrationSuccess === false && serverErrors.message" style="color: red;">
             <span>
-                Server error, Please try again
+                {{ serverErrors.message }}
             </span>
         </p>
     </div>

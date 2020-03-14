@@ -69,7 +69,7 @@ namespace CostIncomeCalculator.Controllers
                 userForRegisterDto.Email = userForRegisterDto.Email.ToLower();
 
                 if (await userHelper.UserExists(userForRegisterDto.Email))
-                    return BadRequest(new { email = "Email already exists" });
+                    return BadRequest(new { success = false, email = "Email already exists" });
 
                 var userToCreate = new User
                 {
@@ -82,7 +82,7 @@ namespace CostIncomeCalculator.Controllers
             }
             catch
             {
-                return StatusCode(500, new { success = false } );
+                return StatusCode(500, new { success = false, message = "Server error. Please, try again later!" } );
             }
         }
 
@@ -118,7 +118,7 @@ namespace CostIncomeCalculator.Controllers
                 var user = await repository.Login(userForLoginDto.Email.ToLower(), userForLoginDto.Password);
 
                 if (user == null)
-                    return Unauthorized(new {email = "User with specified email not exist"});
+                    return Unauthorized(new { success = false, login = "Wrong login or password" });
 
                 return Ok(new
                 {
@@ -128,7 +128,7 @@ namespace CostIncomeCalculator.Controllers
             }
             catch
             {
-                return StatusCode(500, new { success = false });
+                return StatusCode(500, new { success = false, message = "Server error. Please, try again later!" });
             }
         }
 

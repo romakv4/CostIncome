@@ -64,7 +64,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string email = HttpContext.User.Identity.Name;
+                string email = HttpContext.User.Identity.Name.ToLower();
 
                 if (period == null && category == null)
                 {
@@ -113,7 +113,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string email = HttpContext.User.Identity.Name;
+                string email = HttpContext.User.Identity.Name.ToLower();
                 
                 var concreteIncome = await repository.GetConcreteIncome(email, id);
                 
@@ -145,7 +145,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string email = HttpContext.User.Identity.Name;
+                string email = HttpContext.User.Identity.Name.ToLower();
 
                 var settedIncome = await repository.SetIncome(email, incomeForSetDto);
                 
@@ -184,7 +184,7 @@ namespace CostIncomeCalculator.Controllers
                     incomeForEditDto.Date == DateTime.MinValue)
                     return BadRequest("Required at least one value for edit cost");
 
-                string email = HttpContext.User.Identity.Name;
+                string email = HttpContext.User.Identity.Name.ToLower();
                 
                 var editedIncome = await repository.EditIncome(email, id, incomeForEditDto);
 
@@ -218,7 +218,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                string email = HttpContext.User.Identity.Name;
+                string email = HttpContext.User.Identity.Name.ToLower();
 
                 var deletedIncomes = await repository.DeleteIncomes(email, incomeForDeleteDto);
 

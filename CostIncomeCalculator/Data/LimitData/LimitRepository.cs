@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CostIncomeCalculator.Dtos.LimitDtos;
@@ -34,15 +35,15 @@ namespace CostIncomeCalculator.Data.LimitData
         /// <summary>
         /// Get all limits from database.
         /// </summary>
-        /// <param name="username">Username</param>
+        /// <param name="email">User email</param>
         /// <returns>Array of limits <see cref="LimitReturnDto" /> for concrete user from database.</returns>
-        public async Task<IEnumerable<LimitReturnDto>> GetAllLimits(string username)
+        public async Task<IEnumerable<LimitReturnDto>> GetAllLimits(string email)
         {
             try
             {
                 List<Limit> limits = new List<Limit>();
 
-                limits = await context.Limits.ToListAsync();
+                limits = await context.Limits.Where(x => x.user.Email == email).ToListAsync();
 
                 return mapper.Map<IEnumerable<LimitReturnDto>>(limits);
             }

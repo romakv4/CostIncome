@@ -147,7 +147,7 @@ namespace CostIncomeCalculator.Data.IncomeData
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email.ToLower());
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
 
                 var income = new Income
                 {

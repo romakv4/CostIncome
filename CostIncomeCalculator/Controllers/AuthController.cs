@@ -207,7 +207,7 @@ namespace CostIncomeCalculator.Controllers
         {
             try
             {
-                var user = await repository.ResetPassword(userForResetPasswordDto.Email);
+                var user = await repository.ResetPassword(userForResetPasswordDto.Email.ToLower());
                 if (user == null)
                     return BadRequest(new {email = "User with specified email not exist"});    
 

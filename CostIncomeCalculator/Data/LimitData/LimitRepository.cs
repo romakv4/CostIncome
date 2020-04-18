@@ -43,7 +43,7 @@ namespace CostIncomeCalculator.Data.LimitData
             {
                 List<Limit> limits = new List<Limit>();
 
-                limits = await context.Limits.Where(x => x.user.Email == email).ToListAsync();
+                limits = await context.Limits.Where(x => x.user.Email == email).OrderBy(x => x.Id).ToListAsync();
 
                 return mapper.Map<IEnumerable<LimitReturnDto>>(limits);
             }

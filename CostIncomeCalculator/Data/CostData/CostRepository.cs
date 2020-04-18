@@ -47,7 +47,7 @@ namespace CostIncomeCalculator.Data.CostData
             {
                 List<Cost> costs = new List<Cost>();
 
-                costs = await context.Costs.Where(x => x.user.Email == email).ToListAsync();
+                costs = await context.Costs.Where(x => x.user.Email == email).OrderBy(x => x.Id).ToListAsync();
 
                 return mapper.Map<IEnumerable<CostReturnDto>>(costs);
             }
@@ -104,7 +104,7 @@ namespace CostIncomeCalculator.Data.CostData
                                                 x.Date <= dates.Item2.Date
                                         );
 
-                if (category != null) weeklyCosts.Where(x => x.Category.ToLower() == category.ToLower());
+                if (category != null) weeklyCosts.Where(x => x.Category.ToLower() == category.ToLower()).OrderBy(x => x.Id);
 
                 return mapper.Map<IEnumerable<CostReturnDto>>(await weeklyCosts.ToListAsync());
             }
@@ -134,7 +134,7 @@ namespace CostIncomeCalculator.Data.CostData
                                                 x.Date <= dates.Item2.Date
                                         );
 
-                if (category != null) monthlyCosts.Where(x => x.Category.ToLower() == category.ToLower());
+                if (category != null) monthlyCosts.Where(x => x.Category.ToLower() == category.ToLower()).OrderBy(x => x.Id);
 
                 return mapper.Map<IEnumerable<CostReturnDto>>(await monthlyCosts.ToListAsync());
             }

@@ -10,7 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthPageComponent } from './auth-page/auth-page.component';
 import { AuthorizationFormComponent } from './authorization-form/authorization-form.component';
 import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
-import { HomeComponent } from './home/home.component';
+import { CostsComponent } from './costs/costs.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { HomeComponent } from './home/home.component';
     AuthPageComponent,
     AuthorizationFormComponent,
     ResetPasswordFormComponent,
-    HomeComponent,
+    CostsComponent,
   ],
   imports: [
     BrowserModule,

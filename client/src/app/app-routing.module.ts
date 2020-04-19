@@ -4,7 +4,7 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 import { AuthPageComponent } from './auth-page/auth-page.component';
 import { AuthorizationFormComponent } from './authorization-form/authorization-form.component';
 import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
-import { HomeComponent } from './home/home.component';
+import { CostsComponent } from './costs/costs.component';
 
 
 const routes: Routes = [
@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationFormComponent },
   { path: 'authorization', component: AuthorizationFormComponent },
   { path: 'resetpassword', component: ResetPasswordFormComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'costs', component: CostsComponent },
 ];
 
 @NgModule({

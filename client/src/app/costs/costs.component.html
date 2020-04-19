@@ -1,0 +1,48 @@
+<br>
+<div class="tableWrapper">
+    <div *ngIf="costs.length !== 0">
+        <table>
+            <caption>
+                Latest 10 costs
+            </caption>
+            <tr>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+            <tr *ngFor="let cost of costs;">
+                <td>{{ cost.category }}</td>
+                <td>{{ cost.description }}</td>
+                <td>{{ cost.price }}</td>
+                <td>
+                    <button (click)="deleteCost(cost.id)">Delete</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- <div *ngIf="firstTenIncomes.length !== 0">
+        <table>
+            <caption>
+                Latest 10 incomes
+            </caption>
+            <tr>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+            <tr *ngFor="let income of firstTenIncomes;">
+                <td>{{ income.category }}</td>
+                <td>{{ income.description }}</td>
+                <td>{{ income.price }}</td>
+                <td>
+                    <button (click)="deleteIncome(income.id)">Delete</button>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <button *ngIf="incomes.length > 10">Show all</button>
+        <button *ngIf="incomes.length <= 10">Add</button>
+    </div> -->
+</div>

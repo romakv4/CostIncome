@@ -16,7 +16,8 @@ time, mark, audio, video {
 	border: 0;
 	font-size: 100%;
 	font: inherit;
-	vertical-align: baseline;
+    vertical-align: baseline;
+    font-family: sans-serif;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -38,7 +39,6 @@ q:before, q:after {
 	content: none;
 }
 table {
-	border-collapse: collapse;
 	border-spacing: 0;
 }
 
@@ -48,7 +48,6 @@ table {
     align-items: center;
     height: 100vh;
     flex-direction: column;
-    font-family: sans-serif;
 }
 
 h1 {
@@ -141,4 +140,58 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+caption {
+    margin-bottom: 10px;
+    font-size: large;
+    font-size: 32px;
+}
+
+table {
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+tr th {
+    border-bottom: 1px solid gray;
+    padding: 5px 5px;
+    border-left: 1px solid gray;
+}
+
+tr th:first-child {
+    border-left: hidden;
+}
+
+tr td {
+    border-top: hidden;
+    border-bottom: 1px solid gray;
+}
+
+tr:last-child td {
+    border-bottom: hidden;
+}
+
+tr td:first-child {
+    border-left: hidden;
+}
+
+tr td:last-child {
+    border-right: hidden;
+}
+
+th {
+    font-size: 24px;
+}
+
+td {
+    border-left: 1px solid gray;
+    padding: 5px 5px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.tableWrapper {
+    display: flex;
+    justify-content: space-around;
 }

@@ -162,22 +162,22 @@ namespace CostIncomeCalculator.Controllers
             {
                 var user = await repository.ChangePassword(
                     userForChangePasswordDto.Email.ToLower(),
-                    userForChangePasswordDto.OldPassword,
+                    userForChangePasswordDto.Password,
                     userForChangePasswordDto.NewPassword
                 );
 
                 if (user == null)
-                    return Unauthorized();
+                    return Unauthorized(new { success = false, email = "User with specified email not exist" });
 
-                return Ok();
+                return Ok(new { success = true });
             }
             catch (EqualsPasswordsException e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(new { success = false, newPassword = "The new password can't match old" });
             }
             catch
             {
-                return StatusCode(500);
+                return StatusCode(500, new { success = false, message = "Server error. Please, try again later!" });
             }
         }
 
@@ -209,13 +209,13 @@ namespace CostIncomeCalculator.Controllers
             {
                 var user = await repository.ResetPassword(userForResetPasswordDto.Email.ToLower());
                 if (user == null)
-                    return BadRequest(new {email = "User with specified email not exist"});    
+                    return BadRequest(new {success = false, email = "User with specified email not exist"});    
 
                 return Ok(new { success = true });
             }
             catch
             {
-                return StatusCode(500, new { success = false });
+                return StatusCode(500, new { success = false, message = "Server error. Please, try again later!" });
             }
         }
     }

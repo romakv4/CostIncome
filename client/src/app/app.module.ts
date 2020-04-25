@@ -11,6 +11,7 @@ import { AuthPageComponent } from './auth-page/auth-page.component';
 import { AuthorizationFormComponent } from './authorization-form/authorization-form.component';
 import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
 import { CostsComponent } from './costs/costs.component';
+import { ChangePasswordFormComponent } from './change-password-form/change-password-form.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CostsComponent } from './costs/costs.component';
     AuthorizationFormComponent,
     ResetPasswordFormComponent,
     CostsComponent,
+    ChangePasswordFormComponent,
   ],
   imports: [
     BrowserModule,

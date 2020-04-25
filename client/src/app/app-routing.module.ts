@@ -5,6 +5,7 @@ import { AuthPageComponent } from './auth-page/auth-page.component';
 import { AuthorizationFormComponent } from './authorization-form/authorization-form.component';
 import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
 import { CostsComponent } from './costs/costs.component';
+import { ChangePasswordFormComponent } from './change-password-form/change-password-form.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationFormComponent },
   { path: 'authorization', component: AuthorizationFormComponent },
   { path: 'resetpassword', component: ResetPasswordFormComponent },
+  { path: 'changepassword', component: ChangePasswordFormComponent },
   { path: 'costs', component: CostsComponent },
 ];
 

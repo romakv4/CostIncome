@@ -21,7 +21,7 @@ namespace CostIncomeCalculator.Dtos.UserDtos
         /// <value>string</value>
         [Required]
         [StringLength(30, MinimumLength = 8, ErrorMessage = "You must specify password between 8 and 30 characters")]
-        public string OldPassword { get; set; }
+        public string Password { get; set; }
 
         /// <summary>
         /// new password. Required.

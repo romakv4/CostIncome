@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { 
   SignInUserData,
   SignUpUserData,
-  ResetPassUserData
+  ResetPassUserData,
+  ChangePasswordUserData
 } from '../types/user'
 
 @Injectable({
@@ -25,5 +26,9 @@ export class AuthService {
 
   resetPassword(userData: ResetPassUserData) {
     return this.http.post('http://localhost:5000/api/auth/resetpassword', userData);
+  }
+
+  changePassword(userData: ChangePasswordUserData) {
+    return this.http.post('http://localhost:5000/api/auth/changepassword', userData);
   }
 }

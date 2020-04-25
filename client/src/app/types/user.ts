@@ -9,3 +9,7 @@ export type SignInUserData = ResetPassUserData & Required<{
 export type SignUpUserData = SignInUserData & Required<{
     repeatPassword: string;
 }>
+
+export type ChangePasswordUserData = SignInUserData & Required<{
+    newPassword: string;
+}>

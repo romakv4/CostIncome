@@ -27,6 +27,7 @@ namespace CostIncomeCalculator.Dtos.IncomeDtos
         /// </summary>
         /// <value>decimal</value>
         [Required]
+        [Range(0.01, 999999999999)]
         public decimal Price { get; set; }
 
         /// <summary>
@@ -34,6 +35,7 @@ namespace CostIncomeCalculator.Dtos.IncomeDtos
         /// </summary>
         /// <value>DateTime</value>
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
     }
 }

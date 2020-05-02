@@ -12,7 +12,7 @@
             </tr>
             <tr *ngFor="let income of incomes;">
                 <td>{{ income.category }}</td>
-                <td>{{ income.description }}</td>
+                <td>{{ income.description || "-" }}</td>
                 <td>{{ income.price }}</td>
                 <td>
                     <button class="table-button" (click)="deleteIncome(income.id)">Delete</button>

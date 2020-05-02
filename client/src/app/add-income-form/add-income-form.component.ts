@@ -27,7 +27,7 @@ export class AddIncomeFormComponent {
     this.addIncomeForm = this.formBuilder.group({
       category: ['', [Validators.required, Validators.maxLength(20)]],
       description: ['', [Validators.maxLength(100)]],
-      price: [Number(1), [Validators.required, Validators.min(1), Validators.max(999999999999)]],
+      price: [Number(1), [Validators.required, Validators.min(0.01), Validators.max(999999999999)]],
       date: [Date(), [Validators.required]]
     })
   }

@@ -17,10 +17,9 @@ namespace CostIncomeCalculator.Dtos.IncomeDtos
         public string Category { get; set; }
 
         /// <summary>
-        /// Description of income to set. Required.
+        /// Description of income to set.
         /// </summary>
         /// <value>string</value>
-        [Required]
         public string Description { get; set; }
 
         /// <summary>

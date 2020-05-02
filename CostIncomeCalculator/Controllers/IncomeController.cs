@@ -149,11 +149,11 @@ namespace CostIncomeCalculator.Controllers
 
                 var settedIncome = await repository.SetIncome(email, incomeForSetDto);
                 
-                return StatusCode(201);
+                return StatusCode(201, new { success = true });
             }
             catch
             {
-                return StatusCode(500);
+                return StatusCode(500, new { success = false, message = "Server error. Please, try again later!" });
             }
         }
 

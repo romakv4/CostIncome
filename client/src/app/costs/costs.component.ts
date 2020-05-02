@@ -45,10 +45,8 @@ export class CostsComponent implements OnInit {
     );
   }
 
-  addRecord(type) {
-    if (type === "cost") {
-      this.router.navigate([`add-${type}`]);
-    }
+  addCost() {
+    this.router.navigate(['add-cost']);
   }
 
 }

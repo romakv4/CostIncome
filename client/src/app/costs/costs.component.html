@@ -1,4 +1,3 @@
-<br>
 <div class="tableWrapper">
     <div *ngIf="costs !== null">
         <table>
@@ -16,9 +15,11 @@
                 <td>{{ cost.description }}</td>
                 <td>{{ cost.price }}</td>
                 <td>
-                    <button (click)="deleteCost(cost.id)">Delete</button>
+                    <button class="table-button" (click)="deleteCost(cost.id)">Delete</button>
                 </td>
             </tr>
         </table>
+        <br>
+        <button (click)="addCost()">Add</button>
     </div>
 </div>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TokenService } from './token.service';
+import { AccountingItem } from '../types/AccountingItem';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,20 @@ export class CostsService {
       body: { ids:[id] } } );
   }
 
-  addCost(cost: any) {
-    return this.http.post('http://localhost:5000/api/v1/cost', cost);
+  addCost(cost: AccountingItem) {
+    return this.http.request('post', 'http://localhost:5000/api/v1/cost', {
+      headers: this.tokenService.getAuthHeaders(),
+      body: {
+        category: cost.category,
+        description: cost.description,
+        price: cost.price,
+        date: this.formatDate(cost.date)
+      }
+    });
+  }
+
+  private formatDate(date: Date) {
+    const dateObj = new Date(date);
+    return `${dateObj.getFullYear().toString()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}-${dateObj.getDate().toString().padStart(2, '0')}`;
   }
 }

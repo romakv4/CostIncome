@@ -6,6 +6,7 @@ import { AuthorizationFormComponent } from './authorization-form/authorization-f
 import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
 import { CostsComponent } from './costs/costs.component';
 import { ChangePasswordFormComponent } from './change-password-form/change-password-form.component';
+import { AddCostFormComponent } from './add-cost-form/add-cost-form.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'resetpassword', component: ResetPasswordFormComponent },
   { path: 'changepassword', component: ChangePasswordFormComponent },
   { path: 'costs', component: CostsComponent },
+  { path: 'add-cost', component: AddCostFormComponent },
 ];
 
 @NgModule({

@@ -1,0 +1,25 @@
+<div class="tableWrapper">
+    <div *ngIf="incomes !== null">
+        <table>
+            <caption>
+                INCOMES
+            </caption>
+            <tr>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+            <tr *ngFor="let income of incomes;">
+                <td>{{ income.category }}</td>
+                <td>{{ income.description }}</td>
+                <td>{{ income.price }}</td>
+                <td>
+                    <button class="table-button" (click)="deleteIncome(income.id)">Delete</button>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <button (click)="addIncome()">Add</button>
+    </div>
+</div>

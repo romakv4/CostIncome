@@ -48,8 +48,3 @@
 1. Navigate to `client` folder
 2. Execute `npm install` command
 3. Execute `npm start` command
-
-# Storybook launch instructions
-1. Navigate to `client` folder
-2. Execute `npm install` command if you haven't done it before
-3. Execute `npm run storybook` command

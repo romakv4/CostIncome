@@ -73,8 +73,4 @@ export class AddCostFormComponent implements OnInit {
         + date.getDate().toString().padStart(2, '0');
   }
 
-  navigateToCostsList() {
-    this.router.navigate(['/costs'])
-  }
-
 }

@@ -73,8 +73,4 @@ export class AddIncomeFormComponent implements OnInit {
         + date.getDate().toString().padStart(2, '0');
   }
 
-  navigateToIncomesList() {
-    this.router.navigate(['/incomes'])
-  }
-
 }

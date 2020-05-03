@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { ErrorsService } from '../services/errors.service';
 import { AccountingItem, SetSuccess } from '../types/AccountingItem';
 import { CostsService } from '../services/costs.service';
+import { TokenService } from '../services/token.service';
 
 @Component({
   selector: 'app-add-cost-form',
   templateUrl: './add-cost-form.component.html',
   styleUrls: ['./add-cost-form.component.css']
 })
-export class AddCostFormComponent {
+export class AddCostFormComponent implements OnInit {
 
   addCostForm;
   serverErrors;
@@ -23,6 +24,7 @@ export class AddCostFormComponent {
     private router: Router,
     private errorsService: ErrorsService,
     private costsService: CostsService,
+    private tokenService: TokenService,
   ) { 
     this.addCostForm = this.formBuilder.group({
       category: ['', [Validators.required, Validators.maxLength(20)]],
@@ -30,6 +32,12 @@ export class AddCostFormComponent {
       price: [Number(1), [Validators.required, Validators.min(0.01), Validators.max(999999999999)]],
       date: [Date(), [Validators.required]]
     })
+  }
+
+  ngOnInit(): void {
+    if (!this.tokenService.isLoggedIn()) {
+      this.router.navigate(['authorization']);
+    }
   }
 
   get f() { return this.addCostForm.controls }

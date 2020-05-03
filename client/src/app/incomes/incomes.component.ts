@@ -13,7 +13,7 @@ export class IncomesComponent implements OnInit {
   incomes = null;
 
   constructor(
-    private costsService: IncomesService,
+    private incomesService: IncomesService,
     private tokenService: TokenService,
     private router: Router,
   ) { }
@@ -22,7 +22,7 @@ export class IncomesComponent implements OnInit {
     if (!this.tokenService.isLoggedIn()) {
       this.router.navigate(['authorization']);
     }
-    this.costsService.getIncomes()
+    this.incomesService.getIncomes()
       .subscribe(
         data => {
           this.incomes = data;
@@ -32,9 +32,9 @@ export class IncomesComponent implements OnInit {
   }
 
   deleteIncome(id) {
-    this.costsService.deleteIncome(id).subscribe(
+    this.incomesService.deleteIncome(id).subscribe(
       () => {
-        this.costsService.getIncomes().subscribe(
+        this.incomesService.getIncomes().subscribe(
           data => {
             this.incomes = data;
           },

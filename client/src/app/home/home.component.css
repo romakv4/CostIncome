@@ -1,0 +1,9 @@
+.homeTableWrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.tdPadding {
+    padding: 10px 10px;
+}

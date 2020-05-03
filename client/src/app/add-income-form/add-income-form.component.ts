@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ErrorsService } from '../services/errors.service';
 import { IncomesService } from '../services/incomes.service';
 import { AccountingItem, SetSuccess } from '../types/AccountingItem';
+import { TokenService } from '../services/token.service';
 
 @Component({
   selector: 'app-add-income-form',
   templateUrl: './add-income-form.component.html',
   styleUrls: ['./add-income-form.component.css']
 })
-export class AddIncomeFormComponent {
+export class AddIncomeFormComponent implements OnInit {
 
   addIncomeForm;
   serverErrors;
@@ -23,6 +24,7 @@ export class AddIncomeFormComponent {
     private router: Router,
     private errorsService: ErrorsService,
     private costsService: IncomesService,
+    private tokenService: TokenService,
   ) { 
     this.addIncomeForm = this.formBuilder.group({
       category: ['', [Validators.required, Validators.maxLength(20)]],
@@ -30,6 +32,12 @@ export class AddIncomeFormComponent {
       price: [Number(1), [Validators.required, Validators.min(0.01), Validators.max(999999999999)]],
       date: [Date(), [Validators.required]]
     })
+  }
+
+  ngOnInit(): void {
+    if (!this.tokenService.isLoggedIn()) {
+      this.router.navigate(['authorization']);
+    }
   }
 
   get f() { return this.addIncomeForm.controls }

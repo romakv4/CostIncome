@@ -1,0 +1,40 @@
+<div class="homeTableWrapper">
+    <div *ngIf="costs !== null">
+        <table>
+            <caption>
+                LATEST COSTS
+            </caption>
+            <tr>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+            <tr *ngFor="let cost of costs;">
+                <td class="tdPadding">{{ cost.category }}</td>
+                <td class="tdPadding">{{ cost.description || "-" }}</td>
+                <td class="tdPadding">{{ cost.price }}</td>
+            </tr>
+        </table>
+        <br>
+        <button (click)="toCosts()">See All</button>
+    </div>
+    <div *ngIf="incomes !== null">
+        <table>
+            <caption>
+                LATEST INCOMES
+            </caption>
+            <tr>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+            <tr *ngFor="let income of incomes;">
+                <td class="tdPadding">{{ income.category }}</td>
+                <td class="tdPadding">{{ income.description || "-" }}</td>
+                <td class="tdPadding">{{ income.price }}</td>
+            </tr>
+        </table>
+        <br>
+        <button (click)="toIncomes()">See All</button>
+    </div>
+</div>

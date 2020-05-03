@@ -9,6 +9,7 @@ import { ChangePasswordFormComponent } from './change-password-form/change-passw
 import { AddCostFormComponent } from './add-cost-form/add-cost-form.component';
 import { IncomesComponent } from './incomes/incomes.component';
 import { AddIncomeFormComponent } from './add-income-form/add-income-form.component';
+import { HomeComponent } from './home/home.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'authorization', component: AuthorizationFormComponent },
   { path: 'resetpassword', component: ResetPasswordFormComponent },
   { path: 'changepassword', component: ChangePasswordFormComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'costs', component: CostsComponent },
   { path: 'add-cost', component: AddCostFormComponent },
   { path: 'incomes', component: IncomesComponent },

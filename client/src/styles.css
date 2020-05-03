@@ -42,10 +42,6 @@ table {
 	border-spacing: 0;
 }
 
-.fullHeight {
-    height: 100vh;
-}
-
 .centrate {
     display: flex;
     justify-content: center;

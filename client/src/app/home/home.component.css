@@ -4,6 +4,10 @@
     align-items: center;
 }
 
+.fullHeight {
+    height: 100vh;
+}
+
 .tdPadding {
     padding: 10px 10px;
 }

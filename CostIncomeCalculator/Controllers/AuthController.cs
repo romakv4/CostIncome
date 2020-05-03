@@ -171,7 +171,7 @@ namespace CostIncomeCalculator.Controllers
 
                 return Ok(new { success = true });
             }
-            catch (EqualsPasswordsException e)
+            catch (EqualsPasswordsException)
             {
                 return BadRequest(new { success = false, newPassword = "The new password can't match old" });
             }

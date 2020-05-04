@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CostsService } from '../services/costs.service';
 import { TokenService } from '../services/token.service';
 import { Router } from '@angular/router';
+import { AccountingItem } from '../types/AccountingItem';
+import { aggregateCategories } from '../utils/aggregateCategories';
 
 @Component({
   selector: 'app-costs',
@@ -11,6 +13,7 @@ import { Router } from '@angular/router';
 export class CostsComponent implements OnInit {
 
   costs = null;
+  chartCosts: Array<{}> = [];
 
   constructor(
     private costsService: CostsService,
@@ -24,8 +27,9 @@ export class CostsComponent implements OnInit {
     }
     this.costsService.getCosts()
       .subscribe(
-        data => {
+        (data: Array<AccountingItem>) => {
           this.costs = data;
+          this.chartCosts = aggregateCategories(data);
         },
         error => console.log(error)
       )
@@ -37,6 +41,7 @@ export class CostsComponent implements OnInit {
         this.costsService.getCosts().subscribe(
           data => {
             this.costs = data;
+            this.chartCosts = aggregateCategories(data);
           },
           error => console.log(error)
         )   

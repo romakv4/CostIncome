@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-// import { single } from './data';
 
 @Component({
   selector: 'app-pie-chart',
@@ -11,8 +10,6 @@ export class PieChartComponent {
   @Input() chartData;
 
   view: any[] = [700, 500];
-
-  // options
   gradient: boolean = true;
   showLegend: boolean = true;
   showLabels: boolean = true;

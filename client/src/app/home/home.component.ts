@@ -44,13 +44,4 @@ export class HomeComponent implements OnInit {
         error => console.log(error)
       )
   }
-
-  private toCosts() {
-    this.router.navigate(["/costs"])
-  }
-
-  private toIncomes() {
-    this.router.navigate(["/incomes"])
-  }
-
 }

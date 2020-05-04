@@ -18,7 +18,7 @@
             </tr>
         </table>
         <br>
-        <button (click)="toCosts()">See All</button>
+        <button (click)="router.navigate(['/costs'])">See All</button>
     </div>
     <div *ngIf="incomes !== null">
         <table>
@@ -39,6 +39,6 @@
             </tr>
         </table>
         <br>
-        <button (click)="toIncomes()">See All</button>
+        <button (click)="router.navigate(['/incomes'])">See All</button>
     </div>
 </div>

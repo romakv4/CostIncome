@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +18,7 @@ import { AddCostFormComponent } from './add-cost-form/add-cost-form.component';
 import { IncomesComponent } from './incomes/incomes.component';
 import { AddIncomeFormComponent } from './add-income-form/add-income-form.component';
 import { HomeComponent } from './home/home.component';
+import { PieChartComponent } from './pie-chart/pie-chart.component';
 
 
 @NgModule({
@@ -32,13 +35,16 @@ import { HomeComponent } from './home/home.component';
     IncomesComponent,
     AddIncomeFormComponent,
     HomeComponent,
+    PieChartComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxChartsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

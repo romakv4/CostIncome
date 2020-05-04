@@ -9,12 +9,14 @@
                 <th>Category</th>
                 <th>Description</th>
                 <th>Price</th>
+                <th>Date</th>
                 <th>Actions</th>
             </tr>
             <tr *ngFor="let income of incomes;">
                 <td>{{ income.category }}</td>
                 <td>{{ income.description || "-" }}</td>
                 <td>{{ income.price }}</td>
+                <td>{{ income.date }}</td>
                 <td>
                     <button class="table-button" (click)="deleteIncome(income.id)">Delete</button>
                 </td>

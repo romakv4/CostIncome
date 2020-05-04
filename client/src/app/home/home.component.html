@@ -8,11 +8,13 @@
                 <th>Category</th>
                 <th>Description</th>
                 <th>Price</th>
+                <th>Date</th>
             </tr>
             <tr *ngFor="let cost of costs;">
                 <td class="tdPadding">{{ cost.category }}</td>
                 <td class="tdPadding">{{ cost.description || "-" }}</td>
                 <td class="tdPadding">{{ cost.price }}</td>
+                <td class="tdPadding">{{ cost.date }}</td>
             </tr>
         </table>
         <br>
@@ -27,11 +29,13 @@
                 <th>Category</th>
                 <th>Description</th>
                 <th>Price</th>
+                <th>Date</th>
             </tr>
             <tr *ngFor="let income of incomes;">
                 <td class="tdPadding">{{ income.category }}</td>
                 <td class="tdPadding">{{ income.description || "-" }}</td>
                 <td class="tdPadding">{{ income.price }}</td>
+                <td class="tdPadding">{{ income.date }}</td>
             </tr>
         </table>
         <br>

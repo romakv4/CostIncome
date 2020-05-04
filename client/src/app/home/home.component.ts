@@ -4,6 +4,7 @@ import { TokenService } from '../services/token.service';
 import { CostsService } from '../services/costs.service';
 import { IncomesService } from '../services/incomes.service';
 import { AccountingItem } from '../types/AccountingItem';
+import { formatDateForTables } from '../utils/formatDateForTables';
 
 @Component({
   selector: 'app-home',
@@ -29,14 +30,16 @@ export class HomeComponent implements OnInit {
     this.costsService.getCosts()
       .subscribe(
         (data: Array<AccountingItem>) => {
-          this.costs = data.slice(Math.max(data.length - 10, 0));
+          const formattedData = formatDateForTables(data.slice(Math.max(data.length - 10, 0)));
+          this.costs = formattedData;
         },
         error => console.log(error)
       )
     this.incomesService.getIncomes()
       .subscribe(
         (data: Array<AccountingItem>) => {
-          this.incomes = data.slice(Math.max(data.length - 10, 0));
+          const formattedData = formatDateForTables(data.slice(Math.max(data.length - 10, 0)));
+          this.incomes = formattedData;
         },
         error => console.log(error)
       )

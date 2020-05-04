@@ -4,6 +4,7 @@ import { TokenService } from '../services/token.service';
 import { Router } from '@angular/router';
 import { aggregateCategories } from '../utils/aggregateCategories';
 import { AccountingItem } from '../types/AccountingItem';
+import { formatDateForTables } from '../utils/formatDateForTables';
 
 @Component({
   selector: 'app-incomes',
@@ -28,7 +29,8 @@ export class IncomesComponent implements OnInit {
     this.incomesService.getIncomes()
       .subscribe(
         (data: Array<AccountingItem>) => {
-          this.incomes = data;
+          const formattedData = formatDateForTables(data);
+          this.incomes = formattedData;
           this.chartIncomes = aggregateCategories(data);
         },
         error => console.log(error)

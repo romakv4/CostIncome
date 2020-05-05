@@ -1,5 +1,5 @@
-<div class="homeTableWrapper fullHeight">
-    <div *ngIf="costs !== null">
+<div class="homeTableWrapper fullHeight">    
+    <div *ngIf="costs.length !== 0">
         <table>
             <caption>
                 LATEST COSTS
@@ -20,7 +20,12 @@
         <br>
         <button (click)="router.navigate(['/costs'])">See All</button>
     </div>
-    <div *ngIf="incomes !== null">
+    <div style="text-align: center;" *ngIf="costs.length === 0">
+        <div>There is nothing!</div>
+        <br>
+        <button (click)="router.navigate(['/add-cost'])">Add cost</button>
+    </div>
+    <div *ngIf="incomes.length !== 0">
         <table>
             <caption>
                 LATEST INCOMES
@@ -40,5 +45,10 @@
         </table>
         <br>
         <button (click)="router.navigate(['/incomes'])">See All</button>
+    </div>
+    <div style="text-align: center;" *ngIf="incomes.length === 0">
+        <div>There is nothing!</div>
+        <br>
+        <button (click)="router.navigate(['/add-income'])">Add income</button>
     </div>
 </div>

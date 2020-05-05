@@ -13,8 +13,8 @@ import { formatDateForTables } from '../utils/formatDateForTables';
 })
 export class HomeComponent implements OnInit {
 
-  costs = null;
-  incomes = null;
+  costs = [];
+  incomes = [];
 
   constructor(
     private tokenService: TokenService,

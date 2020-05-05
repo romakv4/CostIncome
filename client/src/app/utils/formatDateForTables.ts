@@ -3,6 +3,7 @@ export const formatDateForTables = (accountingItems) => {
     for (let item of accountingItems) {
       const tempDate = new Date(item.date);
       result.push({
+        id: item.id,
         category: item.category,
         description: item.description,
         price: item.price,

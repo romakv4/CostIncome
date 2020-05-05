@@ -12,7 +12,7 @@
                 <th>Date</th>
                 <th>Actions</th>
             </tr>
-            <tr *ngFor="let income of incomes;">
+            <tr *ngFor="let income of incomes  | paginate: { itemsPerPage : itemsPerPage, currentPage: currentPage }">
                 <td>{{ income.category }}</td>
                 <td>{{ income.description || "-" }}</td>
                 <td>{{ income.price }}</td>
@@ -28,6 +28,10 @@
             <a href="/home">
                 <i class="material-icons">home</i>
             </a>
+        </div>
+        <br>
+        <div class="pagination">
+            <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
         </div>
     </div>
     <app-pie-chart [chartData]="chartIncomes"></app-pie-chart>

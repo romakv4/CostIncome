@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -45,6 +46,7 @@ import { PieChartComponent } from './pie-chart/pie-chart.component';
     AppRoutingModule,
     NgxChartsModule,
     BrowserAnimationsModule,
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

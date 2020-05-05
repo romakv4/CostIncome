@@ -22,6 +22,7 @@
     "@angular/router": "~9.1.4",
     "@auth0/angular-jwt": "^4.0.0",
     "@swimlane/ngx-charts": "^14.0.0",
+    "ngx-pagination": "^5.0.0",
     "rxjs": "~6.5.5",
     "tslib": "^1.11.1",
     "zone.js": "~0.10.3"

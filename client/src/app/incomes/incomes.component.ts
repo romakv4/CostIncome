@@ -15,6 +15,8 @@ export class IncomesComponent implements OnInit {
 
   incomes = null;
   chartIncomes: Array<{}> = [];
+  itemsPerPage = "14";
+  currentPage = "1";
 
   constructor(
     private incomesService: IncomesService,
@@ -42,8 +44,12 @@ export class IncomesComponent implements OnInit {
       () => {
         this.incomesService.getIncomes().subscribe(
           data => {
-            this.incomes = data;
+            const formattedData = formatDateForTables(data);
+            this.incomes = formattedData;
             this.chartIncomes = aggregateCategories(data);
+            if (this.incomes.length <= Number(this.itemsPerPage)) {
+              this.currentPage = "1";
+            }
           },
           error => console.log(error)
         )   

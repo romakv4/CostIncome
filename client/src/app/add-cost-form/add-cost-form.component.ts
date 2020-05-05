@@ -28,7 +28,7 @@ export class AddCostFormComponent implements OnInit {
   ) { 
     this.addCostForm = this.formBuilder.group({
       category: ['', [Validators.required, Validators.maxLength(20)]],
-      description: ['', [Validators.maxLength(100)]],
+      description: ['', [Validators.maxLength(20)]],
       price: [Number(1), [Validators.required, Validators.min(0.01), Validators.max(999999999999)]],
       date: [Date(), [Validators.required]]
     })

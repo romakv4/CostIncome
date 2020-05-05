@@ -47,7 +47,7 @@ namespace CostIncomeCalculator.Data.IncomeData
             {
                 List<Income> incomes = new List<Income>();
 
-                incomes = await context.Incomes.Where(x => x.user.Email == email).OrderBy(x => x.Id).ToListAsync();
+                incomes = await context.Incomes.Where(x => x.user.Email == email).OrderByDescending(x => x.Id).ToListAsync();
 
                 return mapper.Map<IEnumerable<IncomeReturnDto>>(incomes);
             }

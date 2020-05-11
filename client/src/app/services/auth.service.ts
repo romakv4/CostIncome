@@ -6,6 +6,7 @@ import {
   ResetPassUserData,
   ChangePasswordUserData
 } from '../types/user'
+import { DevConfig } from '../configuration';
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +18,18 @@ export class AuthService {
   ) { }
 
   register(userData: SignUpUserData) {
-    return this.http.post('http://localhost:5000/api/auth/register', userData);
+    return this.http.post(`${DevConfig.AUTH_URI}/register`, userData);
   }
 
   authorize(userData: SignInUserData) {
-    return this.http.post('http://localhost:5000/api/auth/login', userData);
+    return this.http.post(`${DevConfig.AUTH_URI}/login`, userData);
   }
 
   resetPassword(userData: ResetPassUserData) {
-    return this.http.post('http://localhost:5000/api/auth/resetpassword', userData);
+    return this.http.post(`${DevConfig.AUTH_URI}/resetpassword`, userData);
   }
 
   changePassword(userData: ChangePasswordUserData) {
-    return this.http.post('http://localhost:5000/api/auth/changepassword', userData);
+    return this.http.post(`${DevConfig.AUTH_URI}/changepassword`, userData);
   }
 }

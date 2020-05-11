@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TokenService } from './token.service';
 import { AccountingItem } from '../types/AccountingItem';
+import { DevConfig } from '../configuration';
 
 @Injectable({
   providedIn: 'root'
@@ -15,26 +16,26 @@ export class CostsService {
 
   getCosts() {
     return this.http.get(
-      'http://localhost:5000/api/v1/cost',
+      `${DevConfig.BASE_URI}/cost`,
       { headers: this.tokenService.getAuthHeaders() }
     );
   }
 
   getConcreteCost(id) {
     return this.http.get(
-      `http://localhost:5000/api/v1/cost/${id}`,
+      `${DevConfig.BASE_URI}/cost/${id}`,
       { headers: this.tokenService.getAuthHeaders() }
       )
   }
 
   deleteCost(id: number) {
-    return this.http.request('delete', 'http://localhost:5000/api/v1/cost', { 
+    return this.http.request('delete', `${DevConfig.BASE_URI}/cost`, {
       headers: this.tokenService.getAuthHeaders(),
       body: { ids:[id] } } );
   }
 
   addCost(cost: AccountingItem) {
-    return this.http.request('post', 'http://localhost:5000/api/v1/cost', {
+    return this.http.request('post', `${DevConfig.BASE_URI}/cost`, {
       headers: this.tokenService.getAuthHeaders(),
       body: {
         category: cost.category,
@@ -46,7 +47,7 @@ export class CostsService {
   }
 
   editCost(cost: AccountingItem) {
-    return this.http.request('put', `http://localhost:5000/api/v1/cost/${cost.id}`, {
+    return this.http.request('put', `${DevConfig.BASE_URI}/cost/${cost.id}`, {
       headers: this.tokenService.getAuthHeaders(),
       body: {
         id: cost.id,

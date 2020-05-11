@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ErrorsService } from '../services/errors.service';
-import { AccountingItem, SetSuccess } from '../types/AccountingItem';
+import { AccountingItem, OperationSuccess } from '../types/AccountingItem';
 import { CostsService } from '../services/costs.service';
 import { TokenService } from '../services/token.service';
 
@@ -49,7 +49,7 @@ export class AddCostFormComponent implements OnInit {
     }
     this.costsService.addCost(costData)
       .subscribe(
-        (response: SetSuccess) => {
+        (response: OperationSuccess) => {
           this.addCostSuccess = response.success;
           if (this.addCostSuccess) {
             this.submitted = false;

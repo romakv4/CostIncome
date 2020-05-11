@@ -11,6 +11,7 @@ import { IncomesComponent } from './incomes/incomes.component';
 import { AddIncomeFormComponent } from './add-income-form/add-income-form.component';
 import { HomeComponent } from './home/home.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { EditCostFormComponent } from './edit-cost-form/edit-cost-form.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'costs', component: CostsComponent },
   { path: 'add-cost', component: AddCostFormComponent },
+  { path: 'edit-cost/:id', component: EditCostFormComponent },
   { path: 'incomes', component: IncomesComponent },
   { path: 'add-income', component: AddIncomeFormComponent },
   { path: 'pie', component: PieChartComponent}

@@ -1,3 +1,8 @@
 .table-button {
     font-size: 16px;
+    margin-right: 5px;
+}
+
+.table-button:last-child {
+    margin-right: 0px;
 }

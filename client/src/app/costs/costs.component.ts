@@ -4,7 +4,7 @@ import { TokenService } from '../services/token.service';
 import { Router } from '@angular/router';
 import { AccountingItem } from '../types/AccountingItem';
 import { aggregateCategories } from '../utils/aggregateCategories';
-import { formatDateForTables } from '../utils/formatDateForTables';
+import { formatDateForTables } from '../utils/formatDate';
 
 @Component({
   selector: 'app-costs',
@@ -60,6 +60,10 @@ export class CostsComponent implements OnInit {
 
   addCost() {
     this.router.navigate(['add-cost']);
+  }
+
+  editCost(id) {
+    this.router.navigate(['/edit-cost', id]);
   }
 
 }

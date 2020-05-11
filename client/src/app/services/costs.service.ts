@@ -14,7 +14,17 @@ export class CostsService {
   ) { }
 
   getCosts() {
-    return this.http.get('http://localhost:5000/api/v1/cost', { headers: this.tokenService.getAuthHeaders() });
+    return this.http.get(
+      'http://localhost:5000/api/v1/cost',
+      { headers: this.tokenService.getAuthHeaders() }
+    );
+  }
+
+  getConcreteCost(id) {
+    return this.http.get(
+      `http://localhost:5000/api/v1/cost/${id}`,
+      { headers: this.tokenService.getAuthHeaders() }
+      )
   }
 
   deleteCost(id: number) {
@@ -27,6 +37,19 @@ export class CostsService {
     return this.http.request('post', 'http://localhost:5000/api/v1/cost', {
       headers: this.tokenService.getAuthHeaders(),
       body: {
+        category: cost.category,
+        description: cost.description,
+        price: cost.price,
+        date: this.formatDate(cost.date)
+      }
+    });
+  }
+
+  editCost(cost: AccountingItem) {
+    return this.http.request('put', `http://localhost:5000/api/v1/cost/${cost.id}`, {
+      headers: this.tokenService.getAuthHeaders(),
+      body: {
+        id: cost.id,
         category: cost.category,
         description: cost.description,
         price: cost.price,

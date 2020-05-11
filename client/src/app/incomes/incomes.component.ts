@@ -4,7 +4,7 @@ import { TokenService } from '../services/token.service';
 import { Router } from '@angular/router';
 import { aggregateCategories } from '../utils/aggregateCategories';
 import { AccountingItem } from '../types/AccountingItem';
-import { formatDateForTables } from '../utils/formatDateForTables';
+import { formatDateForTables } from '../utils/formatDate';
 
 @Component({
   selector: 'app-incomes',

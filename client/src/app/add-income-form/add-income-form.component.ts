@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ErrorsService } from '../services/errors.service';
 import { IncomesService } from '../services/incomes.service';
-import { AccountingItem, SetSuccess } from '../types/AccountingItem';
+import { AccountingItem, OperationSuccess } from '../types/AccountingItem';
 import { TokenService } from '../services/token.service';
 
 @Component({
@@ -49,7 +49,7 @@ export class AddIncomeFormComponent implements OnInit {
     }
     this.costsService.addIncome(incomeData)
       .subscribe(
-        (response: SetSuccess) => {
+        (response: OperationSuccess) => {
           this.addIncomeSuccess = response.success;
           if (this.addIncomeSuccess) {
             this.submitted = false;

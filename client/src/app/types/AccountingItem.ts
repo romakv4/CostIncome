@@ -1,10 +1,11 @@
 export type AccountingItem = {
+    id: number,
     category: string,
     description?: string,
     price: number,
     date: Date
 }
 
-export type SetSuccess = {
+export type OperationSuccess = {
     success: boolean
 }

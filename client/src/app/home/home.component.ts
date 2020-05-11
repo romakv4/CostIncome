@@ -4,7 +4,7 @@ import { TokenService } from '../services/token.service';
 import { CostsService } from '../services/costs.service';
 import { IncomesService } from '../services/incomes.service';
 import { AccountingItem } from '../types/AccountingItem';
-import { formatDateForTables } from '../utils/formatDateForTables';
+import { formatDateForTables } from '../utils/formatDate';
 import { AccountingItemsTableComponent } from '../accounting-items-table/accounting-items-table.component';
 
 @Component({
@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private costsService: CostsService,
     private incomesService: IncomesService,
-    // private table: AccountingItemsTableComponent
   ) { }
 
   ngOnInit(): void {

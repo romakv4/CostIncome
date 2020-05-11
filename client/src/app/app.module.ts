@@ -21,6 +21,7 @@ import { AddIncomeFormComponent } from './add-income-form/add-income-form.compon
 import { HomeComponent } from './home/home.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { AccountingItemsTableComponent } from './accounting-items-table/accounting-items-table.component';
+import { EditCostFormComponent } from './edit-cost-form/edit-cost-form.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { AccountingItemsTableComponent } from './accounting-items-table/accounti
     HomeComponent,
     PieChartComponent,
     AccountingItemsTableComponent,
+    EditCostFormComponent,
   ],
   imports: [
     BrowserModule,

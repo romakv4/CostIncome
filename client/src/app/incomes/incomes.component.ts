@@ -62,4 +62,8 @@ export class IncomesComponent implements OnInit {
     this.router.navigate(['add-income']);
   }
 
+  editIncome(id) {
+    this.router.navigate(['/edit-income', id]);
+  }
+
 }

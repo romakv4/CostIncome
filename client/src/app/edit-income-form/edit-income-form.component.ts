@@ -6,32 +6,33 @@ import { CostsService } from '../services/costs.service';
 import { TokenService } from '../services/token.service';
 import { AccountingItem, OperationSuccess } from '../types/AccountingItem';
 import { formatDateForForms } from '../utils/formatDate';
+import { IncomesService } from '../services/incomes.service';
 
 @Component({
-  selector: 'app-edit-cost-form',
-  templateUrl: './edit-cost-form.component.html',
-  styleUrls: ['./edit-cost-form.component.css']
+  selector: 'app-edit-income-form',
+  templateUrl: './edit-income-form.component.html',
+  styleUrls: ['./edit-income-form.component.css']
 })
-export class EditCostFormComponent implements OnInit {
+export class EditIncomeFormComponent implements OnInit {
 
-  isEditedCostId;
-  isEditedCost;
+  isEditedIncomeId;
+  isEditedIncome;
 
-  editCostForm;
+  editIncomeForm;
   serverErrors;
   resetServerErrors = this.errorsService.resetServerErrors;
   submitted: boolean = false;
-  editCostSuccess: boolean;
+  editIncomeSuccess: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private errorsService: ErrorsService,
-    private costsService: CostsService,
+    private incomesService: IncomesService,
     private tokenService: TokenService,
     private route: ActivatedRoute,
   ) { 
-    this.editCostForm = this.formBuilder.group({
+    this.editIncomeForm = this.formBuilder.group({
       category: ['', [Validators.required, Validators.maxLength(20)]],
       description: ['', [Validators.maxLength(20)]],
       price: [Number(1), [Validators.required, Validators.min(0.01), Validators.max(999999999999)]],
@@ -44,33 +45,33 @@ export class EditCostFormComponent implements OnInit {
       this.router.navigate(['authorization']);
     }
     this.route.paramMap.subscribe(params => {
-      this.isEditedCostId = params.get("id");
+      this.isEditedIncomeId = params.get("id");
     });
-    this.costsService.getConcreteCost(this.isEditedCostId)
+    this.incomesService.getConcreteIncome(this.isEditedIncomeId)
       .subscribe(
         (data: AccountingItem) => {
-          this.isEditedCost = formatDateForForms(data);
-          this.editCostForm.controls['category'].setValue(data.category);
-          this.editCostForm.controls['description'].setValue(data.description);
-          this.editCostForm.controls['price'].setValue(data.price);
+          this.isEditedIncome = formatDateForForms(data);
+          this.editIncomeForm.controls['category'].setValue(data.category);
+          this.editIncomeForm.controls['description'].setValue(data.description);
+          this.editIncomeForm.controls['price'].setValue(data.price);
         }
       )
   }
 
-  get f() { return this.editCostForm.controls }
+  get f() { return this.editIncomeForm.controls }
 
-  onSubmit(costData: AccountingItem) {
+  onSubmit(incomeData: AccountingItem) {
     this.submitted = true;
-    if (this.editCostForm.invalid) {
+    if (this.editIncomeForm.invalid) {
       return;
     }
-    costData.id = this.isEditedCostId;
-    this.costsService.editCost(costData)
+    incomeData.id = this.isEditedIncomeId;
+    this.incomesService.editIncome(incomeData)
       .subscribe(
         (response: OperationSuccess) => {
-          this.editCostSuccess = response.success;
-          if (this.editCostSuccess) {
-            this.router.navigate(['/costs'])
+          this.editIncomeSuccess = response.success;
+          if (this.editIncomeSuccess) {
+            this.router.navigate(['/incomes'])
           }
         },
         errorResponse => { this.serverErrors = errorResponse.error }

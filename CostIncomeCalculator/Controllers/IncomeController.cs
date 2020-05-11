@@ -190,11 +190,11 @@ namespace CostIncomeCalculator.Controllers
 
                 if (editedIncome == null) return NotFound();
 
-                return StatusCode(204);
+                return StatusCode(200, new { success = true });
             }
             catch
             {
-                return StatusCode(500);
+                return StatusCode(500, new { success = false, message = "Server error. Please, try again later!" });
             }
         }
 

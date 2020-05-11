@@ -17,6 +17,13 @@ export class IncomesService {
     return this.http.get('http://localhost:5000/api/v1/income', { headers: this.tokenService.getAuthHeaders() });
   }
 
+  getConcreteIncome(id) {
+    return this.http.get(
+      `http://localhost:5000/api/v1/income/${id}`,
+      { headers: this.tokenService.getAuthHeaders() }
+      )
+  }
+
   deleteIncome(id: number) {
     return this.http.request('delete', 'http://localhost:5000/api/v1/income', { 
       headers: this.tokenService.getAuthHeaders(),
@@ -27,6 +34,19 @@ export class IncomesService {
     return this.http.request('post', 'http://localhost:5000/api/v1/income', {
       headers: this.tokenService.getAuthHeaders(),
       body: {
+        category: income.category,
+        description: income.description,
+        price: income.price,
+        date: this.formatDate(income.date)
+      }
+    });
+  }
+
+  editIncome(income: AccountingItem) {
+    return this.http.request('put', `http://localhost:5000/api/v1/income/${income.id}`, {
+      headers: this.tokenService.getAuthHeaders(),
+      body: {
+        id: income.id,
         category: income.category,
         description: income.description,
         price: income.price,

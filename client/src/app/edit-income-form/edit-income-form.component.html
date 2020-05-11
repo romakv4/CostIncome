@@ -1,0 +1,110 @@
+<div class="centrate" *ngIf="isEditedIncome != null">
+    <h1>Edit income</h1>
+
+    <form [formGroup]="editIncomeForm" (ngSubmit)="onSubmit(editIncomeForm.value)">
+        <div class="formField">
+            <label for="category">
+                Category
+            </label>
+            <input id="category"
+                type="text"
+                formControlName="category"
+                class="validFormField"
+                [ngClass]="{ 'erroredFormField': submitted && (f.category.errors || (serverErrors && serverErrors.category)) }"
+                (input)="resetServerErrors(this)">
+
+            <p *ngIf="submitted && f.category.errors">
+                <span *ngIf="f.category.errors.required">
+                    Category is required
+                </span>
+                <span *ngIf="f.category.errors.maxlength">
+                    Category must be shorter than {{ f.category.errors.maxlength.requiredLength }} characters
+                </span>
+            </p>
+            <!-- <p *ngIf="serverErrors">
+                <span *ngIf="serverErrors.email">
+                    {{ serverErrors.email }}
+                </span>
+            </p> -->
+        </div>
+        <div class="formField">
+            <label for="description">
+                Description
+            </label>
+            <input id="description"
+                type="text"
+                formControlName="description"
+                class="validFormField"
+                [ngClass]="{ 'erroredFormField': submitted && f.description.errors }">
+
+            <p *ngIf="submitted && f.description.errors">
+                <span *ngIf="f.description.errors.maxlength">
+                    Description must be shorter than {{ f.description.errors.maxlength.requiredLength }} characters
+                </span>
+            </p>
+            <!-- <p *ngIf="serverErrors">
+                <span *ngIf="serverErrors.password">
+                    {{ serverErrors.password }}
+                </span>
+            </p> -->
+        </div>
+        <div class="formField">
+            <label for="price">
+                Price
+            </label>
+            <input id="price"
+                type="number"
+                min="1"
+                formControlName="price"
+                class="validFormField"
+                [ngClass]="{ 'erroredFormField': submitted && f.price.errors }">
+
+            <p *ngIf="submitted && f.price.errors">
+                <span *ngIf="f.price.errors.required">
+                    Price is required
+                </span>
+                <span *ngIf="f.price.errors.min">
+                    Price must be greater than 1
+                </span>
+                <span *ngIf="f.price.errors.max">
+                    Are you serious?
+                </span>
+            </p>
+            <!-- <p *ngIf="serverErrors">
+                <span *ngIf="serverErrors.confirmPassword">
+                    {{ serverErrors.confirmPassword }}
+                </span>
+            </p> -->
+        </div>
+        <div class="formField">
+            <label for="date">
+                Date
+            </label>
+            <input id="date"
+                type="date"
+                value={{isEditedIncome.date}}
+                formControlName="date"
+                class="validFormField"
+                [ngClass]="{ 'erroredFormField': submitted && f.date.errors }">
+
+            <p *ngIf="submitted && f.date.errors">
+                <span *ngIf="f.date.errors.required">
+                    Date is required
+                </span>
+            </p>
+            <!-- <p *ngIf="serverErrors">
+                <span *ngIf="serverErrors.confirmPassword">
+                    {{ serverErrors.confirmPassword }}
+                </span>
+            </p> -->
+        </div>
+        <div class="actionsBlock">
+            <button type="submit">
+                Edit
+            </button>
+            <a href="/costs">
+                <i class="material-icons">keyboard_backspace</i>
+            </a>
+        </div>
+    </form>
+</div>

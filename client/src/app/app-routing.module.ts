@@ -12,6 +12,7 @@ import { AddIncomeFormComponent } from './add-income-form/add-income-form.compon
 import { HomeComponent } from './home/home.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { EditCostFormComponent } from './edit-cost-form/edit-cost-form.component';
+import { EditIncomeFormComponent } from './edit-income-form/edit-income-form.component';
 
 
 const routes: Routes = [
@@ -26,7 +27,8 @@ const routes: Routes = [
   { path: 'edit-cost/:id', component: EditCostFormComponent },
   { path: 'incomes', component: IncomesComponent },
   { path: 'add-income', component: AddIncomeFormComponent },
-  { path: 'pie', component: PieChartComponent}
+  { path: 'pie', component: PieChartComponent},
+  { path: 'edit-income/:id', component: EditIncomeFormComponent },
 ];
 
 @NgModule({

@@ -1,22 +1,6 @@
 <div class="homeTableWrapper fullHeight">    
     <div *ngIf="costs.length !== 0">
-        <table>
-            <caption>
-                LATEST COSTS
-            </caption>
-            <tr>
-                <th>Category</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Date</th>
-            </tr>
-            <tr *ngFor="let cost of costs;">
-                <td class="tdPadding">{{ cost.category }}</td>
-                <td class="tdPadding">{{ cost.description || "-" }}</td>
-                <td class="tdPadding">{{ cost.price }}</td>
-                <td class="tdPadding">{{ cost.date }}</td>
-            </tr>
-        </table>
+        <app-accounting-items-table [caption]="'LATEST COSTS'" [accountingItems]="costs"></app-accounting-items-table>
         <br>
         <button (click)="router.navigate(['/costs'])">See All</button>
     </div>
@@ -26,23 +10,7 @@
         <button (click)="router.navigate(['/add-cost'])">Add cost</button>
     </div>
     <div *ngIf="incomes.length !== 0">
-        <table>
-            <caption>
-                LATEST INCOMES
-            </caption>
-            <tr>
-                <th>Category</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Date</th>
-            </tr>
-            <tr *ngFor="let income of incomes;">
-                <td class="tdPadding">{{ income.category }}</td>
-                <td class="tdPadding">{{ income.description || "-" }}</td>
-                <td class="tdPadding">{{ income.price }}</td>
-                <td class="tdPadding">{{ income.date }}</td>
-            </tr>
-        </table>
+        <app-accounting-items-table [caption]="'LATEST INCOMES'" [accountingItems]="incomes"></app-accounting-items-table>
         <br>
         <button (click)="router.navigate(['/incomes'])">See All</button>
     </div>

@@ -1,0 +1,17 @@
+<table>
+    <caption>
+        {{ caption }}
+    </caption>
+    <tr>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Date</th>
+    </tr>
+    <tr *ngFor="let item of accountingItems;">
+        <td class="tdPadding">{{ item.category }}</td>
+        <td class="tdPadding">{{ item.description || "-" }}</td>
+        <td class="tdPadding">{{ item.price }}</td>
+        <td class="tdPadding">{{ item.date }}</td>
+    </tr>
+</table>

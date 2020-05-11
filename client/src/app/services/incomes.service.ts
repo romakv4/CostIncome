@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TokenService } from './token.service';
 import { AccountingItem } from '../types/AccountingItem';
+import { DevConfig } from '../configuration';
 
 @Injectable({
   providedIn: 'root'
@@ -14,24 +15,24 @@ export class IncomesService {
   ) { }
 
   getIncomes() {
-    return this.http.get('http://localhost:5000/api/v1/income', { headers: this.tokenService.getAuthHeaders() });
+    return this.http.get(`${DevConfig.BASE_URI}/income`, { headers: this.tokenService.getAuthHeaders() });
   }
 
   getConcreteIncome(id) {
     return this.http.get(
-      `http://localhost:5000/api/v1/income/${id}`,
+      `${DevConfig.BASE_URI}/income/${id}`,
       { headers: this.tokenService.getAuthHeaders() }
       )
   }
 
   deleteIncome(id: number) {
-    return this.http.request('delete', 'http://localhost:5000/api/v1/income', { 
+    return this.http.request('delete', `${DevConfig.BASE_URI}/income`, { 
       headers: this.tokenService.getAuthHeaders(),
       body: { ids:[id] } } );
   }
 
   addIncome(income: AccountingItem) {
-    return this.http.request('post', 'http://localhost:5000/api/v1/income', {
+    return this.http.request('post', `${DevConfig.BASE_URI}/income`, {
       headers: this.tokenService.getAuthHeaders(),
       body: {
         category: income.category,
@@ -43,7 +44,7 @@ export class IncomesService {
   }
 
   editIncome(income: AccountingItem) {
-    return this.http.request('put', `http://localhost:5000/api/v1/income/${income.id}`, {
+    return this.http.request('put', `${DevConfig.BASE_URI}/income/${income.id}`, {
       headers: this.tokenService.getAuthHeaders(),
       body: {
         id: income.id,

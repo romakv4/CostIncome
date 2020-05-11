@@ -33,6 +33,9 @@ export class IncomesComponent implements OnInit {
         (data: Array<AccountingItem>) => {
           const formattedData = formatDateForTables(data);
           this.incomes = formattedData;
+          if (this.incomes.length === 0) {
+            this.router.navigate(['/home'])
+          }
           this.chartIncomes = aggregateCategories(data);
         },
         error => console.log(error)
@@ -46,6 +49,9 @@ export class IncomesComponent implements OnInit {
           data => {
             const formattedData = formatDateForTables(data);
             this.incomes = formattedData;
+            if (this.incomes.length === 0) {
+              this.router.navigate(['/home'])
+            }
             this.chartIncomes = aggregateCategories(data);
             if (this.incomes.length <= Number(this.itemsPerPage)) {
               this.currentPage = "1";

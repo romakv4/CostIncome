@@ -33,6 +33,9 @@ export class CostsComponent implements OnInit {
         (data: Array<AccountingItem>) => {
           const formattedData = formatDateForTables(data);
           this.costs = formattedData;
+          if (this.costs.length === 0) {
+            this.router.navigate(['/home'])
+          }
           this.chartCosts = aggregateCategories(data);
         },
         error => console.log(error)
@@ -46,6 +49,9 @@ export class CostsComponent implements OnInit {
           data => {
             const formattedData = formatDateForTables(data);
             this.costs = formattedData;
+            if (this.costs.length === 0) {
+              this.router.navigate(['/home'])
+            }
             this.chartCosts = aggregateCategories(data);
             if (this.costs.length <= Number(this.itemsPerPage)) {
               this.currentPage = "1";

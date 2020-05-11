@@ -40,7 +40,7 @@ export class EditCostFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.tokenService.isLoggedIn()) {
+    if (!this.tokenService.isTokenExpired()) {
       this.router.navigate(['authorization']);
     }
     this.route.paramMap.subscribe(params => {

@@ -35,7 +35,7 @@ export class AddIncomeFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.tokenService.isLoggedIn()) {
+    if (!this.tokenService.isTokenExpired()) {
       this.router.navigate(['authorization']);
     }
   }

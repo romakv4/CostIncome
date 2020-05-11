@@ -46,7 +46,7 @@ export class AuthorizationFormComponent {
           this.authorizationSuccess = response.success;
           if (this.authorizationSuccess) {
             this.tokenService.setToken(response.token);
-            this.tokenService.isLoggedIn() && this.router.navigate(['home']);
+            this.tokenService.isTokenExpired() && this.router.navigate(['home']);
           }
         },
         errorResponse => { this.serverErrors = errorResponse.error }

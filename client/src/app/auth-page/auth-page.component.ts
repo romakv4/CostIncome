@@ -19,7 +19,7 @@ export class AuthPageComponent implements OnInit {
   }
 
   redirectToHomePage() {
-    if (this.tokenService.isLoggedIn()) {
+    if (this.tokenService.isTokenExpired()) {
       this.router.navigate(['home']);
     }
   }

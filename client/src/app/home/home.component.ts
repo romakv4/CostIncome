@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (!this.tokenService.isLoggedIn()) {
+    if (!this.tokenService.isTokenExpired()) {
       this.router.navigate(['authorization']);
     }
     this.costsService.getCosts()

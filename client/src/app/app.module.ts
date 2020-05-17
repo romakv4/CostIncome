@@ -24,6 +24,7 @@ import { AccountingItemsTableComponent } from './accounting-items-table/accounti
 import { EditCostFormComponent } from './edit-cost-form/edit-cost-form.component';
 import { EditIncomeFormComponent } from './edit-income-form/edit-income-form.component';
 import { LogoutComponent } from './logout/logout.component';
+import { ExportToCsvComponent } from './export-to-csv/export-to-csv.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { LogoutComponent } from './logout/logout.component';
     EditCostFormComponent,
     EditIncomeFormComponent,
     LogoutComponent,
+    ExportToCsvComponent,
   ],
   imports: [
     BrowserModule,

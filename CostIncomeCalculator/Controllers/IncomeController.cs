@@ -66,6 +66,11 @@ namespace CostIncomeCalculator.Controllers
             {
                 string email = HttpContext.User.Identity.Name.ToLower();
 
+                if (category != null) {
+                    var incomes = await repository.GetIncomesByCategory(email, category);
+                    return Ok(incomes);
+                }
+
                 if (period == null && category == null)
                 {
                     var costs = await repository.GetAllIncomes(email);

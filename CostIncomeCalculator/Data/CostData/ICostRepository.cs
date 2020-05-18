@@ -27,6 +27,14 @@ namespace CostIncomeCalculator.Data.CostData
         Task<CostReturnDto> GetConcreteCost(string username, int id);
 
         /// <summary>
+        /// Get costs by category. See implementation here <see cref="CostRepository.GetCostsByCategory" />.
+        /// </summary>
+        /// <param name="email">User email</param>
+        /// <param name="category">Category to get costs. Required.</param>
+        /// <returns>Array of <see cref="CostReturnDto" /></returns>
+        Task<IEnumerable<CostReturnDto>> GetCostsByCategory(string email, string category);
+
+        /// <summary>
         /// Get weekly costs. See implementation here <see cref="CostRepository.GetWeeklyCosts" />.
         /// </summary>
         /// <param name="email">User email</param>

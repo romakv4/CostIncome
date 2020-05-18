@@ -86,6 +86,21 @@ namespace CostIncomeCalculator.Data.IncomeData
         }
 
         /// <summary>
+        /// Get incomes by category method.
+        /// </summary>
+        /// <param name="email">User email</param>
+        /// <param name="category">Category to get incomes. Required.</param>
+        /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
+        public async Task<IEnumerable<IncomeReturnDto>> GetIncomesByCategory(string email, string category) {
+            var categorizedIncomes = context.Incomes
+                                            .Where(x => 
+                                                    x.user.Email == email &&
+                                                    x.Category == category
+                                            );
+            return mapper.Map<IEnumerable<IncomeReturnDto>>(await categorizedIncomes.ToListAsync());
+        }
+
+        /// <summary>
         /// Get weekly incomes method.
         /// </summary>
         /// <param name="email">User email</param>

@@ -86,6 +86,21 @@ namespace CostIncomeCalculator.Data.CostData
         }
 
         /// <summary>
+        /// Get costs by category method.
+        /// </summary>
+        /// <param name="email">User email</param>
+        /// <param name="category">Category to get costs. May be null.</param>
+        /// <returns>Array of <see cref="CostReturnDto" /></returns>
+        public async Task<IEnumerable<CostReturnDto>> GetCostsByCategory(string email, string category) {
+            var categorizedCosts = context.Costs
+                                            .Where(x => 
+                                                    x.user.Email == email &&
+                                                    x.Category == category
+                                            );
+            return mapper.Map<IEnumerable<CostReturnDto>>(await categorizedCosts.ToListAsync());
+        }
+
+        /// <summary>
         /// Get weekly costs method.
         /// </summary>
         /// <param name="email">User email</param>

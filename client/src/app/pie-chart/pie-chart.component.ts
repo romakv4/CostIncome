@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CostsService } from '../services/costs.service';
+import { Router } from '@angular/router';
+import { IncomesService } from '../services/incomes.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -8,6 +11,12 @@ import { Component, Input, OnInit } from '@angular/core';
 export class PieChartComponent {
 
   @Input() chartData;
+
+  constructor(
+    private router: Router,
+    private costsService: CostsService,
+    private incomesService: IncomesService
+  ) { }
 
   view: any[] = [700, 500];
   gradient: boolean = true;
@@ -29,15 +38,28 @@ export class PieChartComponent {
   }
 
   onSelect(data): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+    switch(this.router.url) {
+      case '/costs':
+        this.costsService.getCostsByCategory(data.name)
+          .subscribe(
+            data => console.log(data),
+            error => console.log(error)
+          )
+      case '/incomes':
+        this.incomesService.getIncomesByCategory(data.name)
+          .subscribe(
+            data => console.log(data),
+            error => console.log(error)
+          )
+    }
   }
 
   onActivate(data): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
+    // console.log('Activate', JSON.parse(JSON.stringify(data)));
   }
 
   onDeactivate(data): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+    // console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
 }

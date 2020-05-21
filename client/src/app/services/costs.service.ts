@@ -21,6 +21,13 @@ export class CostsService {
     );
   }
 
+  getCostsByCategory(category: String) {
+    return this.http.get(
+      `${DevConfig.BASE_URI}/cost?category=${category}`,
+      { headers: this.tokenService.getAuthHeaders() }
+    )
+  }
+
   getConcreteCost(id) {
     return this.http.get(
       `${DevConfig.BASE_URI}/cost/${id}`,

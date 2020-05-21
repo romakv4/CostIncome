@@ -18,6 +18,13 @@ export class IncomesService {
     return this.http.get(`${DevConfig.BASE_URI}/income`, { headers: this.tokenService.getAuthHeaders() });
   }
 
+  getIncomesByCategory(category: String) {
+    return this.http.get(
+      `${DevConfig.BASE_URI}/income?category=${category}`,
+      { headers: this.tokenService.getAuthHeaders() }
+    )
+  }
+
   getConcreteIncome(id) {
     return this.http.get(
       `${DevConfig.BASE_URI}/income/${id}`,

@@ -3,23 +3,23 @@ matrix:
     - language: csharp
       mono: none
       dotnet: 3.1.100
-      solution: CostIncomeCalculator/CostIncome.sln
-      matrix:
+      solution: ./CostIncome.sln
+      jobs:
         include:
-          - name: Build on Linux
+          - stage: Build on Linux
             os: linux
             script:
               - dotnet build ./CostIncomeCalculator/CostIncomeCalculator.csproj
-          - name: Test on Linux
+          - stage: Test on Linux
             os: linux
             script:
               - dotnet test
-          - name: Build on OSX
+          - stage: Build on OSX
             os: osx
             osx_image: xcode11.3
             script:
               - dotnet build ./CostIncomeCalculator/CostIncomeCalculator.csproj
-          - name: Test on OSX
+          - stage: Test on OSX
             os: osx
             osx_image: xcode11.3
             script:

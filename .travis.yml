@@ -1,14 +1,12 @@
 matrix:
   include:
     - language: node.js
-      node_js:
-        - "12.0"
+      node_js: "12.0"
       before_script:
         - cd client
       script:
         - npm install
         - npm run build
-
     - language: csharp
       mono: none
       dotnet: 3.1.100

@@ -20,8 +20,8 @@
                 <td>{{ income.price }}</td>
                 <td>{{ income.date }}</td>
                 <td>
-                    <button class="table-button" (click)="deleteIncome(income.id)">Delete</button>
-                    <button class="table-button" (click)="editIncome(income.id)">Edit</button>
+                    <i class="material-icons" (click)="editIncome(income.id)">edit</i>
+                    <i class="material-icons" (click)="deleteIncome(income.id)">delete</i>
                 </td>
             </tr>
         </table>

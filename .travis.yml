@@ -1,23 +1,22 @@
 jobs:
   include:
-    - stage: Build back-end
+    - stage: Backend build
       language: csharp
       mono: none
       dotnet: 3.1.100
       solution: CostIncome.sln
-      jobs:
-        include:
-          - stage: Build
-            os: linux
-            script:
-              - dotnet build ./CostIncomeCalculator/CostIncomeCalculator.csproj
-          - Stage: Test
-            os: linux
-            script:
-              - dotnet test
+      script:
+        - dotnet build ./CostIncomeCalculator/CostIncomeCalculator.csproj
+    - stage: Backend test
+      language: csharp
+      mono: none
+      dotnet: 3.1.100
+      solution: CostIncome.sln
+      script:
+        - dotnet test
     - stage: Build front-end
       language: node.js
-      node_js: "12.0"
+      node_js: 12.0
       before_script:
         - cd client
       script:

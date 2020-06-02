@@ -5,7 +5,7 @@ jobs:
       mono: none
       dotnet: 3.1.100
       solution: CostIncome.sln
-      matrix:
+      jobs:
         include:
           - name: Build on Linux
             os: linux

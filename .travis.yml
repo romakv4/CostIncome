@@ -7,22 +7,12 @@ jobs:
       solution: CostIncome.sln
       jobs:
         include:
-          - name: Build on Linux
+          - stage: Build
             os: linux
             script:
               - dotnet build ./CostIncomeCalculator/CostIncomeCalculator.csproj
-          - name: Test on Linux
+          - Stage: Test
             os: linux
-            script:
-              - dotnet test
-          - name: Build on OSX
-            os: osx
-            osx_image: xcode11.3
-            script:
-              - dotnet build ./CostIncomeCalculator/CostIncomeCalculator.csproj
-          - name: Test on OSX
-            os: osx
-            osx_image: xcode11.3
             script:
               - dotnet test
     - stage: Build front-end

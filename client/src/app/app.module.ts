@@ -25,6 +25,7 @@ import { EditCostFormComponent } from './edit-cost-form/edit-cost-form.component
 import { EditIncomeFormComponent } from './edit-income-form/edit-income-form.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ExportToCsvComponent } from './export-to-csv/export-to-csv.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { ExportToCsvComponent } from './export-to-csv/export-to-csv.component';
     EditIncomeFormComponent,
     LogoutComponent,
     ExportToCsvComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

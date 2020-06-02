@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { ErrorsService } from '../services/errors.service';
 import { ChangePasswordUserData } from '../types/user';
 import { Success } from '../types/authResponse';
@@ -23,6 +24,7 @@ export class ChangePasswordFormComponent {
     private formBulder: FormBuilder,
     private authService: AuthService,
     private router: Router,
+    private location: Location,
     private errorsService: ErrorsService,
   ) { 
     this.changePasswordForm = this.formBulder.group({
@@ -37,7 +39,6 @@ export class ChangePasswordFormComponent {
   onSubmit(userData: ChangePasswordUserData) {
     this.submitted = true;
     if (this.changePasswordForm.invalid) {
-      console.log(this.changePasswordForm.controls)
       return;
     }
     this.authService.changePassword(userData)
@@ -52,6 +53,10 @@ export class ChangePasswordFormComponent {
           this.serverErrors = errorResponse.error
         }
       );
+  }
+
+  back() {
+    this.location.back()
   }
 
 }

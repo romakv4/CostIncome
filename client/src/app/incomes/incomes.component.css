@@ -10,3 +10,7 @@
 td i:hover {
     cursor: pointer;
 }
+
+tr td {
+    vertical-align: middle;
+}

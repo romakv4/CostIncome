@@ -1,7 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { TokenService } from '../services/token.service';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 
 @Component({

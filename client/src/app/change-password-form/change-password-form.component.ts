@@ -46,6 +46,7 @@ export class ChangePasswordFormComponent {
         (response: Success) => {
           this.changePasswordSuccess = response.success;
           if (this.changePasswordSuccess) {
+            this.authService.logout();
             this.router.navigate(['authorization']);
           }
         },

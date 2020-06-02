@@ -14,7 +14,7 @@ jobs:
       solution: CostIncome.sln
       script:
         - dotnet test
-    - stage: Build front-end
+    - stage: Frontend build
       language: node.js
       node_js: 12.0
       before_script:

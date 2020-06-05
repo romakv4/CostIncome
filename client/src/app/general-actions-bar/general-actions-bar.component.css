@@ -1,0 +1,20 @@
+.exportToCsv {
+    position: absolute;
+    top: 0;
+    right: 333px;
+    margin: 5px 0 0 0;
+}
+
+.changePassword {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px 115px 0px 0;
+}
+
+.logOut {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px 5px 0px 0;
+}

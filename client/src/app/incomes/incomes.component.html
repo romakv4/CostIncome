@@ -1,6 +1,9 @@
-<app-export-to-csv title="Export all incomes data as CSV file" [data]="incomes" [reportType]="'incomes'"></app-export-to-csv>
-<app-change-password></app-change-password>
-<app-logout></app-logout>
+<app-general-actions-bar 
+    [isForTable]="true"
+    [exportButtonTitle]="'Export all incomes data as CSV file'"
+    [data]="incomes"
+    [reportType]="'incomes'"
+></app-general-actions-bar>
 <br>
 <div class="tableWrapper">
     <div *ngIf="incomes !== null">

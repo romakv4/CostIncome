@@ -1,4 +1,4 @@
-<app-logout></app-logout>
+<app-general-actions-bar [isForTable]="false"></app-general-actions-bar>
 <div class="centrate" *ngIf="isEditedIncome != null">
     <h1>Edit income</h1>
 
@@ -83,7 +83,7 @@
             <button type="submit">
                 Edit
             </button>
-            <a href="/costs">
+            <a href="/incomes">
                 <i class="material-icons">keyboard_backspace</i>
             </a>
         </div>

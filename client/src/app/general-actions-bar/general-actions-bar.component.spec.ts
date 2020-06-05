@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChangePasswordComponent } from './change-password.component';
+import { GeneralActionsBarComponent } from './general-actions-bar.component';
 
-describe('ChangePasswordComponent', () => {
-  let component: ChangePasswordComponent;
-  let fixture: ComponentFixture<ChangePasswordComponent>;
+describe('GeneralActionsBarComponent', () => {
+  let component: GeneralActionsBarComponent;
+  let fixture: ComponentFixture<GeneralActionsBarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChangePasswordComponent ]
+      declarations: [ GeneralActionsBarComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChangePasswordComponent);
+    fixture = TestBed.createComponent(GeneralActionsBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -23,9 +23,7 @@ import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { AccountingItemsTableComponent } from './accounting-items-table/accounting-items-table.component';
 import { EditCostFormComponent } from './edit-cost-form/edit-cost-form.component';
 import { EditIncomeFormComponent } from './edit-income-form/edit-income-form.component';
-import { LogoutComponent } from './logout/logout.component';
-import { ExportToCsvComponent } from './export-to-csv/export-to-csv.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
+import { GeneralActionsBarComponent } from './general-actions-bar/general-actions-bar.component';
 
 
 @NgModule({
@@ -46,9 +44,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     AccountingItemsTableComponent,
     EditCostFormComponent,
     EditIncomeFormComponent,
-    LogoutComponent,
-    ExportToCsvComponent,
-    ChangePasswordComponent,
+    GeneralActionsBarComponent,
   ],
   imports: [
     BrowserModule,

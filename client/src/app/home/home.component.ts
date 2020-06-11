@@ -31,7 +31,8 @@ export class HomeComponent implements OnInit {
     this.costsService.getCosts()
       .subscribe(
         (data: Array<AccountingItem>) => {
-          const formattedData = formatDateForTables(data.slice(Math.max(data.length - 10, 0)));
+          console.log(data)
+          const formattedData = formatDateForTables(data.slice(0, 10));
           this.costs = formattedData;
         },
         error => console.log(error)
@@ -39,7 +40,7 @@ export class HomeComponent implements OnInit {
     this.incomesService.getIncomes()
       .subscribe(
         (data: Array<AccountingItem>) => {
-          const formattedData = formatDateForTables(data.slice(Math.max(data.length - 10, 0)));
+          const formattedData = formatDateForTables(data.slice(0, 10));
           this.incomes = formattedData;
         },
         error => console.log(error)

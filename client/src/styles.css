@@ -212,7 +212,7 @@ td {
     justify-content: space-around;
 }
 
-@media (max-width: 1550px) {
+@media (max-width: 1500px) {
     .tableWrapper {
         flex-direction: column;
         margin-top: 60px;

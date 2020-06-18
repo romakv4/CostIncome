@@ -27,13 +27,14 @@ namespace CostIncomeCalculator.Models
         /// </summary>
         /// <value>string</value>
         [Required]
+        [MaxLength(20)]
         public string Category { get; set; }
 
         /// <summary>
         /// Description of income. Maximum length 100 symbols.
         /// </summary>
         /// <value>string</value>
-        [MaxLength(100)]
+        [MaxLength(20)]
         public string Description { get; set; }
 
         /// <summary>
@@ -41,6 +42,7 @@ namespace CostIncomeCalculator.Models
         /// </summary>
         /// <value>decimal</value>
         [Required]
+        [Range (0.01, (double)decimal.MaxValue)]
         public decimal Price { get; set; }
 
         /// <summary>

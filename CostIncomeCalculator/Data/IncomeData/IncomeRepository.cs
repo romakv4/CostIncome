@@ -14,7 +14,7 @@ namespace CostIncomeCalculator.Data.IncomeData
     /// <summary>
     /// Income repository class.
     /// </summary>
-    public class IncomeRepository : IAccountingItemRepository
+    public class IncomeRepository : IIncomeRepository
     {
         private readonly DataContext context;
         private readonly IMapper mapper;

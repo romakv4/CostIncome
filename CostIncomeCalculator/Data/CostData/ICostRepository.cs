@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CostIncomeCalculator.Dtos;
 
-namespace CostIncomeCalculator.Data
+namespace CostIncomeCalculator.Data.CostData
 {
-    public interface IAccountingItemRepository
+    public interface ICostRepository
     {
         Task<IEnumerable<AccountingItem>> GetAll(string email);
         Task<AccountingItem> GetConcrete(string email, int id);

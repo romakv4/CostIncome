@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CostIncomeCalculator.Data;
+using CostIncomeCalculator.Data.IncomeData;
 using CostIncomeCalculator.Dtos;
 using CostIncomeCalculator.Helpers;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +21,7 @@ namespace CostIncomeCalculator.Controllers
     [ApiController]
     public class IncomeController : ControllerBase
     {
-        private readonly IAccountingItemRepository incomeRepository;
+        private readonly IIncomeRepository incomeRepository;
         private readonly IConfiguration config;
         private readonly IUserHelper userHelper;
         private readonly ITokenHelper tokenHelper;
@@ -28,12 +29,12 @@ namespace CostIncomeCalculator.Controllers
         /// <summary>
         /// Income controller constructor.
         /// </summary>
-        /// <param name="incomeRepository">Income repository <see cref="IAccountingItemRepository" />.</param>
+        /// <param name="incomeRepository">Income repository <see cref="IIncomeRepository" />.</param>
         /// <param name="config">Configuration properties.</param>
         /// <param name="userHelper">User helpers <see cref="IUserHelper" />.</param>
         /// <param name="tokenHelper">JWT tokens helpers <see cref="ITokenHelper" />.</param>
         public IncomeController(
-            IAccountingItemRepository incomeRepository,
+            IIncomeRepository incomeRepository,
             IConfiguration config,
             IUserHelper userHelper,
             ITokenHelper tokenHelper)

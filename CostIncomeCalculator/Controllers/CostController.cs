@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CostIncomeCalculator.Data;
+using CostIncomeCalculator.Data.CostData;
 using CostIncomeCalculator.Dtos;
 using CostIncomeCalculator.Helpers;
 using CostIncomeCalculator.Models;
@@ -21,7 +22,7 @@ namespace CostIncomeCalculator.Controllers
     [ApiController]
     public class CostController : ControllerBase
     {
-        private readonly IAccountingItemRepository costRepository;
+        private readonly ICostRepository costRepository;
         private readonly IConfiguration config;
         private readonly IUserHelper userHelper;
         private readonly ITokenHelper tokenHelper;
@@ -29,15 +30,16 @@ namespace CostIncomeCalculator.Controllers
         /// <summary>
         /// Cost controller constructor.
         /// </summary>
-        /// <param name="costRepository">Accounting item repository <see cref="IAccountingItemRepository" />.</param>
+        /// <param name="costRepository">Accounting item repository <see cref="ICostRepository" />.</param>
         /// <param name="config">Configuration properties.</param>
         /// <param name="userHelper">User helpers <see cref="IUserHelper" />.</param>
         /// <param name="tokenHelper">JWT tokens helpers <see cref="ITokenHelper" />.</param>
         public CostController(
-            IAccountingItemRepository costRepository,
+            ICostRepository costRepository,
             IConfiguration config,
             IUserHelper userHelper,
-            ITokenHelper tokenHelper)
+            ITokenHelper tokenHelper
+        )
         {
             this.tokenHelper = tokenHelper;
             this.userHelper = userHelper;

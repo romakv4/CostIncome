@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using CostIncomeCalculator.Dtos.CostDtos;
+using CostIncomeCalculator.Dtos;
 using CostIncomeCalculator.Helpers;
 using CostIncomeCalculator.Models;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +14,7 @@ namespace CostIncomeCalculator.Data.CostData
     /// <summary>
     /// Cost repository class.
     /// </summary>
-    public class CostRepository : ICostRepository
+    public class CostRepository : IAccountingItemRepository
     {
         private readonly DataContext context;
         private readonly IMapper mapper;
@@ -40,8 +40,8 @@ namespace CostIncomeCalculator.Data.CostData
         /// Get all user costs method.
         /// </summary>
         /// <param name="email">User email.</param>
-        /// <returns>Array of <see cref="CostReturnDto" /></returns>
-        public async Task<IEnumerable<CostReturnDto>> GetAllCosts(string email)
+        /// <returns>Array of <see cref="AccountingItem" /></returns>
+        public async Task<List<AccountingItem>> GetAll(string email)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace CostIncomeCalculator.Data.CostData
 
                 costs = await context.Costs.Where(x => x.user.Email == email).OrderByDescending(x => x.Id).ToListAsync();
 
-                return mapper.Map<IEnumerable<CostReturnDto>>(costs);
+                return mapper.Map<List<AccountingItem>>(costs);
             }
             catch (Exception e)
             {
@@ -63,8 +63,8 @@ namespace CostIncomeCalculator.Data.CostData
         /// </summary>
         /// <param name="email">User email.</param>
         /// <param name="id">Identificator of cost in database.</param>
-        /// <returns><see cref="CostReturnDto" /></returns>
-        public async Task<CostReturnDto> GetConcreteCost(string email, int id)
+        /// <returns><see cref="Cost" /></returns>
+        public async Task<AccountingItem> GetConcrete(string email, int id)
         {
             try
             {
@@ -76,67 +76,7 @@ namespace CostIncomeCalculator.Data.CostData
                                                 x.Id == id
                                         ).SingleAsync();
 
-                return mapper.Map<CostReturnDto>(concreteCost);
-            }
-            catch (Exception e)
-            {
-                logger.Error(e.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get weekly costs method.
-        /// </summary>
-        /// <param name="email">User email</param>
-        /// <param name="date">Date of the week</param>
-        /// <param name="category">Category to get costs. May be null.</param>
-        /// <returns>Array of <see cref="CostReturnDto" /></returns>
-        public async Task<IEnumerable<CostReturnDto>> GetWeeklyCosts(string email, DateTime date, string category)
-        {
-            try
-            {
-                (DateTime, DateTime) dates = datesHelper.GetWeekDateRange(date);
-                var weeklyCosts = context.Costs
-                                        .Where(x =>
-                                                x.user.Email == email && 
-                                                x.Date >= dates.Item1.Date &&
-                                                x.Date <= dates.Item2.Date
-                                        );
-
-                if (category != null) weeklyCosts.Where(x => x.Category.ToLower() == category.ToLower()).OrderBy(x => x.Id);
-
-                return mapper.Map<IEnumerable<CostReturnDto>>(await weeklyCosts.ToListAsync());
-            }
-            catch (Exception e)
-            {
-                logger.Error(e.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get monthly costs method.
-        /// </summary>
-        /// <param name="email">User email</param>
-        /// <param name="date">Date of the week</param>
-        /// <param name="category">Category to get costs. May be null.</param>
-        /// <returns>Array of <see cref="CostReturnDto" /></returns>
-        public async Task<IEnumerable<CostReturnDto>> GetMonthlyCosts(string email, DateTime date, string category)
-        {
-            try
-            {
-                (DateTime, DateTime) dates = datesHelper.GetMonthDateRange(date);
-                var monthlyCosts = context.Costs
-                                        .Where(x =>
-                                                x.user.Email == email &&
-                                                x.Date >= dates.Item1.Date &&
-                                                x.Date <= dates.Item2.Date
-                                        );
-
-                if (category != null) monthlyCosts.Where(x => x.Category.ToLower() == category.ToLower()).OrderBy(x => x.Id);
-
-                return mapper.Map<IEnumerable<CostReturnDto>>(await monthlyCosts.ToListAsync());
+                return mapper.Map<AccountingItem>(concreteCost);
             }
             catch (Exception e)
             {
@@ -149,15 +89,15 @@ namespace CostIncomeCalculator.Data.CostData
         /// Set cost method.
         /// </summary>
         /// <param name="email">User email</param>
-        /// <param name="costForSetDto"><see cref="CostForSetDto" /></param>
+        /// <param name="costForSetDto"><see cref="AccountingItemSetDto" /></param>
         /// <returns><see cref="Cost" /></returns>
-        public async Task<Cost> SetCost(string email, CostForSetDto costForSetDto)
+        public async Task<AccountingItem> Set(string email, AccountingItemSetDto costForSetDto)
         {
             try
             {
                 var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
 
-                var cost = new Cost
+                var cost = new AccountingItem
                 {
                     UserId = user.Id,
                     Category = costForSetDto.Category,
@@ -183,9 +123,9 @@ namespace CostIncomeCalculator.Data.CostData
         /// </summary>
         /// <param name="email">User email</param>
         /// <param name="costId">Identifier of cost in database.</param>
-        /// <param name="costForEditDto"><see cref="CostForEditDto" /></param>
+        /// <param name="costForEditDto"><see cref="AccountingItemEditDto" /></param>
         /// <returns>Edited <see cref="Cost" /> object.</returns>
-        public async Task<Cost> EditCost(string email, int costId, CostForEditDto costForEditDto)
+        public async Task<AccountingItem> Edit(string email, int costId, AccountingItemEditDto costForEditDto)
         {
             try
             {
@@ -201,7 +141,7 @@ namespace CostIncomeCalculator.Data.CostData
                 context.Costs.Update(currentCost);
                 await context.SaveChangesAsync();
 
-                return currentCost;
+                return mapper.Map<AccountingItem>(currentCost);
             }
             catch (Exception e)
             {
@@ -214,9 +154,9 @@ namespace CostIncomeCalculator.Data.CostData
         /// Delete cost(s) method.
         /// </summary>
         /// <param name="email">User email</param>
-        /// <param name="costForDeleteDto"><see cref="CostForDeleteDto" /></param>
+        /// <param name="costForDeleteDto"><see cref="AccountingItemDeleteDto" /></param>
         /// <returns>List of <see cref="Cost" /></returns>
-        public async Task<List<Cost>> DeleteCosts(string email, CostForDeleteDto costForDeleteDto)
+        public async Task<List<AccountingItem>> Delete(string email, AccountingItemDeleteDto costForDeleteDto)
         {
             try
             {
@@ -232,7 +172,7 @@ namespace CostIncomeCalculator.Data.CostData
 
                 await context.SaveChangesAsync();
 
-                return costs;
+                return mapper.Map<List<AccountingItem>>(costs);
             }
             catch (Exception e)
             {

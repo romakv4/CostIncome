@@ -1,6 +1,5 @@
 using AutoMapper;
-using CostIncomeCalculator.Dtos.CostDtos;
-using CostIncomeCalculator.Dtos.IncomeDtos;
+using CostIncomeCalculator.Dtos;
 using CostIncomeCalculator.Dtos.LimitDtos;
 using CostIncomeCalculator.Models;
 
@@ -16,8 +15,8 @@ namespace CostIncomeCalculator.Helpers
         /// </summary>
         public AutoMapperProfiles()
         {
-            CreateMap<Cost, CostReturnDto>();
-            CreateMap<Income, IncomeReturnDto>();
+            CreateMap<Cost, AccountingItem>();
+            CreateMap<Income, AccountingItem>();
             CreateMap<Limit, LimitReturnDto>();
         }
     }

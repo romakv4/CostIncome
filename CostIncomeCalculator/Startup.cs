@@ -23,9 +23,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace CostIncomeCalculator
 {
@@ -57,8 +55,8 @@ namespace CostIncomeCalculator
             services.AddScoped<ITokenHelper, TokenHelper>();
             services.AddScoped<IEmailHelper, EmailHelper>();
             services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddScoped<ICostRepository, CostRepository>();
-            services.AddScoped<IIncomeRepository, IncomeRepository>();
+            services.AddScoped<IAccountingItemRepository, CostRepository>();
+            services.AddScoped<IAccountingItemRepository, IncomeRepository>();
             services.AddScoped<ILimitRepository, LimitRepository>();
             services.AddMvcCore().AddApiExplorer().AddDataAnnotations();
             services.AddRouting(options => options.LowercaseUrls = true);

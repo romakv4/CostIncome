@@ -1,12 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CostIncomeCalculator.Dtos.IncomeDtos
+namespace CostIncomeCalculator.Dtos
 {
     /// <summary>
-    /// Data transfer object for delete income from database.
-    /// <see cref="Data.IncomeData.IncomeRepository.DeleteIncomes" />
+    /// Data transfer object for delete accounting item from database.
     /// </summary>
-    public class IncomeForDeleteDto
+    public class AccountingItemDeleteDto
     {
         /// <summary>
         /// Identificators of rows for delete from database. Required.

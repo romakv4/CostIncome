@@ -1,36 +1,41 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace CostIncomeCalculator.Dtos.IncomeDtos
+namespace CostIncomeCalculator.Dtos
 {
     /// <summary>
-    /// Data transfer object for edit income in database.
-    /// <see cref="Data.IncomeData.IncomeRepository.EditIncome"/>
+    /// Data transfer object for set accounting item to database.
     /// </summary>
-    public class IncomeForEditDto
+    public class AccountingItemSetDto
     {
+
         /// <summary>
-        /// Category of income for edit.
+        /// Category of accounting item to set. Required.
         /// </summary>
         /// <value>string</value>
+        [Required]
         public string Category { get; set; }
 
         /// <summary>
-        /// Description of income for edit.
+        /// Description of accounting item to set.
         /// </summary>
         /// <value>string</value>
         public string Description { get; set; }
 
         /// <summary>
-        /// Value to change income price.
+        /// Price of accounting item. Required.
         /// </summary>
         /// <value>decimal</value>
+        [Required]
+        [Range(0.01, 999999999999)]
         public decimal Price { get; set; }
 
         /// <summary>
-        /// New income date.
+        /// Date of accounting item. Required.
         /// </summary>
         /// <value>DateTime</value>
+        [Required]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
     }
 }

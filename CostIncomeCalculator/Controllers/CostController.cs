@@ -118,7 +118,7 @@ namespace CostIncomeCalculator.Controllers
         /// <summary>
         /// Set cost.
         /// </summary>
-        /// <param name="costForSetDto"><see cref="AccountingItemSetDto" /></param>
+        /// <param name="costForSetDto"><see cref="AccountingItem" /></param>
         /// <returns>Operation status code.</returns>
         /// <response code="201">If successfully created cost.</response>
         /// <response code="400">If provided data for cost is not valid.</response>
@@ -129,7 +129,7 @@ namespace CostIncomeCalculator.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> SetCost(AccountingItemSetDto costForSetDto)
+        public async Task<IActionResult> SetCost(AccountingItem costForSetDto)
         {
             try
             {   
@@ -148,21 +148,20 @@ namespace CostIncomeCalculator.Controllers
         /// <summary>
         /// Edit exist cost.
         /// </summary>
-        /// <param name="id">int</param>
-        /// <param name="costForEditDto"><see cref="AccountingItemEditDto" /></param>
+        /// <param name="costForEditDto"><see cref="AccountingItem" /></param>
         /// <returns>Operation status code.</returns>
         /// <response code="204">If successfully edited cost.</response>
         /// <response code="400">If user don't specified at least one field for edit.</response>
         /// <response code="401">If user unauthorized.</response>
         /// <response code="404">If cost for edit not found by specified id.</response>
         /// <response code="500">If something went wrong.</response>
-        [HttpPut("{id}")]
+        [HttpPut()]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> EditCost(int id, AccountingItemEditDto costForEditDto)
+        public async Task<IActionResult> EditCost(AccountingItem costForEditDto)
         {
             try
             {
@@ -174,7 +173,7 @@ namespace CostIncomeCalculator.Controllers
 
                 var email = HttpContext.User.Identity.Name.ToLower();
 
-                var editedCost = await costRepository.Edit(email, id, costForEditDto);
+                var editedCost = await costRepository.Edit(email, costForEditDto);
 
                 if (editedCost == null) return NotFound();
 

@@ -89,9 +89,9 @@ namespace CostIncomeCalculator.Data.IncomeData
         /// Set income method.
         /// </summary>
         /// <param name="email">User email</param>
-        /// <param name="incomeForSetDto"><see cref="AccountingItemSetDto" /></param>
+        /// <param name="incomeForSetDto"><see cref="AccountingItem" /></param>
         /// <returns><see cref="Income" /></returns>
-        public async Task<AccountingItem> Set(string email, AccountingItemSetDto incomeForSetDto)
+        public async Task<AccountingItem> Set(string email, AccountingItem incomeForSetDto)
         {
             try
             {
@@ -122,16 +122,15 @@ namespace CostIncomeCalculator.Data.IncomeData
         /// Edit income method.
         /// </summary>
         /// <param name="email">User email</param>
-        /// <param name="incomeId">Identifier of income in database.</param>
-        /// <param name="incomeForEditDto"><see cref="AccountingItemEditDto" /></param>
+        /// <param name="incomeForEditDto"><see cref="AccountingItem" /></param>
         /// <returns>Edited <see cref="Income" /> object.</returns>
-        public async Task<AccountingItem> Edit(string email, int incomeId, AccountingItemEditDto incomeForEditDto)
+        public async Task<AccountingItem> Edit(string email, AccountingItem incomeForEditDto)
         {
             try
             {
-                if (!await context.Incomes.AnyAsync(x => x.Id == incomeId)) return null;
+                if (!await context.Incomes.AnyAsync(x => x.Id == incomeForEditDto.Id)) return null;
 
-                var currentIncome = await context.Incomes.FirstOrDefaultAsync(x => x.Id == incomeId && x.user.Email == email);
+                var currentIncome = await context.Incomes.FirstOrDefaultAsync(x => x.Id == incomeForEditDto.Id && x.user.Email == email);
 
                 currentIncome.Category = incomeForEditDto.Category ?? currentIncome.Category;
                 currentIncome.Description = incomeForEditDto.Description ?? currentIncome.Description;

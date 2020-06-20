@@ -47,7 +47,7 @@ export class CostsService {
   }
 
   editCost(cost: AccountingItem) {
-    return this.http.request('put', `${DevConfig.BASE_URI}/cost/${cost.id}`, {
+    return this.http.request('put', `${DevConfig.BASE_URI}/cost`, {
       headers: this.tokenService.getAuthHeaders(),
       body: {
         id: cost.id,

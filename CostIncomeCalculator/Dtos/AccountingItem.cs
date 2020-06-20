@@ -40,7 +40,7 @@ namespace CostIncomeCalculator.Dtos
         /// </summary>
         /// <value>decimal</value>
         [Required]
-        [Range(0.01, (double)decimal.MaxValue)]
+        [Range(0.01, 999999999999)]
         public decimal Price { get; set; }
 
         /// <summary>

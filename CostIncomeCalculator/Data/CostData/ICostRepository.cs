@@ -28,18 +28,17 @@ namespace CostIncomeCalculator.Data.CostData
         /// Set cost method. See implementation here <see cref="CostRepository.Set" />.
         /// </summary>
         /// <param name="email">User email from JWT</param>
-        /// <param name="accountingItemSetDto"><see cref="AccountingItemSetDto" /></param>
+        /// <param name="accountingItemSetDto"><see cref="AccountingItem" /></param>
         /// <returns><see cref="AccountingItem" /></returns>
-        Task<AccountingItem> Set(string email, AccountingItemSetDto accountingItemSetDto);
+        Task<AccountingItem> Set(string email, AccountingItem accountingItemSetDto);
 
         /// <summary>
         /// Edit cost method. See implementation here <see cref="CostRepository.Edit" />.
         /// </summary>
         /// <param name="email">User email from JWT.</param>
-        /// <param name="costId">Identifier of cost in database.</param>
-        /// <param name="accountingItemEditDto"><see cref="AccountingItemEditDto" /></param>
+        /// <param name="accountingItemEditDto"><see cref="AccountingItem" /></param>
         /// <returns>Edited <see cref="AccountingItem" /> object.</returns>
-        Task<AccountingItem> Edit(string email, int costId, AccountingItemEditDto accountingItemEditDto);
+        Task<AccountingItem> Edit(string email, AccountingItem accountingItemEditDto);
 
         /// <summary>
         /// Delete cost(s) method. See implementation here <see cref="CostRepository.Delete" />.

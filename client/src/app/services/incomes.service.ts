@@ -44,7 +44,7 @@ export class IncomesService {
   }
 
   editIncome(income: AccountingItem) {
-    return this.http.request('put', `${DevConfig.BASE_URI}/income/${income.id}`, {
+    return this.http.request('put', `${DevConfig.BASE_URI}/income`, {
       headers: this.tokenService.getAuthHeaders(),
       body: {
         id: income.id,

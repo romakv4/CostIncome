@@ -44,7 +44,7 @@ export class EditCostFormComponent implements OnInit {
       this.router.navigate(['authorization']);
     }
     this.route.paramMap.subscribe(params => {
-      this.isEditedCostId = params.get("id");
+      this.isEditedCostId = Number.parseInt(params.get("id"));
     });
     this.costsService.getConcreteCost(this.isEditedCostId)
       .subscribe(

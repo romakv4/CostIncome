@@ -6,7 +6,7 @@ namespace CostIncomeCalculator.Data
 {
     public interface IAccountingItemRepository
     {
-        Task<List<AccountingItem>> GetAll(string email);
+        Task<IEnumerable<AccountingItem>> GetAll(string email);
         Task<AccountingItem> GetConcrete(string email, int id);
         Task<AccountingItem> Set(string email, AccountingItemSetDto accountingItemSetDto);
         Task<AccountingItem> Edit(string email, int costId, AccountingItemEditDto accountingItemEditDto);

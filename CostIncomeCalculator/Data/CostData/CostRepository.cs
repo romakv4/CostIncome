@@ -41,7 +41,7 @@ namespace CostIncomeCalculator.Data.CostData
         /// </summary>
         /// <param name="email">User email.</param>
         /// <returns>Array of <see cref="AccountingItem" /></returns>
-        public async Task<List<AccountingItem>> GetAll(string email)
+        public async Task<IEnumerable<AccountingItem>> GetAll(string email)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace CostIncomeCalculator.Data.CostData
 
                 costs = await context.Costs.Where(x => x.user.Email == email).OrderByDescending(x => x.Id).ToListAsync();
 
-                return mapper.Map<List<AccountingItem>>(costs);
+                return mapper.Map<IEnumerable<AccountingItem>>(costs);
             }
             catch (Exception e)
             {
@@ -97,7 +97,7 @@ namespace CostIncomeCalculator.Data.CostData
             {
                 var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
 
-                var cost = new AccountingItem
+                var cost = new Cost
                 {
                     UserId = user.Id,
                     Category = costForSetDto.Category,
@@ -109,7 +109,7 @@ namespace CostIncomeCalculator.Data.CostData
                 await context.AddAsync(cost);
                 await context.SaveChangesAsync();
 
-                return cost;
+                return mapper.Map<AccountingItem>(cost);
             }
             catch (Exception e)
             {

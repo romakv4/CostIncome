@@ -1,7 +1,7 @@
 <div class="centrate">
     <h1>Authorization</h1>
 
-    <form [formGroup]="authorizationForm" (ngSubmit)="onSubmit(authorizationForm.value)">
+    <form [formGroup]="authorizationForm" (ngSubmit)="onSubmit(authorizationForm.value)" autocomplete="off">
         <div class="formField">
             <label for="email">
                 E-mail

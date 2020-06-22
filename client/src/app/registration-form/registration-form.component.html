@@ -1,7 +1,7 @@
 <div class="centrate">
     <h1>Registration</h1>
 
-    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit(registrationForm.value)">
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit(registrationForm.value)" autocomplete="off">
         <div class="formField">
             <label for="email">
                 E-mail

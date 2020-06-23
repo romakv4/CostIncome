@@ -31,7 +31,6 @@ export class HomeComponent implements OnInit {
     this.costsService.getCosts()
       .subscribe(
         (data: Array<AccountingItem>) => {
-          console.log(data)
           const formattedData = formatDateForTables(data.slice(0, 10));
           this.costs = formattedData;
         },

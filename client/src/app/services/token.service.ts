@@ -24,6 +24,6 @@ export class TokenService {
 
   isTokenExpired() {
     const token = sessionStorage.getItem('token');
-    return !this.jwtHelper.isTokenExpired(token);
+    return this.jwtHelper.isTokenExpired(token);
   }
 }

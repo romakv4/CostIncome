@@ -25,7 +25,7 @@ export class CostsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (!this.tokenService.isTokenExpired()) {
+    if (this.tokenService.isTokenExpired()) {
       this.router.navigate(['authorization']);
     }
     this.costsService.getCosts()

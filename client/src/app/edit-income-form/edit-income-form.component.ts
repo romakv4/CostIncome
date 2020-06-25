@@ -40,7 +40,7 @@ export class EditIncomeFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.tokenService.isTokenExpired()) {
+    if (this.tokenService.isTokenExpired()) {
       this.router.navigate(['authorization']);
     }
     this.route.paramMap.subscribe(params => {

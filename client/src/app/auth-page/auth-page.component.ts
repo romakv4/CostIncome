@@ -15,13 +15,8 @@ export class AuthPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.redirectToHomePage();
-  }
-
-  redirectToHomePage() {
-    if (this.tokenService.isTokenExpired()) {
+    if (this.tokenService.getToken() != null && !this.tokenService.isTokenExpired()) {
       this.router.navigate(['home']);
     }
   }
-
 }

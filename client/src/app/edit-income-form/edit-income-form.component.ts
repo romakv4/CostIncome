@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ErrorsService } from '../services/errors.service';
-import { CostsService } from '../services/costs.service';
 import { TokenService } from '../services/token.service';
 import { AccountingItem, OperationSuccess } from '../types/AccountingItem';
 import { formatDateForForms } from '../utils/formatDate';
@@ -41,11 +40,11 @@ export class EditIncomeFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.tokenService.isTokenExpired()) {
+    if (this.tokenService.isTokenExpired()) {
       this.router.navigate(['authorization']);
     }
     this.route.paramMap.subscribe(params => {
-      this.isEditedIncomeId = params.get("id");
+      this.isEditedIncomeId = Number.parseInt(params.get("id"));
     });
     this.incomesService.getConcreteIncome(this.isEditedIncomeId)
       .subscribe(

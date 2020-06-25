@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CostIncomeCalculator.Dtos.IncomeDtos;
-using CostIncomeCalculator.Models;
+using CostIncomeCalculator.Dtos;
 
 namespace CostIncomeCalculator.Data.IncomeData
 {
@@ -12,61 +10,42 @@ namespace CostIncomeCalculator.Data.IncomeData
     public interface IIncomeRepository
     {
         /// <summary>
-        /// Get all user incomes. See implementation here <see cref="IncomeRepository.GetAllIncomes" />
+        /// Get all user incomes. See implementation here <see cref="IncomeRepository.GetAll" />
         /// </summary>
-        /// <param name="username">Username.</param>
-        /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
-        Task<IEnumerable<IncomeReturnDto>> GetAllIncomes(string username);
+        /// <param name="email">User email.</param>
+        /// <returns>Array of <see cref="AccountingItem" /></returns>
+        Task<IEnumerable<AccountingItem>> GetAll(string email);
 
         /// <summary>
-        /// Get concrete user income. See implementation here <see cref="IncomeRepository.GetConcreteIncome" />
+        /// Get concrete user income. See implementation here <see cref="IncomeRepository.GetConcrete" />
         /// </summary>
-        /// <param name="username">Username.</param>
+        /// <param name="email">User email.</param>
         /// <param name="id">Identificator of income in database.</param>
-        /// <returns><see cref="IncomeReturnDto" /></returns>
-        Task<IncomeReturnDto> GetConcreteIncome(string username, int id);
+        /// <returns><see cref="AccountingItem" /></returns>
+        Task<AccountingItem> GetConcrete(string email, int id);
 
         /// <summary>
-        /// Get weekly incomes. See implementation here <see cref="IncomeRepository.GetWeeklyIncomes" />.
-        /// </summary>
-        /// <param name="email">User email</param>
-        /// <param name="date">Date of the week</param>
-        /// <param name="category">Category to get incomes. May be null.</param>
-        /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
-        Task<IEnumerable<IncomeReturnDto>> GetWeeklyIncomes(string email, DateTime date, string category);
-
-        /// <summary>
-        /// Get monthly incomes. See implementation here <see cref="IncomeRepository.GetMonthlyIncomes" />.
-        /// </summary>
-        /// <param name="email">User email</param>
-        /// <param name="date">Date of the week</param>
-        /// /// <param name="category">Category to get incomes. May be null.</param>
-        /// <returns>Array of <see cref="IncomeReturnDto" /></returns>
-        Task<IEnumerable<IncomeReturnDto>> GetMonthlyIncomes(string email, DateTime date, string category);
-
-        /// <summary>
-        /// Set income method. See implementation here <see cref="IncomeRepository.SetIncome" />.
+        /// Set income method. See implementation here <see cref="IncomeRepository.Set" />.
         /// </summary>
         /// <param name="email">User email from JWT.</param>
-        /// <param name="incomeForSetDto"><see cref="IncomeForSetDto" /></param>
-        /// <returns><see cref="Income" /></returns>
-        Task<Income> SetIncome(string email, IncomeForSetDto incomeForSetDto);
+        /// <param name="accountingItemSetDto"><see cref="AccountingItem" /></param>
+        /// <returns><see cref="AccountingItem" /></returns>
+        Task<AccountingItem> Set(string email, AccountingItem accountingItemSetDto);
 
         /// <summary>
-        /// Edit income method. See implementation here <see cref="IncomeRepository.EditIncome" />.
+        /// Edit income method. See implementation here <see cref="IncomeRepository.Edit" />.
         /// </summary>
         /// <param name="email">User email</param>
-        /// <param name="incomeId">Identifier of income in database.</param>
-        /// <param name="incomeForEditDto"><see cref="IncomeForEditDto" /></param>
-        /// <returns>Edited <see cref="Income" /> object.</returns>
-        Task<Income> EditIncome(string email, int incomeId, IncomeForEditDto incomeForEditDto);
+        /// <param name="accountingItemEditDto"><see cref="AccountingItem" /></param>
+        /// <returns>Edited <see cref="AccountingItem" /> object.</returns>
+        Task<AccountingItem> Edit(string email, AccountingItem accountingItemEditDto);
 
         /// <summary>
-        /// Delete income(s) method. See implementation here <see cref="IncomeRepository.DeleteIncomes" />.
+        /// Delete income(s) method. See implementation here <see cref="IncomeRepository.Delete" />.
         /// </summary>
         /// <param name="email">User email</param>
-        /// <param name="incomeForDeleteDto"><see cref="IncomeForDeleteDto" /></param>
-        /// <returns>List of <see cref="Income" /></returns>
-        Task<List<Income>> DeleteIncomes(string email, IncomeForDeleteDto incomeForDeleteDto);
+        /// <param name="accountingItemDeleteDto"><see cref="AccountingItemDeleteDto" /></param>
+        /// <returns>List of <see cref="AccountingItem" /></returns>
+        Task<List<AccountingItem>> Delete(string email, AccountingItemDeleteDto accountingItemDeleteDto);
     }
 }

@@ -23,9 +23,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace CostIncomeCalculator
 {

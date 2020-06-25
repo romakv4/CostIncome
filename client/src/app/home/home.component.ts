@@ -25,13 +25,12 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (!this.tokenService.isTokenExpired()) {
+    if (this.tokenService.isTokenExpired()) {
       this.router.navigate(['authorization']);
     }
     this.costsService.getCosts()
       .subscribe(
         (data: Array<AccountingItem>) => {
-          console.log(data)
           const formattedData = formatDateForTables(data.slice(0, 10));
           this.costs = formattedData;
         },

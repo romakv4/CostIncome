@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Success } from '../types/authResponse';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './authorization-form.component.html',
   styleUrls: ['./authorization-form.component.css']
 })
-export class AuthorizationFormComponent {
+export class AuthorizationFormComponent implements OnInit {
 
   authorizationForm;
   serverErrors; 
@@ -33,6 +33,12 @@ export class AuthorizationFormComponent {
     })
   }
 
+  ngOnInit(): void {
+    if (this.tokenService.getToken() != null && !this.tokenService.isTokenExpired()) {
+      this.router.navigate(['home']);
+    }
+  }
+
   get f() { return this.authorizationForm.controls; }
 
   onSubmit(userData: SignInUserData) {
@@ -46,7 +52,7 @@ export class AuthorizationFormComponent {
           this.authorizationSuccess = response.success;
           if (this.authorizationSuccess) {
             this.tokenService.setToken(response.token);
-            this.tokenService.isTokenExpired() && this.router.navigate(['home']);
+            this.router.navigate(['home']);
           }
         },
         errorResponse => { this.serverErrors = errorResponse.error }

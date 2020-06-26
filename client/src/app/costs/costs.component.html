@@ -24,16 +24,16 @@
                 <td>{{ cost.price }}</td>
                 <td>{{ cost.date }}</td>
                 <td>
-                    <i class="material-icons" (click)="editCost(cost.id)">edit</i>
-                    <i class="material-icons" (click)="deleteCost(cost.id)">delete</i>
+                    <i class="material-icons" (click)="editCost(cost.id)" data-cy="edit">edit</i>
+                    <i class="material-icons" (click)="deleteCost(cost.id)" data-cy="delete">delete</i>
                 </td>
             </tr>
         </table>
         <br>
         <div class="actionsBlock">
-            <button (click)="addCost()">Add</button>
+            <button (click)="addCost()" data-cy="add">Add</button>
             <a href="/home">
-                <i class="material-icons">home</i>
+                <i class="material-icons" data-cy="home">home</i>
             </a>
         </div>
         <br>

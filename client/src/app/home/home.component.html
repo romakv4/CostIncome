@@ -8,7 +8,7 @@
     <div style="text-align: center;" *ngIf="costs.length === 0">
         <div>There is nothing!</div>
         <br>
-        <button (click)="router.navigate(['/add-cost'])">Add cost</button>
+        <button (click)="router.navigate(['/add-cost'])" data-cy="add-cost">Add cost</button>
     </div>
     <div *ngIf="incomes.length !== 0">
         <app-accounting-items-table [caption]="'LATEST INCOMES'" [accountingItems]="incomes"></app-accounting-items-table>
@@ -18,6 +18,6 @@
     <div style="text-align: center;" *ngIf="incomes.length === 0">
         <div>There is nothing!</div>
         <br>
-        <button (click)="router.navigate(['/add-income'])">Add income</button>
+        <button (click)="router.navigate(['/add-income'])" data-cy="add-income">Add income</button>
     </div>
 </div>

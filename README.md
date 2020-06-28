@@ -48,3 +48,8 @@
 1. Navigate to `client` folder
 2. Execute `npm install` command
 3. Execute `npm start` command
+
+# Client testing
+This project uses CyPress for testing.  
+Components, services, directives, etc. should be created with the `--skipTests` flag.  
+For example: `ng g c my-component --skipTests`

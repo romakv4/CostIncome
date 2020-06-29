@@ -1,5 +1,3 @@
-/// <reference types="Cypress"/>
-
 context("Edit cost", () => {
 
     beforeEach(() => {

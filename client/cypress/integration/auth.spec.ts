@@ -1,5 +1,3 @@
-/// <reference types="Cypress"/>
-
 context("Authorization", () => {
     describe("Authorization with invalid data", () => {
         

@@ -1,5 +1,3 @@
-/// <reference types="Cypress"/>
-
 context("Registration", () => {
     describe("Registration with invalid data", () => {
 

@@ -1,5 +1,3 @@
-/// <reference types="Cypress"/>
-
 context("Change password", () => {
     before(() => {
         cy.window().then((win) => {

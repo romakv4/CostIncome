@@ -1,5 +1,3 @@
-/// <reference types="Cypress"/>
-
 context("Auth redirections", () => {
     describe("Go to page with redirect", () => {
         

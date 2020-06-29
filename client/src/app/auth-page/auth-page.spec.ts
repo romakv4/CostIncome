@@ -10,7 +10,7 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [ RouterTestingModule ],
       declarations: [ AuthPageComponent ]
     })
     .compileComponents();

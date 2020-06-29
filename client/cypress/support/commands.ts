@@ -23,3 +23,28 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+declare namespace Cypress {
+    interface Chainable {
+        signIn(email: string, password: string);
+        clearSessionStorage();
+    }
+}
+
+Cypress.Commands.add('signIn', (email: string, password: string) => {
+    cy.visit('/authorization');
+    cy.get('input#email').type(email);
+    cy.get('input#password').type(password);
+    cy.get('form').submit();
+    cy.location('pathname').should('eq', '/home').should(() => {
+        expect(
+            sessionStorage.getItem('token')
+        ).to.be.a('string');
+    });
+});
+
+Cypress.Commands.add('clearSessionStorage', () => {
+    cy.window().then((win) => {
+        win.sessionStorage.clear();
+    });
+});

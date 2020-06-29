@@ -1,18 +1,8 @@
 context("Change password", () => {
     before(() => {
-        cy.window().then((win) => {
-            win.sessionStorage.clear();
-        });
+        cy.clearSessionStorage();
         cy.reload();
-        cy.visit('/authorization');
-        cy.get('input#email').type('costincometestuser@gmail.com');
-        cy.get('input#password').type('password');
-        cy.get('form').submit();
-        cy.location('pathname').should('eq', '/home').should(() => {
-            expect(
-                sessionStorage.getItem('token')
-            ).to.be.a('string');
-        });
+        cy.signIn('costincometestuser@gmail.com', 'password');
     })
 
     describe("Change password with invalid data", () => {

@@ -1,23 +1,13 @@
 context("Add new cost", () => {
 
     beforeEach(() => {
-        cy.window().then((win) => {
-            win.sessionStorage.clear();
-        });
+        cy.clearSessionStorage();
         cy.reload();
     })
 
     describe("Form validation check", () => {
         it("Submit without any entries", () => {
-            cy.visit('/authorization');
-            cy.get('input#email').type('costincometestuser@gmail.com');
-            cy.get('input#password').type('password');
-            cy.get('form').submit();
-            cy.location('pathname').should('eq', '/home').should(() => {
-                expect(
-                    sessionStorage.getItem('token')
-                ).to.be.a('string');
-            });
+            cy.signIn('costincometestuser@gmail.com', 'password');
             cy.get('[data-cy="add-cost"]').should('be.visible').click();
             cy.get('form').submit();
             cy.get('input#category').should('have.class', 'erroredFormField');
@@ -25,15 +15,7 @@ context("Add new cost", () => {
         })
 
         it("Drop default values and try to submit", () => {
-            cy.visit('/authorization');
-            cy.get('input#email').type('costincometestuser@gmail.com');
-            cy.get('input#password').type('password');
-            cy.get('form').submit();
-            cy.location('pathname').should('eq', '/home').should(() => {
-                expect(
-                    sessionStorage.getItem('token')
-                ).to.be.a('string');
-            });
+            cy.signIn('costincometestuser@gmail.com', 'password');
             cy.get('[data-cy="add-cost"]').should('be.visible').click();
             cy.get('input#price').type('{selectall}{del}');
             cy.get('input#date').type('{selectall}{del}');
@@ -48,15 +30,7 @@ context("Add new cost", () => {
         })
 
         it("Category and description contains more than 20 characters and price value more than 999999999999", () => {
-            cy.visit('/authorization');
-            cy.get('input#email').type('costincometestuser@gmail.com');
-            cy.get('input#password').type('password');
-            cy.get('form').submit();
-            cy.location('pathname').should('eq', '/home').should(() => {
-                expect(
-                    sessionStorage.getItem('token')
-                ).to.be.a('string');
-            });
+            cy.signIn('costincometestuser@gmail.com', 'password');
             cy.get('[data-cy="add-cost"]').should('be.visible').click();
             cy.get('input#category').type('internationalizzation');
             cy.get('input#description').type('llooccaallizzattiioonn');
@@ -72,15 +46,7 @@ context("Add new cost", () => {
         })
 
         it("Valid category and description and price value less than 0.01", () => {
-            cy.visit('/authorization');
-            cy.get('input#email').type('costincometestuser@gmail.com');
-            cy.get('input#password').type('password');
-            cy.get('form').submit();
-            cy.location('pathname').should('eq', '/home').should(() => {
-                expect(
-                    sessionStorage.getItem('token')
-                ).to.be.a('string');
-            });
+            cy.signIn('costincometestuser@gmail.com', 'password');
             cy.get('[data-cy="add-cost"]').should('be.visible').click();
             cy.get('input#category').type('internationalizzatio');
             cy.get('input#description').type('llooccaallizzattiion');
@@ -94,15 +60,7 @@ context("Add new cost", () => {
 
     describe("If the user has no cost records", () => {
         it("Valid case", () => {
-            cy.visit('/authorization');
-            cy.get('input#email').type('costincometestuser@gmail.com');
-            cy.get('input#password').type('password');
-            cy.get('form').submit();
-            cy.location('pathname').should('eq', '/home').should(() => {
-                expect(
-                    sessionStorage.getItem('token')
-                ).to.be.a('string');
-            });
+            cy.signIn('costincometestuser@gmail.com', 'password');
             cy.get('[data-cy="add-cost"]').should('be.visible').click();
             cy.get('input#category').type('test category');
             cy.get('input#description').type('test description');

@@ -2,9 +2,7 @@ context("Registration", () => {
     describe("Registration with invalid data", () => {
 
         beforeEach(() => {
-            cy.window().then((win) => {
-                win.sessionStorage.clear();
-            });
+            cy.clearSessionStorage();
             cy.reload();
             cy.visit("/registration");
         })

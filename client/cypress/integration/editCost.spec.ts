@@ -1,22 +1,12 @@
 context("Edit cost", () => {
 
     beforeEach(() => {
-        cy.window().then((win) => {
-            win.sessionStorage.clear();
-        });
+        cy.clearSessionStorage();
         cy.reload();
     })
 
     it("Edit one cost", () => {
-        cy.visit('/authorization');
-        cy.get('input#email').type('costincometestuser@gmail.com');
-        cy.get('input#password').type('password');
-        cy.get('form').submit();
-        cy.location('pathname').should('eq', '/home').should(() => {
-            expect(
-                sessionStorage.getItem('token')
-            ).to.be.a('string');
-        });
+        cy.signIn('costincometestuser@gmail.com', 'password');
         cy.get('[data-cy="add-cost"]').should('be.visible').click();
         cy.get('input#category').type('Food');
         cy.get('input#price').type('{selectall}100');

@@ -7,15 +7,15 @@ context("Authorization", () => {
             cy.visit("/authorization");
         })
 
-        it("form has autocomplete attribute", () => {
+        it("Form has autocomplete attribute", () => {
             cy.get('form').should('have.attr', 'autocomplete', 'off');
         })
 
-        it("forgot password link is available", () => {
+        it("Forgot password link is available", () => {
             cy.get('a').contains('Forgot password?').should('be.visible');
         })
 
-        it("submit without any entries", () => {
+        it("Submit without any entries", () => {
             cy.get('form').submit();
             cy.get('input#email').should('have.class', 'erroredFormField');
             cy.get('span').contains('Email is required').should('be.visible');
@@ -23,7 +23,7 @@ context("Authorization", () => {
             cy.get('span').contains('Password is required').should('be.visible');
         })
 
-        it("submit with valid email and short password", () => {
+        it("Submit with valid email and short password", () => {
             cy.get('input#email').type('costincometestuser@gmail.com');
             cy.get('input#password').type('passwor');
             cy.get('form').submit();
@@ -31,7 +31,7 @@ context("Authorization", () => {
             cy.get('span').contains('Password must be longer than 8 characters').should('be.visible');
         })
 
-        it("submit with invalid email and valid password", () => {
+        it("Submit with invalid email and valid password", () => {
             cy.get('input#email').type('costincometestuser');
             cy.get('input#password').type('password');
             cy.get('form').submit();
@@ -42,7 +42,7 @@ context("Authorization", () => {
     })
 
     describe("Authorization with valid data", () => {
-        it("login logout", () => {
+        it("Login logout", () => {
             cy.visit('/authorization');
             cy.get('input#email').type('costincometestuser@gmail.com');
             cy.get('input#password').type('password');

@@ -11,11 +11,11 @@ context("Change password", () => {
             cy.visit('/changepassword');
         })
 
-        it("form has autocomplete attribute", () => {
+        it("Form has autocomplete attribute", () => {
             cy.get('form').should('have.attr', 'autocomplete', 'off');
         })
 
-        it("submit without any entries", () => {
+        it("Submit without any entries", () => {
             cy.get('form').submit();
             cy.get('input#email').should('have.class', 'erroredFormField');
             cy.get('span').contains('Email is required').should('be.visible');
@@ -25,7 +25,7 @@ context("Change password", () => {
             cy.get('span').contains('New password is required').should('be.visible');
         })
 
-        it("submit with not existing email", () => {
+        it("Submit with not existing email", () => {
             cy.server();
             cy.route({
                 method: 'POST',
@@ -43,7 +43,7 @@ context("Change password", () => {
             cy.get('span').contains('User with specified email not exist').should('be.visible');
         })
 
-        it("submit with equals passwords", () => {
+        it("Submit with equals passwords", () => {
             cy.get('input#email').type('costincometestuser@gmail.com');
             cy.get('input#password').type('password');
             cy.get('input#newPassword').type('password');
@@ -69,7 +69,7 @@ context("Change password", () => {
             cy.get('form').submit();
         })
 
-        it("submit with valid data", () => {
+        it("Submit with valid data", () => {
             cy.get('input#email').type('costincometestuser@gmail.com');
             cy.get('input#password').type('password');
             cy.get('input#newPassword').type('passwordtest');

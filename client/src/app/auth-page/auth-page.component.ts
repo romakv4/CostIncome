@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./auth-page.component.css']
 })
 export class AuthPageComponent implements OnInit {
-  
+
   constructor(
     private tokenService: TokenService,
     private router: Router,

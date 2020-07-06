@@ -2,7 +2,7 @@ import { AccountingItem } from '../types/AccountingItem';
 
 export const formatDateForTables = (accountingItems) => {
     const result = [];
-    for (let item of accountingItems) {
+    for (const item of accountingItems) {
       const tempDate = new Date(item.date);
       result.push({
         id: item.id,

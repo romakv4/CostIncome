@@ -16,7 +16,7 @@ export class AddIncomeFormComponent implements OnInit {
   addIncomeForm;
   serverErrors;
   resetServerErrors = this.errorsService.resetServerErrors;
-  submitted: boolean = false;
+  submitted = false;
   addIncomeSuccess: boolean;
 
   constructor(
@@ -25,7 +25,7 @@ export class AddIncomeFormComponent implements OnInit {
     private errorsService: ErrorsService,
     private costsService: IncomesService,
     private tokenService: TokenService,
-  ) { 
+  ) {
     this.addIncomeForm = this.formBuilder.group({
       category: ['', [Validators.required, Validators.maxLength(20)]],
       description: ['', [Validators.maxLength(20)]],
@@ -54,7 +54,7 @@ export class AddIncomeFormComponent implements OnInit {
           if (this.addIncomeSuccess) {
             this.submitted = false;
             this.addIncomeForm.reset({
-              category: "",
+              category: '',
               description: null,
               price: 1,
               date: this.getCurrentDate()

@@ -2,7 +2,7 @@ import { aggregateCategories } from './aggregateCategories';
 
 describe('Categories aggregation tests', () => {
   it('Multiple categories aggregate', () => {
-    let accountingItemsArray = [
+    const accountingItemsArray = [
       {
         id: 1,
         category: 'food',

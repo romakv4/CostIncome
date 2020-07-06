@@ -18,7 +18,7 @@ export class ResetPasswordFormComponent {
   resetServerErrors = this.errorsService.resetServerErrors;
   secondsBeforeRedirect = 5;
   resetPasswordSuccess: boolean = null;
-  submitted: boolean = false;
+  submitted = false;
 
   constructor(
     private router: Router,
@@ -26,7 +26,7 @@ export class ResetPasswordFormComponent {
     private formBulder: FormBuilder,
     private errorsService: ErrorsService,
     private redirects: RedirectService,
-  ) { 
+  ) {
     this.resetPasswordForm = this.formBulder.group({
       email: ['', [Validators.required, Validators.email]]
     })

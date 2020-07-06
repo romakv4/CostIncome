@@ -10,7 +10,7 @@ import { Directive, Input } from '@angular/core';
   }]
 })
 export class ValidateEqualValueDirective implements Validator {
-  
+
   @Input() appValidateEqualValue;
 
   constructor() { }
@@ -18,7 +18,7 @@ export class ValidateEqualValueDirective implements Validator {
   validate(control: AbstractControl): ValidationErrors {
     const controlToCompare = control.parent.get(this.appValidateEqualValue);
     if (controlToCompare && controlToCompare.value !== control.value) {
-      return { 'notEqual': true };
+      return { notEqual: true };
     }
   }
 

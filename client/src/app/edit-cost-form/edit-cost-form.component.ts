@@ -20,7 +20,7 @@ export class EditCostFormComponent implements OnInit {
   editCostForm;
   serverErrors;
   resetServerErrors = this.errorsService.resetServerErrors;
-  submitted: boolean = false;
+  submitted = false;
   editCostSuccess: boolean;
 
   constructor(
@@ -30,7 +30,7 @@ export class EditCostFormComponent implements OnInit {
     private costsService: CostsService,
     private tokenService: TokenService,
     private route: ActivatedRoute,
-  ) { 
+  ) {
     this.editCostForm = this.formBuilder.group({
       category: ['', [Validators.required, Validators.maxLength(20)]],
       description: ['', [Validators.maxLength(20)]],
@@ -44,15 +44,15 @@ export class EditCostFormComponent implements OnInit {
       this.router.navigate(['authorization']);
     }
     this.route.paramMap.subscribe(params => {
-      this.isEditedCostId = Number.parseInt(params.get("id"));
+      this.isEditedCostId = Number.parseInt(params.get('id'), 10);
     });
     this.costsService.getConcreteCost(this.isEditedCostId)
       .subscribe(
         (data: AccountingItem) => {
           this.isEditedCost = formatDateForForms(data);
-          this.editCostForm.controls['category'].setValue(data.category);
-          this.editCostForm.controls['description'].setValue(data.description);
-          this.editCostForm.controls['price'].setValue(data.price);
+          this.editCostForm.controls.category.setValue(data.category);
+          this.editCostForm.controls.description.setValue(data.description);
+          this.editCostForm.controls.price.setValue(data.price);
         }
       )
   }

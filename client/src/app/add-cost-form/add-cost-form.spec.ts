@@ -29,7 +29,7 @@ describe('AddCostFormComponent', () => {
   }));
 
   beforeEach(() => {
-    let actionsBar = TestBed.createComponent(GeneralActionsBarComponent);
+    const actionsBar = TestBed.createComponent(GeneralActionsBarComponent);
     actionsBar.componentInstance.isForTable = false;
     fixture = TestBed.createComponent(AddCostFormComponent);
     component = fixture.componentInstance;

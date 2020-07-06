@@ -5,7 +5,7 @@ import {
 
 describe('Dates formatting', () => {
   it('Format date for forms', () => {
-    let accountingItem = {
+    const accountingItem = {
       id: 1,
       category: 'food',
       description: '',
@@ -24,7 +24,7 @@ describe('Dates formatting', () => {
   });
 
   it('Format date for tables', () => {
-    let accountingItems = [
+    const accountingItems = [
       {
         id: 1,
         category: 'food',

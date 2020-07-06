@@ -8,7 +8,7 @@ import { DevConfig } from '../configuration';
   providedIn: 'root'
 })
 export class IncomesService {
-  
+
   constructor(
     private http: HttpClient,
     private tokenService: TokenService,
@@ -26,7 +26,7 @@ export class IncomesService {
   }
 
   deleteIncome(id: number) {
-    return this.http.request('delete', `${DevConfig.BASE_URI}/income`, { 
+    return this.http.request('delete', `${DevConfig.BASE_URI}/income`, {
       headers: this.tokenService.getAuthHeaders(),
       body: { ids:[id] } } );
   }

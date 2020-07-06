@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 export class RedirectService {
 
   delayCounter = (context: any) => {
-    let interval = setInterval(() => {
+    const interval = setInterval(() => {
         context.secondsBeforeRedirect--;
         if(context.secondsBeforeRedirect === 0) {
           clearInterval(interval);

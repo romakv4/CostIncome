@@ -1,4 +1,4 @@
-context("Add new cost", () => {
+context('Add new cost', () => {
 
     beforeEach(() => {
         cy.viewport(1600, 900);
@@ -7,15 +7,15 @@ context("Add new cost", () => {
         cy.signIn('costincometestuser@gmail.com', 'password');
     })
 
-    describe("Form validation check", () => {
-        it("Submit without any entries", () => {
+    describe('Form validation check', () => {
+        it('Submit without any entries', () => {
             cy.get('[data-cy="add-cost"]').should('be.visible').click();
             cy.get('form').submit();
             cy.get('input#category').should('have.class', 'erroredFormField');
             cy.get('span').contains('Category is required');
         })
 
-        it("Drop default values and try to submit", () => {
+        it('Drop default values and try to submit', () => {
             cy.get('[data-cy="add-cost"]').should('be.visible').click();
             cy.get('input#price').type('{selectall}{del}');
             cy.get('input#date').type('{selectall}{del}');
@@ -29,7 +29,7 @@ context("Add new cost", () => {
             cy.get('span').contains('Date is required');
         })
 
-        it("Category and description contains more than 20 characters and price value more than 999999999999", () => {
+        it('Category and description contains more than 20 characters and price value more than 999999999999', () => {
             cy.get('[data-cy="add-cost"]').should('be.visible').click();
             cy.get('input#category').type('internationalizzation');
             cy.get('input#description').type('llooccaallizzattiioonn');
@@ -44,7 +44,7 @@ context("Add new cost", () => {
             cy.get('span').contains('Are you serious?');
         })
 
-        it("Valid category and description and price value less than 0.01", () => {
+        it('Valid category and description and price value less than 0.01', () => {
             cy.get('[data-cy="add-cost"]').should('be.visible').click();
             cy.get('input#category').type('internationalizzatio');
             cy.get('input#description').type('llooccaallizzattiion');
@@ -56,8 +56,8 @@ context("Add new cost", () => {
         })
     })
 
-    describe("If the user has no cost records", () => {
-        it("Add one cost", () => {
+    describe('If the user has no cost records', () => {
+        it('Add one cost', () => {
             cy.get('[data-cy="add-cost"]').should('be.visible').click();
             cy.get('input#category').type('test category');
             cy.get('input#description').type('test description');
@@ -105,7 +105,7 @@ context("Add new cost", () => {
             }
         ]
 
-        it.only("Add multiple costs", () => {
+        it('Add multiple costs', () => {
             cy.visit('/add-cost');
             costs.forEach(cost => {
                 cy.get('input#category').type(cost.category);
@@ -118,7 +118,7 @@ context("Add new cost", () => {
             cy.get('[data-cy="back"]').click();
             cy.location('pathname').should('eq', '/costs');
             cy.get('i[data-cy="delete"]').each((elem, index, list) => {
-                elem.click();
+                elem.trigger('click');
             });
         })
     })

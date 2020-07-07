@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { AccountingItem } from '../types/AccountingItem';
-import { Parser } from "json2csv";
-import { saveAs } from "file-saver";
+import { Parser } from 'json2csv';
+import { saveAs } from 'file-saver';
 import { formatDate } from '../utils/formatDate';
 
 @Component({
@@ -14,9 +14,9 @@ import { formatDate } from '../utils/formatDate';
 export class GeneralActionsBarComponent {
 
   @Input() isForTable: boolean;
-  @Input() exportButtonTitle?: String;
+  @Input() exportButtonTitle?: string;
   @Input() data?;
-  @Input() reportType?: String;
+  @Input() reportType?: string;
 
   constructor(
     private authService: AuthService,
@@ -28,7 +28,7 @@ export class GeneralActionsBarComponent {
   }
 
   changePassword() {
-    this.router.navigate(["changepassword"])
+    this.router.navigate(['changepassword'])
   }
 
   onExport(data: Array<AccountingItem>) {
@@ -37,7 +37,7 @@ export class GeneralActionsBarComponent {
       const options = { fields };
       const parser = new Parser(options);
       const csv = parser.parse(data);
-      const file = new Blob([csv], {type: "text/csv;charset=windows-1251"});
+      const file = new Blob([csv], {type: 'text/csv;charset=windows-1251'});
       saveAs(file, `${this.reportType}_${formatDate(new Date())}.csv`);
     } catch (e) {
       console.error(e);

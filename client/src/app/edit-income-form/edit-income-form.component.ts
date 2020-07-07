@@ -20,7 +20,7 @@ export class EditIncomeFormComponent implements OnInit {
   editIncomeForm;
   serverErrors;
   resetServerErrors = this.errorsService.resetServerErrors;
-  submitted: boolean = false;
+  submitted = false;
   editIncomeSuccess: boolean;
 
   constructor(
@@ -30,7 +30,7 @@ export class EditIncomeFormComponent implements OnInit {
     private incomesService: IncomesService,
     private tokenService: TokenService,
     private route: ActivatedRoute,
-  ) { 
+  ) {
     this.editIncomeForm = this.formBuilder.group({
       category: ['', [Validators.required, Validators.maxLength(20)]],
       description: ['', [Validators.maxLength(20)]],
@@ -44,15 +44,15 @@ export class EditIncomeFormComponent implements OnInit {
       this.router.navigate(['authorization']);
     }
     this.route.paramMap.subscribe(params => {
-      this.isEditedIncomeId = Number.parseInt(params.get("id"));
+      this.isEditedIncomeId = Number.parseInt(params.get('id'), 10);
     });
     this.incomesService.getConcreteIncome(this.isEditedIncomeId)
       .subscribe(
         (data: AccountingItem) => {
           this.isEditedIncome = formatDateForForms(data);
-          this.editIncomeForm.controls['category'].setValue(data.category);
-          this.editIncomeForm.controls['description'].setValue(data.description);
-          this.editIncomeForm.controls['price'].setValue(data.price);
+          this.editIncomeForm.controls.category.setValue(data.category);
+          this.editIncomeForm.controls.description.setValue(data.description);
+          this.editIncomeForm.controls.price.setValue(data.price);
         }
       )
   }

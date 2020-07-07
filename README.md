@@ -48,3 +48,7 @@
 1. Navigate to `client` folder
 2. Execute `npm install` command
 3. Execute `npm start` command
+
+# Testing and reporting
+Use `npm run e2e` for open and run cypress tests in manual mode.  
+Use `npm test` for run cypress tests in electron browser and generate report about testing session. Generated report is available in `client/cypress/reports/mochareports/` folder.

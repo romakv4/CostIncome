@@ -26,10 +26,10 @@ describe('HomeComponent', () => {
   }));
 
   beforeEach(() => {
-    let actionsBar = TestBed.createComponent(GeneralActionsBarComponent);
+    const actionsBar = TestBed.createComponent(GeneralActionsBarComponent);
     actionsBar.componentInstance.isForTable = false;
-    let costsTable = TestBed.createComponent(AccountingItemsTableComponent);
-    costsTable.componentInstance.caption = "Costs";
+    const costsTable = TestBed.createComponent(AccountingItemsTableComponent);
+    costsTable.componentInstance.caption = 'Costs';
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

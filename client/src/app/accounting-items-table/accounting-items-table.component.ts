@@ -11,7 +11,7 @@ export class AccountingItemsTableComponent {
   @Input() caption: string;
   @Input() accountingItems: Array<AccountingItem>
   @Input() withActions: boolean
-  @Input() deleteAction: Function
+  @Input() deleteAction: () => void
   @Input() accountingItemsService: any
 
 }

@@ -28,7 +28,7 @@ describe('AddIncomeFormComponent', () => {
   }));
 
   beforeEach(() => {
-    let actionsBar = TestBed.createComponent(GeneralActionsBarComponent);
+    const actionsBar = TestBed.createComponent(GeneralActionsBarComponent);
     actionsBar.componentInstance.isForTable = false;
     fixture = TestBed.createComponent(AddIncomeFormComponent);
     component = fixture.componentInstance;

@@ -18,7 +18,7 @@ export class ChangePasswordFormComponent {
   serverErrors;
   resetServerErrors = this.errorsService.resetServerErrors;
   changePasswordSuccess: boolean = null;
-  submitted: boolean = false;
+  submitted = false;
 
   constructor(
     private formBulder: FormBuilder,
@@ -26,7 +26,7 @@ export class ChangePasswordFormComponent {
     private router: Router,
     private location: Location,
     private errorsService: ErrorsService,
-  ) { 
+  ) {
     this.changePasswordForm = this.formBulder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -50,7 +50,7 @@ export class ChangePasswordFormComponent {
             this.router.navigate(['authorization']);
           }
         },
-        errorResponse => { 
+        errorResponse => {
           this.serverErrors = errorResponse.error
         }
       );

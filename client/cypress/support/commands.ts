@@ -24,6 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+// tslint:disable-next-line: no-namespace
 declare namespace Cypress {
     interface Chainable {
         signIn(email: string, password: string);

@@ -15,9 +15,9 @@ import { Router } from '@angular/router';
 export class AuthorizationFormComponent implements OnInit {
 
   authorizationForm;
-  serverErrors; 
+  serverErrors;
   resetServerErrors = this.errorsService.resetServerErrors;
-  submitted: boolean = false;
+  submitted = false;
   authorizationSuccess: boolean;
 
   constructor(

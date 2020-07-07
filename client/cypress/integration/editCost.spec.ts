@@ -1,11 +1,11 @@
-context("Edit cost", () => {
+context('Edit cost', () => {
 
     beforeEach(() => {
         cy.clearSessionStorage();
         cy.reload();
     })
 
-    it("Edit one cost", () => {
+    it('Edit one cost', () => {
         cy.signIn('costincometestuser@gmail.com', 'password');
         cy.get('[data-cy="add-cost"]').should('be.visible').click();
         cy.get('input#category').type('Food');

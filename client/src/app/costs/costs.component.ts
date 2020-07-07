@@ -15,8 +15,8 @@ export class CostsComponent implements OnInit {
 
   costs = null;
   chartCosts: Array<{}> = [];
-  itemsPerPage = "14";
-  currentPage = "1";
+  itemsPerPage = '14';
+  currentPage = '1';
 
   constructor(
     private costsService: CostsService,
@@ -54,11 +54,11 @@ export class CostsComponent implements OnInit {
             }
             this.chartCosts = aggregateCategories(data);
             if (this.costs.length <= Number(this.itemsPerPage)) {
-              this.currentPage = "1";
+              this.currentPage = '1';
             }
           },
           error => console.log(error)
-        )   
+        )
       },
       error => console.log(error)
     );

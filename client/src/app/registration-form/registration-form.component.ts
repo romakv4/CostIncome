@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { SignUpUserData } from '../types/user';
-import { Success } from "../types/authResponse";
+import { Success } from '../types/authResponse';
 import { Router } from '@angular/router';
 import { ErrorsService } from '../services/errors.service';
 import { TokenService } from '../services/token.service';
@@ -18,7 +18,7 @@ export class RegistrationFormComponent implements OnInit {
   serverErrors;
   resetServerErrors = this.errorsService.resetServerErrors;
   registrationSuccess: boolean = null;
-  submitted: boolean = false;
+  submitted = false;
 
   constructor(
     private formBulder: FormBuilder,
@@ -26,7 +26,7 @@ export class RegistrationFormComponent implements OnInit {
     private router: Router,
     private errorsService: ErrorsService,
     private tokenService: TokenService,
-  ) { 
+  ) {
     this.registrationForm = this.formBulder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],

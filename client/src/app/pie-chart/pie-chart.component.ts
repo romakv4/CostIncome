@@ -1,30 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.css']
 })
-export class PieChartComponent {
+export class PieChartComponent implements AfterViewInit {
 
   @Input() chartData;
 
   view: any[] = [700, 500];
-  gradient: boolean = true;
-  showLegend: boolean = true;
-  showLabels: boolean = true;
-  isDoughnut: boolean = false;
-  legendPosition: string = 'below';
-  trimLabels: boolean = false;
+  gradient = true;
+  showLegend = true;
+  showLabels = true;
+  isDoughnut = false;
+  legendPosition = 'below';
+  trimLabels = false;
 
   ngAfterViewInit(): void {
-    const elements = document.getElementsByClassName('legend-labels horizontal-legend');
+    const elements = Array.from(document.getElementsByClassName('legend-labels horizontal-legend'));
     if (elements.length > 1) {
       console.log('Your method of legend css overriding was broken :(');
     }
-    for (let i = 0; i < elements.length; i++) {
-      const legend = elements[i] as HTMLElement;
-      legend.style.whiteSpace = 'inherit';
+
+    for (const element of elements) {
+      (element as HTMLElement).style.whiteSpace = 'inherit';
     }
   }
 

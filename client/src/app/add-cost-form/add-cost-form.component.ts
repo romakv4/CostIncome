@@ -16,7 +16,7 @@ export class AddCostFormComponent implements OnInit {
   addCostForm;
   serverErrors;
   resetServerErrors = this.errorsService.resetServerErrors;
-  submitted: boolean = false;
+  submitted = false;
   addCostSuccess: boolean;
 
   constructor(
@@ -25,7 +25,7 @@ export class AddCostFormComponent implements OnInit {
     private errorsService: ErrorsService,
     private costsService: CostsService,
     private tokenService: TokenService,
-  ) { 
+  ) {
     this.addCostForm = this.formBuilder.group({
       category: ['', [Validators.required, Validators.maxLength(20)]],
       description: ['', [Validators.maxLength(20)]],
@@ -54,7 +54,7 @@ export class AddCostFormComponent implements OnInit {
           if (this.addCostSuccess) {
             this.submitted = false;
             this.addCostForm.reset({
-              category: "",
+              category: '',
               description: null,
               price: 1,
               date: this.getCurrentDate()

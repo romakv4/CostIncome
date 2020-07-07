@@ -16,7 +16,7 @@
 // When a command from ./commands is ready to use, import with `import * as commands from './commands'` syntax
 // import * as commands from './commands';
 
-import "./commands";
+import './commands';
 
 before(() => {
     cy.clearSessionStorage();

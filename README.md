@@ -2,7 +2,7 @@
 
 # Server launch requirements
 1. .Net core
-2. Mailgun account
+2. Gmail account for service with untrusted apps allow
 3. appsettings.Development.json and appsettings.json files in CostIncomeCalculator folder  
 
 ### appsettings.json
@@ -29,9 +29,9 @@
     "ConnectionStrings": { 
         "DefaultConnection": "Database connection string" 
     },
-    "Mailgun": {
-        "Domain": "Your mailgun domain",
-        "APIkey": "Your mailgun API key"
+    "SMTP": {
+        "Email": "Your gmail account for service email",
+        "Password": "Your gmail account for service password"
     }, 
     "Logging": { 
         "LogLevel": { 

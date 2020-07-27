@@ -61,8 +61,11 @@ namespace CostIncomeCalculator
             services.AddMvcCore().AddApiExplorer().AddDataAnnotations();
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddFluentEmail("noreply@costincome.com", "CostIncome")
-                    .AddMailGunSender(Configuration.GetSection("Mailgun:Domain").Value,
-                                        Configuration.GetSection("Mailgun:APIkey").Value);
+                    .AddSmtpSender(
+                        "smtp.gmail.com", 587,
+                        Configuration.GetSection("SMTP:Email").Value,
+                        Configuration.GetSection("SMTP:Password").Value
+                    );
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters

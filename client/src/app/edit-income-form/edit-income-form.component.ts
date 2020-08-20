@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ErrorsService } from '../services/errors.service';
 import { TokenService } from '../services/token.service';
 import { AccountingItem, OperationSuccess } from '../types/AccountingItem';
-import { formatDateForForms } from '../utils/formatDate';
+import { formatDateForForms, formatDateForTables } from '../utils/formatDate';
 import { IncomesService } from '../services/incomes.service';
+import { aggregateCategories } from '../utils/aggregateCategories';
 
 @Component({
   selector: 'app-edit-income-form',
@@ -13,6 +14,17 @@ import { IncomesService } from '../services/incomes.service';
   styleUrls: ['./edit-income-form.component.css']
 })
 export class EditIncomeFormComponent implements OnInit {
+
+  @Input() inEditing: boolean;
+  @Output() inEditingChange = new EventEmitter<boolean>();
+
+  @Input() incomeForEditId: number;
+
+  @Input() incomes: any[]
+  @Output() incomesChange = new EventEmitter<any[]>();
+
+  @Input() chartIncomes: Array<{}>;
+  @Output() chartIncomesChange = new EventEmitter<Array<{}>>();
 
   isEditedIncomeId;
   isEditedIncome;
@@ -29,7 +41,6 @@ export class EditIncomeFormComponent implements OnInit {
     private errorsService: ErrorsService,
     private incomesService: IncomesService,
     private tokenService: TokenService,
-    private route: ActivatedRoute,
   ) {
     this.editIncomeForm = this.formBuilder.group({
       category: ['', [Validators.required, Validators.maxLength(20)]],
@@ -43,10 +54,7 @@ export class EditIncomeFormComponent implements OnInit {
     if (this.tokenService.isTokenExpired()) {
       this.router.navigate(['authorization']);
     }
-    this.route.paramMap.subscribe(params => {
-      this.isEditedIncomeId = Number.parseInt(params.get('id'), 10);
-    });
-    this.incomesService.getConcreteIncome(this.isEditedIncomeId)
+    this.incomesService.getConcreteIncome(this.incomeForEditId)
       .subscribe(
         (data: AccountingItem) => {
           this.isEditedIncome = formatDateForForms(data);
@@ -64,17 +72,37 @@ export class EditIncomeFormComponent implements OnInit {
     if (this.editIncomeForm.invalid) {
       return;
     }
-    incomeData.id = this.isEditedIncomeId;
+    incomeData.id = this.incomeForEditId;
     this.incomesService.editIncome(incomeData)
       .subscribe(
         (response: OperationSuccess) => {
           this.editIncomeSuccess = response.success;
           if (this.editIncomeSuccess) {
-            this.router.navigate(['/incomes'])
+            this.refreshTable();
           }
         },
         errorResponse => { this.serverErrors = errorResponse.error }
       )
+  }
+
+  refreshTable() {
+    this.incomesService.getIncomes()
+      .subscribe(
+        (data: Array<AccountingItem>) => {
+          const formattedData = formatDateForTables(data);
+          this.incomesChange.emit(formattedData);
+          if (this.incomes.length === 0) {
+            this.router.navigate(['/home'])
+          }
+          this.chartIncomesChange.emit(aggregateCategories(data));
+          this.inEditingChange.emit(false);
+        },
+        error => console.log(error)
+      )
+  }
+
+  toIncomes() {
+    this.inEditingChange.emit(false);
   }
 
 }

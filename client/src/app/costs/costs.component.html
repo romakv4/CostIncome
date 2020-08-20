@@ -12,6 +12,14 @@
     [(chartCosts)]="chartCosts"
 ></app-add-cost-form>
 
+<app-edit-cost-form
+    *ngIf="inEditing"
+    [(inEditing)]="inEditing"
+    [(costForEditId)]="costForEditId"
+    [(costs)]="costs"
+    [(chartCosts)]="chartCosts"
+></app-edit-cost-form>
+
 <div class="tableWrapper">
     <div *ngIf="costs !== null" class="table-top-space">
         <table>

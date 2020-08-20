@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ErrorsService } from '../services/errors.service';
 import { CostsService } from '../services/costs.service';
 import { TokenService } from '../services/token.service';
 import { AccountingItem, OperationSuccess } from '../types/AccountingItem';
-import { formatDateForForms } from '../utils/formatDate';
+import { formatDateForForms, formatDateForTables } from '../utils/formatDate';
+import { aggregateCategories } from '../utils/aggregateCategories';
 
 @Component({
   selector: 'app-edit-cost-form',
@@ -13,6 +14,17 @@ import { formatDateForForms } from '../utils/formatDate';
   styleUrls: ['./edit-cost-form.component.css']
 })
 export class EditCostFormComponent implements OnInit {
+
+  @Input() inEditing: boolean;
+  @Output() inEditingChange = new EventEmitter<boolean>();
+
+  @Input() costForEditId: number;
+
+  @Input() costs: any[]
+  @Output() costsChange = new EventEmitter<any[]>();
+
+  @Input() chartCosts: Array<{}>;
+  @Output() chartCostsChange = new EventEmitter<Array<{}>>();
 
   isEditedCostId;
   isEditedCost;
@@ -29,7 +41,6 @@ export class EditCostFormComponent implements OnInit {
     private errorsService: ErrorsService,
     private costsService: CostsService,
     private tokenService: TokenService,
-    private route: ActivatedRoute,
   ) {
     this.editCostForm = this.formBuilder.group({
       category: ['', [Validators.required, Validators.maxLength(20)]],
@@ -43,10 +54,7 @@ export class EditCostFormComponent implements OnInit {
     if (this.tokenService.isTokenExpired()) {
       this.router.navigate(['authorization']);
     }
-    this.route.paramMap.subscribe(params => {
-      this.isEditedCostId = Number.parseInt(params.get('id'), 10);
-    });
-    this.costsService.getConcreteCost(this.isEditedCostId)
+    this.costsService.getConcreteCost(this.costForEditId)
       .subscribe(
         (data: AccountingItem) => {
           this.isEditedCost = formatDateForForms(data);
@@ -64,17 +72,37 @@ export class EditCostFormComponent implements OnInit {
     if (this.editCostForm.invalid) {
       return;
     }
-    costData.id = this.isEditedCostId;
+    costData.id = this.costForEditId;
     this.costsService.editCost(costData)
       .subscribe(
         (response: OperationSuccess) => {
           this.editCostSuccess = response.success;
           if (this.editCostSuccess) {
-            this.router.navigate(['/costs'])
+            this.refreshTable();
           }
         },
         errorResponse => { this.serverErrors = errorResponse.error }
       )
+  }
+
+  refreshTable() {
+    this.costsService.getCosts()
+      .subscribe(
+        (data: Array<AccountingItem>) => {
+          const formattedData = formatDateForTables(data);
+          this.costsChange.emit(formattedData);
+          if (this.costs.length === 0) {
+            this.router.navigate(['/home'])
+          }
+          this.chartCostsChange.emit(aggregateCategories(data));
+          this.inEditingChange.emit(false);
+        },
+        error => console.log(error)
+      )
+  }
+
+  toCosts() {
+    this.inEditingChange.emit(false);
   }
 
 }

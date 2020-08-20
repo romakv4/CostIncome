@@ -1,5 +1,5 @@
-<app-general-actions-bar [isForTable]="false"></app-general-actions-bar>
-<div class="centrate" *ngIf="isEditedIncome != null">
+<!-- <app-general-actions-bar [isForTable]="false"></app-general-actions-bar> -->
+<div class="centrate modal-form" *ngIf="isEditedIncome != null">
     <h1>Edit income</h1>
 
     <form [formGroup]="editIncomeForm" (ngSubmit)="onSubmit(editIncomeForm.value)">
@@ -83,7 +83,7 @@
             <button type="submit">
                 Edit
             </button>
-            <a href="/incomes">
+            <a on-click="toIncomes()">
                 <i class="material-icons" data-cy="back">keyboard_backspace</i>
             </a>
         </div>

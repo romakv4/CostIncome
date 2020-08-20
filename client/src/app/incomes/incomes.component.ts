@@ -18,6 +18,8 @@ export class IncomesComponent implements OnInit {
   itemsPerPage = '14';
   currentPage = '1';
   inAdding = false
+  inEditing = false
+  incomeForEditId = null
 
   constructor(
     private incomesService: IncomesService,
@@ -70,7 +72,8 @@ export class IncomesComponent implements OnInit {
   }
 
   editIncome(id) {
-    this.router.navigate(['/edit-income', id]);
+    this.inEditing = true;
+    this.incomeForEditId = id;
   }
 
 }

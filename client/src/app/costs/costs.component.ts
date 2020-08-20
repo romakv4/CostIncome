@@ -18,6 +18,8 @@ export class CostsComponent implements OnInit {
   itemsPerPage = '14';
   currentPage = '1';
   inAdding = false;
+  inEditing = false;
+  costForEditId = null;
 
   constructor(
     private costsService: CostsService,
@@ -70,7 +72,8 @@ export class CostsComponent implements OnInit {
   }
 
   editCost(id) {
-    this.router.navigate(['/edit-cost', id]);
+    this.inEditing = true;
+    this.costForEditId = id;
   }
 
 }

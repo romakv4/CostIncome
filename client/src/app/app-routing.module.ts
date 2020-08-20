@@ -10,8 +10,6 @@ import { AddCostFormComponent } from './add-cost-form/add-cost-form.component';
 import { IncomesComponent } from './incomes/incomes.component';
 import { AddIncomeFormComponent } from './add-income-form/add-income-form.component';
 import { HomeComponent } from './home/home.component';
-import { EditCostFormComponent } from './edit-cost-form/edit-cost-form.component';
-import { EditIncomeFormComponent } from './edit-income-form/edit-income-form.component';
 
 
 const routes: Routes = [
@@ -23,10 +21,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'costs', component: CostsComponent },
   { path: 'add-cost', component: AddCostFormComponent },
-  { path: 'edit-cost/:id', component: EditCostFormComponent },
   { path: 'incomes', component: IncomesComponent },
   { path: 'add-income', component: AddIncomeFormComponent },
-  { path: 'edit-income/:id', component: EditIncomeFormComponent },
 ];
 
 @NgModule({

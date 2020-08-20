@@ -12,6 +12,14 @@
     [(chartIncomes)]="chartIncomes"
 ></app-add-income-form>
 
+<app-edit-income-form
+    *ngIf="inEditing"
+    [(inEditing)]="inEditing"
+    [(incomeForEditId)]="incomeForEditId"
+    [(incomes)]="incomes"
+    [(chartIncomes)]="chartIncomes"
+></app-edit-income-form>
+
 <div class="tableWrapper">
     <div *ngIf="incomes !== null" class="table-top-space">
         <table>

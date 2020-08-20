@@ -66,7 +66,6 @@ export class IncomesComponent implements OnInit {
   }
 
   addIncome() {
-    // this.router.navigate(['add-income']);
     this.inAdding = true
   }
 

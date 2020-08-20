@@ -1,5 +1,5 @@
-<app-general-actions-bar [isForTable]="false"></app-general-actions-bar>
-<div class="centrate">
+<!-- <app-general-actions-bar [isForTable]="false"></app-general-actions-bar> -->
+<div class="centrate modal-form">
     <h1>Add cost</h1>
 
     <form [formGroup]="addCostForm" (ngSubmit)="onSubmit(addCostForm.value)">
@@ -103,7 +103,7 @@
             <button type="submit">
                 Add
             </button>
-            <a href="/costs">
+            <a on-click="toCosts()">
                 <i class="material-icons" data-cy="back">keyboard_backspace</i>
             </a>
         </div>

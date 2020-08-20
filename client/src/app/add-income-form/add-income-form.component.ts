@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ErrorsService } from '../services/errors.service';
 import { IncomesService } from '../services/incomes.service';
 import { AccountingItem, OperationSuccess } from '../types/AccountingItem';
 import { TokenService } from '../services/token.service';
+import { formatDateForTables } from '../utils/formatDate';
+import { aggregateCategories } from '../utils/aggregateCategories';
 
 @Component({
   selector: 'app-add-income-form',
@@ -12,6 +14,15 @@ import { TokenService } from '../services/token.service';
   styleUrls: ['./add-income-form.component.css']
 })
 export class AddIncomeFormComponent implements OnInit {
+
+  @Input() inAdding: boolean;
+  @Output() inAddingChange = new EventEmitter<boolean>();
+
+  @Input() incomes: any[]
+  @Output() incomesChange = new EventEmitter<any[]>();
+
+  @Input() chartIncomes: Array<{}>;
+  @Output() chartIncomesChange = new EventEmitter<Array<{}>>();
 
   addIncomeForm;
   serverErrors;
@@ -23,7 +34,7 @@ export class AddIncomeFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private errorsService: ErrorsService,
-    private costsService: IncomesService,
+    private incomesService: IncomesService,
     private tokenService: TokenService,
   ) {
     this.addIncomeForm = this.formBuilder.group({
@@ -47,7 +58,7 @@ export class AddIncomeFormComponent implements OnInit {
     if (this.addIncomeForm.invalid) {
       return;
     }
-    this.costsService.addIncome(incomeData)
+    this.incomesService.addIncome(incomeData)
       .subscribe(
         (response: OperationSuccess) => {
           this.addIncomeSuccess = response.success;
@@ -61,8 +72,24 @@ export class AddIncomeFormComponent implements OnInit {
             });
           }
           setTimeout(() => { this.addIncomeSuccess = null }, 2500);
+          this.refreshTable()
         },
         errorResponse => { this.serverErrors = errorResponse.error }
+      )
+  }
+
+  refreshTable() {
+    this.incomesService.getIncomes()
+      .subscribe(
+        (data: Array<AccountingItem>) => {
+          const formattedData = formatDateForTables(data);
+          this.incomesChange.emit(formattedData);
+          if (this.incomes.length === 0) {
+            this.router.navigate(['/home'])
+          }
+          this.chartIncomesChange.emit(aggregateCategories(data));
+        },
+        error => console.log(error)
       )
   }
 
@@ -71,6 +98,14 @@ export class AddIncomeFormComponent implements OnInit {
     return date.getFullYear().toString() + '-'
         + (date.getMonth() + 1).toString().padStart(2, '0') + '-'
         + date.getDate().toString().padStart(2, '0');
+  }
+
+  toIncomes() {
+    if (this.router.url === '/add-income') {
+      this.router.navigate(['/incomes'])
+    } else {
+      this.inAddingChange.emit(false);
+    }
   }
 
 }

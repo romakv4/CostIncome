@@ -10,7 +10,7 @@
     "posttest": "npm run combine-reports && npm run generate-report",
     "test": "npm run cy:run || npm run posttest",
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --optimization=true",
     "build": "ng build",
     "karma": "ng test",
     "karma:coverage": "ng test --code-coverage --browsers ChromeHeadless",

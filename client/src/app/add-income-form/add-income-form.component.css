@@ -1,0 +1,8 @@
+a:hover {
+    cursor: pointer;
+}
+.modal-form {
+    background-color: #2425256b;
+    position: absolute;
+    left: 50;
+}

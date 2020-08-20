@@ -97,7 +97,7 @@ namespace CostIncomeCalculator.Data.IncomeData
             {
                 var user = await context.Users.FirstOrDefaultAsync(x => x.Email == email);
 
-                var income = new Cost
+                var income = new Income
                 {
                     UserId = user.Id,
                     Category = incomeForSetDto.Category,
@@ -106,7 +106,7 @@ namespace CostIncomeCalculator.Data.IncomeData
                     Date = incomeForSetDto.Date
                 };
 
-                await context.AddAsync(income);
+                await context.Incomes.AddAsync(income);
                 await context.SaveChangesAsync();
 
                 return mapper.Map<AccountingItem>(income);

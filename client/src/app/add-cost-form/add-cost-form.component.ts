@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ErrorsService } from '../services/errors.service';
 import { AccountingItem, OperationSuccess } from '../types/AccountingItem';
 import { CostsService } from '../services/costs.service';
 import { TokenService } from '../services/token.service';
+import { formatDateForTables } from '../utils/formatDate';
+import { aggregateCategories } from '../utils/aggregateCategories';
 
 @Component({
   selector: 'app-add-cost-form',
@@ -12,6 +14,15 @@ import { TokenService } from '../services/token.service';
   styleUrls: ['./add-cost-form.component.css']
 })
 export class AddCostFormComponent implements OnInit {
+
+  @Input() inAdding: boolean;
+  @Output() inAddingChange = new EventEmitter<boolean>();
+
+  @Input() costs: any[]
+  @Output() costsChange = new EventEmitter<any[]>();
+
+  @Input() chartCosts: Array<{}>;
+  @Output() chartCostsChange = new EventEmitter<Array<{}>>();
 
   addCostForm;
   serverErrors;
@@ -61,8 +72,24 @@ export class AddCostFormComponent implements OnInit {
             });
           }
           setTimeout(() => { this.addCostSuccess = null }, 2500);
+          this.refreshTable();
         },
         errorResponse => { this.serverErrors = errorResponse.error }
+      )
+  }
+
+  refreshTable() {
+    this.costsService.getCosts()
+      .subscribe(
+        (data: Array<AccountingItem>) => {
+          const formattedData = formatDateForTables(data);
+          this.costsChange.emit(formattedData);
+          if (this.costs.length === 0) {
+            this.router.navigate(['/home'])
+          }
+          this.chartCostsChange.emit(aggregateCategories(data));
+        },
+        error => console.log(error)
       )
   }
 
@@ -71,6 +98,14 @@ export class AddCostFormComponent implements OnInit {
     return date.getFullYear().toString() + '-'
         + (date.getMonth() + 1).toString().padStart(2, '0') + '-'
         + date.getDate().toString().padStart(2, '0');
+  }
+
+  toCosts() {
+    if (this.router.url === '/add-cost') {
+      this.router.navigate(['/costs'])
+    } else {
+      this.inAddingChange.emit(false);
+    }
   }
 
 }

@@ -4,8 +4,15 @@
     [data]="costs"
     [reportType]="'costs'"
 ></app-general-actions-bar>
-<br>
-<div class="tableWrapper">
+
+<app-add-cost-form
+    *ngIf="inAdding"
+    [(inAdding)]="inAdding"
+    [(costs)]="costs"
+    [(chartCosts)]="chartCosts"
+></app-add-cost-form>
+
+<div class="tableWrapper table-top-space">
     <div *ngIf="costs !== null">
         <table>
             <caption>
@@ -41,5 +48,5 @@
             <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
         </div>
     </div>
-    <app-pie-chart [chartData]="chartCosts"></app-pie-chart>
+    <app-pie-chart [chartData]="chartCosts" style="margin-top: 50px;"></app-pie-chart>
 </div>

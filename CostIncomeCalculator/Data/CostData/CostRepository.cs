@@ -106,7 +106,7 @@ namespace CostIncomeCalculator.Data.CostData
                     Date = costForSetDto.Date
                 };
 
-                await context.AddAsync(cost);
+                await context.Costs.AddAsync(cost);
                 await context.SaveChangesAsync();
 
                 return mapper.Map<AccountingItem>(cost);

@@ -4,8 +4,15 @@
     [data]="incomes"
     [reportType]="'incomes'"
 ></app-general-actions-bar>
-<br>
-<div class="tableWrapper">
+
+<app-add-income-form
+    *ngIf="inAdding"
+    [(inAdding)]="inAdding"
+    [(incomes)]="incomes"
+    [(chartIncomes)]="chartIncomes"
+></app-add-income-form>
+
+<div class="tableWrapper table-top-space">
     <div *ngIf="incomes !== null">
         <table>
             <caption>
@@ -41,5 +48,5 @@
             <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
         </div>
     </div>
-    <app-pie-chart [chartData]="chartIncomes"></app-pie-chart>
+    <app-pie-chart [chartData]="chartIncomes" style="margin-top: 50px;"></app-pie-chart>
 </div>

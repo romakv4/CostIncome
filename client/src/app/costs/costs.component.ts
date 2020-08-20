@@ -17,6 +17,7 @@ export class CostsComponent implements OnInit {
   chartCosts: Array<{}> = [];
   itemsPerPage = '14';
   currentPage = '1';
+  inAdding = false;
 
   constructor(
     private costsService: CostsService,
@@ -65,7 +66,7 @@ export class CostsComponent implements OnInit {
   }
 
   addCost() {
-    this.router.navigate(['add-cost']);
+    this.inAdding = true
   }
 
   editCost(id) {

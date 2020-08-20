@@ -17,6 +17,7 @@ export class IncomesComponent implements OnInit {
   chartIncomes: Array<{}> = [];
   itemsPerPage = '14';
   currentPage = '1';
+  inAdding = false
 
   constructor(
     private incomesService: IncomesService,
@@ -65,7 +66,8 @@ export class IncomesComponent implements OnInit {
   }
 
   addIncome() {
-    this.router.navigate(['add-income']);
+    // this.router.navigate(['add-income']);
+    this.inAdding = true
   }
 
   editIncome(id) {

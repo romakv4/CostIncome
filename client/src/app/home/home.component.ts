@@ -16,6 +16,8 @@ export class HomeComponent implements OnInit {
 
   costs = [];
   incomes = [];
+  costsClicked = false
+  incomesClicked = false
 
   constructor(
     private tokenService: TokenService,

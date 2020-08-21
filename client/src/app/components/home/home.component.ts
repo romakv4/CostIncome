@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenService } from '../services/token.service';
-import { CostsService } from '../services/costs.service';
-import { IncomesService } from '../services/incomes.service';
-import { AccountingItem } from '../types/AccountingItem';
-import { formatDateForTables } from '../utils/formatDate';
-import { AccountingItemsTableComponent } from '../accounting-items-table/accounting-items-table.component';
+import { TokenService } from '../../services/token.service';
+import { CostsService } from '../../services/costs.service';
+import { IncomesService } from '../../services/incomes.service';
+import { AccountingItem } from '../../types/AccountingItem';
+import { formatDateForTables } from '../../utils/formatDate';
 
 @Component({
   selector: 'app-home',

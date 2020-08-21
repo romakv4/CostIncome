@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { ErrorsService } from '../services/errors.service';
-import { ChangePasswordUserData } from '../types/user';
-import { Success } from '../types/authResponse';
+import { ErrorsService } from '../../services/errors.service';
+import { ChangePasswordUserData } from '../../types/user';
+import { Success } from '../../types/authResponse';
 
 @Component({
   selector: 'app-change-password-form',

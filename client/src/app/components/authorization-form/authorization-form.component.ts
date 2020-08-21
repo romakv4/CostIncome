@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
-import { Success } from '../types/authResponse';
-import { SignInUserData } from '../types/user';
-import { ErrorsService } from '../services/errors.service';
-import { TokenService } from '../services/token.service';
+import { AuthService } from '../../services/auth.service';
+import { Success } from '../../types/authResponse';
+import { SignInUserData } from '../../types/user';
+import { ErrorsService } from '../../services/errors.service';
+import { TokenService } from '../../services/token.service';
 import { Router } from '@angular/router';
 
 @Component({

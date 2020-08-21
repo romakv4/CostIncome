@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ErrorsService } from '../services/errors.service';
-import { TokenService } from '../services/token.service';
-import { AccountingItem, OperationSuccess } from '../types/AccountingItem';
-import { formatDateForForms, formatDateForTables } from '../utils/formatDate';
-import { IncomesService } from '../services/incomes.service';
-import { aggregateCategories } from '../utils/aggregateCategories';
+import { ErrorsService } from '../../services/errors.service';
+import { TokenService } from '../../services/token.service';
+import { AccountingItem, OperationSuccess } from '../../types/AccountingItem';
+import { formatDateForForms, formatDateForTables } from '../../utils/formatDate';
+import { IncomesService } from '../../services/incomes.service';
+import { aggregateCategories } from '../../utils/aggregateCategories';
 
 @Component({
   selector: 'app-edit-income-form',

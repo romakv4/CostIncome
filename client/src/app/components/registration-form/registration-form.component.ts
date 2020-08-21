@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
-import { SignUpUserData } from '../types/user';
-import { Success } from '../types/authResponse';
+import { AuthService } from '../../services/auth.service';
+import { SignUpUserData } from '../../types/user';
+import { Success } from '../../types/authResponse';
 import { Router } from '@angular/router';
-import { ErrorsService } from '../services/errors.service';
-import { TokenService } from '../services/token.service';
+import { ErrorsService } from '../../services/errors.service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-registration-form',

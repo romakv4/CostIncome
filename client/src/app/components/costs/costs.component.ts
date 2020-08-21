@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CostsService } from '../services/costs.service';
-import { TokenService } from '../services/token.service';
+import { CostsService } from '../../services/costs.service';
+import { TokenService } from '../../services/token.service';
 import { Router } from '@angular/router';
-import { AccountingItem } from '../types/AccountingItem';
-import { aggregateCategories } from '../utils/aggregateCategories';
-import { formatDateForTables } from '../utils/formatDate';
+import { AccountingItem } from '../../types/AccountingItem';
+import { aggregateCategories } from '../../utils/aggregateCategories';
+import { formatDateForTables } from '../../utils/formatDate';
 
 @Component({
   selector: 'app-costs',

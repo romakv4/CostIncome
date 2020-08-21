@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { AccountingItem } from '../types/AccountingItem';
+import { AccountingItem } from '../../types/AccountingItem';
 import { Parser } from 'json2csv';
 import { saveAs } from 'file-saver';
-import { formatDate } from '../utils/formatDate';
+import { formatDate } from '../../utils/formatDate';
 
 @Component({
   selector: 'app-general-actions-bar',

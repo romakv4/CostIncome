@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AccountingItem } from '../types/AccountingItem';
+import { AccountingItem } from '../../types/AccountingItem';
 
 @Component({
   selector: 'app-accounting-items-table',

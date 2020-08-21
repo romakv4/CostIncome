@@ -1,43 +1,43 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ErrorsService } from '../services/errors.service';
-import { IncomesService } from '../services/incomes.service';
-import { AccountingItem, OperationSuccess } from '../types/AccountingItem';
-import { TokenService } from '../services/token.service';
-import { formatDateForTables } from '../utils/formatDate';
-import { aggregateCategories } from '../utils/aggregateCategories';
+import { ErrorsService } from '../../services/errors.service';
+import { AccountingItem, OperationSuccess } from '../../types/AccountingItem';
+import { CostsService } from '../../services/costs.service';
+import { TokenService } from '../../services/token.service';
+import { formatDateForTables } from '../../utils/formatDate';
+import { aggregateCategories } from '../../utils/aggregateCategories';
 
 @Component({
-  selector: 'app-add-income-form',
-  templateUrl: './add-income-form.component.html',
-  styleUrls: ['./add-income-form.component.css']
+  selector: 'app-add-cost-form',
+  templateUrl: './add-cost-form.component.html',
+  styleUrls: ['./add-cost-form.component.css']
 })
-export class AddIncomeFormComponent implements OnInit {
+export class AddCostFormComponent implements OnInit {
 
   @Input() inAdding: boolean;
   @Output() inAddingChange = new EventEmitter<boolean>();
 
-  @Input() incomes: any[]
-  @Output() incomesChange = new EventEmitter<any[]>();
+  @Input() costs: any[]
+  @Output() costsChange = new EventEmitter<any[]>();
 
-  @Input() chartIncomes: Array<{}>;
-  @Output() chartIncomesChange = new EventEmitter<Array<{}>>();
+  @Input() chartCosts: Array<{}>;
+  @Output() chartCostsChange = new EventEmitter<Array<{}>>();
 
-  addIncomeForm;
+  addCostForm;
   serverErrors;
   resetServerErrors = this.errorsService.resetServerErrors;
   submitted = false;
-  addIncomeSuccess: boolean;
+  addCostSuccess: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private errorsService: ErrorsService,
-    private incomesService: IncomesService,
+    private costsService: CostsService,
     private tokenService: TokenService,
   ) {
-    this.addIncomeForm = this.formBuilder.group({
+    this.addCostForm = this.formBuilder.group({
       category: ['', [Validators.required, Validators.maxLength(20)]],
       description: ['', [Validators.maxLength(20)]],
       price: [Number(1), [Validators.required, Validators.min(0.01), Validators.max(999999999999)]],
@@ -51,43 +51,43 @@ export class AddIncomeFormComponent implements OnInit {
     }
   }
 
-  get f() { return this.addIncomeForm.controls }
+  get f() { return this.addCostForm.controls }
 
-  onSubmit(incomeData: AccountingItem) {
+  onSubmit(costData: AccountingItem) {
     this.submitted = true;
-    if (this.addIncomeForm.invalid) {
+    if (this.addCostForm.invalid) {
       return;
     }
-    this.incomesService.addIncome(incomeData)
+    this.costsService.addCost(costData)
       .subscribe(
         (response: OperationSuccess) => {
-          this.addIncomeSuccess = response.success;
-          if (this.addIncomeSuccess) {
+          this.addCostSuccess = response.success;
+          if (this.addCostSuccess) {
             this.submitted = false;
-            this.addIncomeForm.reset({
+            this.addCostForm.reset({
               category: '',
               description: null,
               price: 1,
               date: this.getCurrentDate()
             });
           }
-          setTimeout(() => { this.addIncomeSuccess = null }, 2500);
-          this.refreshTable()
+          setTimeout(() => { this.addCostSuccess = null }, 2500);
+          this.refreshTable();
         },
         errorResponse => { this.serverErrors = errorResponse.error }
       )
   }
 
   refreshTable() {
-    this.incomesService.getIncomes()
+    this.costsService.getCosts()
       .subscribe(
         (data: Array<AccountingItem>) => {
           const formattedData = formatDateForTables(data);
-          this.incomesChange.emit(formattedData);
-          if (this.incomes.length === 0) {
+          this.costsChange.emit(formattedData);
+          if (this.costs.length === 0) {
             this.router.navigate(['/home'])
           }
-          this.chartIncomesChange.emit(aggregateCategories(data));
+          this.chartCostsChange.emit(aggregateCategories(data));
         },
         error => console.log(error)
       )
@@ -100,9 +100,9 @@ export class AddIncomeFormComponent implements OnInit {
         + date.getDate().toString().padStart(2, '0');
   }
 
-  toIncomes() {
-    if (this.router.url === '/add-income') {
-      this.router.navigate(['/incomes'])
+  toCosts() {
+    if (this.router.url === '/add-cost') {
+      this.router.navigate(['/costs'])
     } else {
       this.inAddingChange.emit(false);
     }

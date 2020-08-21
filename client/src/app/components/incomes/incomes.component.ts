@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IncomesService } from '../services/incomes.service';
-import { TokenService } from '../services/token.service';
+import { IncomesService } from '../../services/incomes.service';
+import { TokenService } from '../../services/token.service';
 import { Router } from '@angular/router';
-import { aggregateCategories } from '../utils/aggregateCategories';
-import { AccountingItem } from '../types/AccountingItem';
-import { formatDateForTables } from '../utils/formatDate';
+import { aggregateCategories } from '../../utils/aggregateCategories';
+import { AccountingItem } from '../../types/AccountingItem';
+import { formatDateForTables } from '../../utils/formatDate';
 
 @Component({
   selector: 'app-incomes',

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AccountingItemsTableComponent } from './accounting-items-table.component';
-import { formatDateForTables } from '../utils/formatDate';
+import { formatDateForTables } from '../../utils/formatDate';
 import { By } from '@angular/platform-browser';
 
 describe('AccountingItemsTableComponent', () => {

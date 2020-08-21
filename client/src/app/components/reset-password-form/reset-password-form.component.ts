@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { ResetPassUserData } from '../types/user';
-import { Success } from '../types/authResponse';
+import { AuthService } from '../../services/auth.service';
+import { ResetPassUserData } from '../../types/user';
+import { Success } from '../../types/authResponse';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RedirectService } from '../services/redirect.service';
-import { ErrorsService } from '../services/errors.service';
+import { RedirectService } from '../../services/redirect.service';
+import { ErrorsService } from '../../services/errors.service';
 
 @Component({
   selector: 'app-reset-password-form',

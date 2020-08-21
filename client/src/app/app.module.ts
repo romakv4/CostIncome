@@ -25,18 +25,13 @@ import { EditCostFormComponent } from './components/edit-cost-form/edit-cost-for
 import { EditIncomeFormComponent } from './components/edit-income-form/edit-income-form.component';
 import { GeneralActionsBarComponent } from './components/general-actions-bar/general-actions-bar.component';
 import { AuthRoutingModule } from './routes/auth-routing.module';
+import { AuthModule } from './modules/auth-module/auth.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationFormComponent,
-    ValidateEqualValueDirective,
-    AuthPageComponent,
-    AuthorizationFormComponent,
-    ResetPasswordFormComponent,
     CostsComponent,
-    ChangePasswordFormComponent,
     AddCostFormComponent,
     IncomesComponent,
     AddIncomeFormComponent,
@@ -54,6 +49,7 @@ import { AuthRoutingModule } from './routes/auth-routing.module';
     HttpClientModule,
     AppRoutingModule,
     AuthRoutingModule,
+    AuthModule,
     NgxChartsModule,
     BrowserAnimationsModule,
     NgxPaginationModule,

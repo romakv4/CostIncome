@@ -7,14 +7,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppRoutingModule } from './routes/app-routing.module';
 import { AppComponent } from './app.component';
-import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
-import { ValidateEqualValueDirective } from './directives/validate-equal-value.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthPageComponent } from './components/auth-page/auth-page.component';
-import { AuthorizationFormComponent } from './components/authorization-form/authorization-form.component';
-import { ResetPasswordFormComponent } from './components/reset-password-form/reset-password-form.component';
 import { CostsComponent } from './components/costs/costs.component';
-import { ChangePasswordFormComponent } from './components/change-password-form/change-password-form.component';
 import { AddCostFormComponent } from './components/add-cost-form/add-cost-form.component';
 import { IncomesComponent } from './components/incomes/incomes.component';
 import { AddIncomeFormComponent } from './components/add-income-form/add-income-form.component';
@@ -25,7 +19,7 @@ import { EditCostFormComponent } from './components/edit-cost-form/edit-cost-for
 import { EditIncomeFormComponent } from './components/edit-income-form/edit-income-form.component';
 import { GeneralActionsBarComponent } from './components/general-actions-bar/general-actions-bar.component';
 import { AuthRoutingModule } from './routes/auth-routing.module';
-import { AuthModule } from './modules/auth-module/auth.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 
 @NgModule({

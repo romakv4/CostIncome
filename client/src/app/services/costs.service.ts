@@ -3,6 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { TokenService } from './token.service';
 import { AccountingItem } from '../types/AccountingItem';
 import { DevConfig } from '../configuration';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { formatDateForTables } from '../utils/formatDate';
+import { aggregateCategories } from '../utils/aggregateCategories';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +22,13 @@ export class CostsService {
     return this.http.get(
       `${DevConfig.BASE_URI}/cost`,
       { headers: this.tokenService.getAuthHeaders() }
-    );
+    ).pipe(map(data => {
+      return { formattedData: formatDateForTables(data), chartCosts: aggregateCategories(data) }
+    }),
+    catchError(err => {
+      console.log(err);
+      return throwError(err);
+    }));
   }
 
   getConcreteCost(id) {

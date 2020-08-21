@@ -33,13 +33,12 @@ export class CostsComponent implements OnInit {
     }
     this.costsService.getCosts()
       .subscribe(
-        (data: Array<AccountingItem>) => {
-          const formattedData = formatDateForTables(data);
-          this.costs = formattedData;
+        data => {
+          this.costs = data.formattedData;
           if (this.costs.length === 0) {
             this.router.navigate(['/home'])
           }
-          this.chartCosts = aggregateCategories(data);
+          this.chartCosts = data.chartCosts;
         },
         error => console.log(error)
       )
@@ -50,12 +49,11 @@ export class CostsComponent implements OnInit {
       () => {
         this.costsService.getCosts().subscribe(
           data => {
-            const formattedData = formatDateForTables(data);
-            this.costs = formattedData;
+            this.costs = data.formattedData;
             if (this.costs.length === 0) {
               this.router.navigate(['/home'])
             }
-            this.chartCosts = aggregateCategories(data);
+            this.chartCosts = data.chartCosts;
             if (this.costs.length <= Number(this.itemsPerPage)) {
               this.currentPage = '1';
             }

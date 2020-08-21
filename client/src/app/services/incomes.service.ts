@@ -3,6 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { TokenService } from './token.service';
 import { AccountingItem } from '../types/AccountingItem';
 import { DevConfig } from '../configuration';
+import { map, catchError } from 'rxjs/operators';
+import { formatDateForTables } from '../utils/formatDate';
+import { aggregateCategories } from '../utils/aggregateCategories';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +19,23 @@ export class IncomesService {
   ) { }
 
   getIncomes() {
-    return this.http.get(`${DevConfig.BASE_URI}/income`, { headers: this.tokenService.getAuthHeaders() });
+    return this.http.get(
+      `${DevConfig.BASE_URI}/income`,
+      { headers: this.tokenService.getAuthHeaders() }
+    ).pipe(map(data => {
+      return { formattedData: formatDateForTables(data), chartCosts: aggregateCategories(data) }
+    }),
+    catchError(err => {
+      console.log(err);
+      return throwError(err);
+    }));
   }
 
   getConcreteIncome(id) {
     return this.http.get(
       `${DevConfig.BASE_URI}/income/${id}`,
       { headers: this.tokenService.getAuthHeaders() }
-      )
+    )
   }
 
   deleteIncome(id: number) {

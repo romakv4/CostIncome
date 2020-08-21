@@ -88,13 +88,12 @@ export class EditIncomeFormComponent implements OnInit {
   refreshTable() {
     this.incomesService.getIncomes()
       .subscribe(
-        (data: Array<AccountingItem>) => {
-          const formattedData = formatDateForTables(data);
-          this.incomesChange.emit(formattedData);
+        data => {
+          this.incomesChange.emit(data.formattedData);
           if (this.incomes.length === 0) {
             this.router.navigate(['/home'])
           }
-          this.chartIncomesChange.emit(aggregateCategories(data));
+          this.chartIncomesChange.emit(data.chartCosts);
           this.inEditingChange.emit(false);
         },
         error => console.log(error)

@@ -33,13 +33,12 @@ export class IncomesComponent implements OnInit {
     }
     this.incomesService.getIncomes()
       .subscribe(
-        (data: Array<AccountingItem>) => {
-          const formattedData = formatDateForTables(data);
-          this.incomes = formattedData;
+        data => {
+          this.incomes = data.formattedData;
           if (this.incomes.length === 0) {
             this.router.navigate(['/home'])
           }
-          this.chartIncomes = aggregateCategories(data);
+          this.chartIncomes = data.chartCosts;
         },
         error => console.log(error)
       )
@@ -50,12 +49,11 @@ export class IncomesComponent implements OnInit {
       () => {
         this.incomesService.getIncomes().subscribe(
           data => {
-            const formattedData = formatDateForTables(data);
-            this.incomes = formattedData;
+            this.incomes = data.formattedData;
             if (this.incomes.length === 0) {
               this.router.navigate(['/home'])
             }
-            this.chartIncomes = aggregateCategories(data);
+            this.chartIncomes = data.chartCosts;
             if (this.incomes.length <= Number(this.itemsPerPage)) {
               this.currentPage = '1';
             }

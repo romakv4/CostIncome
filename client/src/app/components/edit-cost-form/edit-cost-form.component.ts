@@ -1,12 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { ErrorsService } from '../../services/errors.service';
 import { CostsService } from '../../services/costs.service';
 import { TokenService } from '../../services/token.service';
 import { AccountingItem, OperationSuccess } from '../../types/AccountingItem';
-import { formatDateForForms, formatDateForTables } from '../../utils/formatDate';
-import { aggregateCategories } from '../../utils/aggregateCategories';
+import { formatDateForForms } from '../../utils/formatDate';
 
 @Component({
   selector: 'app-edit-cost-form',
@@ -88,13 +87,12 @@ export class EditCostFormComponent implements OnInit {
   refreshTable() {
     this.costsService.getCosts()
       .subscribe(
-        (data: Array<AccountingItem>) => {
-          const formattedData = formatDateForTables(data);
-          this.costsChange.emit(formattedData);
+        data => {
+          this.costsChange.emit(data.formattedData);
           if (this.costs.length === 0) {
             this.router.navigate(['/home'])
           }
-          this.chartCostsChange.emit(aggregateCategories(data));
+          this.chartCostsChange.emit(data.chartCosts);
           this.inEditingChange.emit(false);
         },
         error => console.log(error)

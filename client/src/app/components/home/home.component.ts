@@ -31,17 +31,15 @@ export class HomeComponent implements OnInit {
     }
     this.costsService.getCosts()
       .subscribe(
-        (data: Array<AccountingItem>) => {
-          const formattedData = formatDateForTables(data.slice(0, 10));
-          this.costs = formattedData;
+        data => {
+          this.costs = data.formattedData.slice(0, 10);
         },
         error => console.log(error)
       )
     this.incomesService.getIncomes()
       .subscribe(
-        (data: Array<AccountingItem>) => {
-          const formattedData = formatDateForTables(data.slice(0, 10));
-          this.incomes = formattedData;
+        data => {
+          this.incomes = data.formattedData.slice(0, 10);
         },
         error => console.log(error)
       )

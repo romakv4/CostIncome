@@ -81,13 +81,12 @@ export class AddCostFormComponent implements OnInit {
   refreshTable() {
     this.costsService.getCosts()
       .subscribe(
-        (data: Array<AccountingItem>) => {
-          const formattedData = formatDateForTables(data);
-          this.costsChange.emit(formattedData);
+        data => {
+          this.costsChange.emit(data.formattedData);
           if (this.costs.length === 0) {
             this.router.navigate(['/home'])
           }
-          this.chartCostsChange.emit(aggregateCategories(data));
+          this.chartCostsChange.emit(data.chartCosts);
         },
         error => console.log(error)
       )

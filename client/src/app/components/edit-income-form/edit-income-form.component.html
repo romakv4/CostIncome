@@ -10,10 +10,10 @@
                 type="text"
                 formControlName="category"
                 class="validFormField"
-                [ngClass]="{ 'erroredFormField': submitted && (f.category.errors || (serverErrors && serverErrors.category)) }"
+                [ngClass]="{ 'erroredFormField': (submitted || f.category.touched) && (f.category.errors || (serverErrors && serverErrors.category)) }"
                 (input)="resetServerErrors(this)">
 
-            <p *ngIf="submitted && f.category.errors">
+            <p *ngIf="(submitted || f.category.touched) && f.category.errors">
                 <span *ngIf="f.category.errors.required">
                     Category is required
                 </span>
@@ -30,9 +30,9 @@
                 type="text"
                 formControlName="description"
                 class="validFormField"
-                [ngClass]="{ 'erroredFormField': submitted && f.description.errors }">
+                [ngClass]="{ 'erroredFormField': (submitted || f.description.touched) && f.description.errors }">
 
-            <p *ngIf="submitted && f.description.errors">
+            <p *ngIf="(submitted || f.description.touched) && f.description.errors">
                 <span *ngIf="f.description.errors.maxlength">
                     Description must be shorter than {{ f.description.errors.maxlength.requiredLength }} characters
                 </span>
@@ -47,9 +47,9 @@
                 min="1"
                 formControlName="price"
                 class="validFormField"
-                [ngClass]="{ 'erroredFormField': submitted && f.price.errors }">
+                [ngClass]="{ 'erroredFormField': (submitted || f.price.touched) && f.price.errors }">
 
-            <p *ngIf="submitted && f.price.errors">
+            <p *ngIf="(submitted || f.price.touched) && f.price.errors">
                 <span *ngIf="f.price.errors.required">
                     Price is required
                 </span>
@@ -70,9 +70,9 @@
                 value={{isEditedIncome.date}}
                 formControlName="date"
                 class="validFormField"
-                [ngClass]="{ 'erroredFormField': submitted && f.date.errors }">
+                [ngClass]="{ 'erroredFormField': (submitted || f.date.touched) && f.date.errors }">
 
-            <p *ngIf="submitted && f.date.errors">
+            <p *ngIf="(submitted || f.date.touched) && f.date.errors">
                 <span *ngIf="f.date.errors.required">
                     Date is required
                 </span>

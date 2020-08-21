@@ -5,7 +5,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './routes/app-routing.module';
 import { AppComponent } from './app.component';
 import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
 import { ValidateEqualValueDirective } from './directives/validate-equal-value.directive';
@@ -24,7 +24,7 @@ import { AccountingItemsTableComponent } from './components/accounting-items-tab
 import { EditCostFormComponent } from './components/edit-cost-form/edit-cost-form.component';
 import { EditIncomeFormComponent } from './components/edit-income-form/edit-income-form.component';
 import { GeneralActionsBarComponent } from './components/general-actions-bar/general-actions-bar.component';
-import { AuthRoutingModule } from './auth-routing.module';
+import { AuthRoutingModule } from './routes/auth-routing.module';
 
 
 @NgModule({

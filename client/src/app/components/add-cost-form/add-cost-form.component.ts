@@ -4,9 +4,6 @@ import { Router } from '@angular/router';
 import { ErrorsService } from '../../services/errors.service';
 import { AccountingItem, OperationSuccess } from '../../types/AccountingItem';
 import { CostsService } from '../../services/costs.service';
-import { TokenService } from '../../services/token.service';
-import { formatDateForTables } from '../../utils/formatDate';
-import { aggregateCategories } from '../../utils/aggregateCategories';
 
 @Component({
   selector: 'app-add-cost-form',
@@ -35,20 +32,15 @@ export class AddCostFormComponent implements OnInit {
     private router: Router,
     private errorsService: ErrorsService,
     private costsService: CostsService,
-    private tokenService: TokenService,
-  ) {
+  ) { }
+
+  ngOnInit(): void {
     this.addCostForm = this.formBuilder.group({
       category: ['', [Validators.required, Validators.maxLength(20)]],
       description: ['', [Validators.maxLength(20)]],
       price: [Number(1), [Validators.required, Validators.min(0.01), Validators.max(999999999999)]],
       date: [Date(), [Validators.required]]
     })
-  }
-
-  ngOnInit(): void {
-    if (this.tokenService.isTokenExpired()) {
-      this.router.navigate(['authorization']);
-    }
   }
 
   get f() { return this.addCostForm.controls }

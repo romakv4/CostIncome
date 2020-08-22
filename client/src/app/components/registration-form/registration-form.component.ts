@@ -26,17 +26,16 @@ export class RegistrationFormComponent implements OnInit {
     private router: Router,
     private errorsService: ErrorsService,
     private tokenService: TokenService,
-  ) {
+  ) { }
+  ngOnInit(): void {
+    if (this.tokenService.getToken() != null) {
+      this.router.navigate(['home']);
+    }
     this.registrationForm = this.formBulder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required],
     })
-  }
-  ngOnInit(): void {
-    if (this.tokenService.getToken() != null && !this.tokenService.isTokenExpired()) {
-      this.router.navigate(['home']);
-    }
   }
 
   get f() { return this.registrationForm.controls; }

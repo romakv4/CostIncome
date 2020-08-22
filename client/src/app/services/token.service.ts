@@ -22,8 +22,8 @@ export class TokenService {
     return new HttpHeaders().set('Authorization', `Bearer ${this.getToken()}`);
   }
 
-  isTokenExpired() {
-    const token = sessionStorage.getItem('token');
-    return this.jwtHelper.isTokenExpired(token);
-  }
+  // isTokenExpired() {
+  //   const token = sessionStorage.getItem('token');
+  //   return this.jwtHelper.isTokenExpired(token);
+  // }
 }

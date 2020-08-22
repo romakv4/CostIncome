@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IncomesService } from '../../services/incomes.service';
-import { TokenService } from '../../services/token.service';
 import { Router } from '@angular/router';
-import { aggregateCategories } from '../../utils/aggregateCategories';
-import { AccountingItem } from '../../types/AccountingItem';
-import { formatDateForTables } from '../../utils/formatDate';
 
 @Component({
   selector: 'app-incomes',
@@ -23,14 +19,10 @@ export class IncomesComponent implements OnInit {
 
   constructor(
     private incomesService: IncomesService,
-    private tokenService: TokenService,
     private router: Router,
   ) { }
 
   ngOnInit() {
-    if (this.tokenService.isTokenExpired()) {
-      this.router.navigate(['authorization']);
-    }
     this.incomesService.getIncomes()
       .subscribe(
         data => {

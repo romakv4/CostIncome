@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { Success } from '../../types/authResponse';
   templateUrl: './change-password-form.component.html',
   styleUrls: ['./change-password-form.component.css']
 })
-export class ChangePasswordFormComponent {
+export class ChangePasswordFormComponent implements OnInit {
 
   changePasswordForm;
   serverErrors;
@@ -26,7 +26,9 @@ export class ChangePasswordFormComponent {
     private router: Router,
     private location: Location,
     private errorsService: ErrorsService,
-  ) {
+  ) { }
+
+  ngOnInit(): void {
     this.changePasswordForm = this.formBulder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],

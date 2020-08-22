@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CostsService } from '../../services/costs.service';
-import { TokenService } from '../../services/token.service';
 import { Router } from '@angular/router';
-import { AccountingItem } from '../../types/AccountingItem';
-import { aggregateCategories } from '../../utils/aggregateCategories';
-import { formatDateForTables } from '../../utils/formatDate';
 
 @Component({
   selector: 'app-costs',
@@ -23,14 +19,10 @@ export class CostsComponent implements OnInit {
 
   constructor(
     private costsService: CostsService,
-    private tokenService: TokenService,
     private router: Router,
   ) { }
 
   ngOnInit() {
-    if (this.tokenService.isTokenExpired()) {
-      this.router.navigate(['authorization']);
-    }
     this.costsService.getCosts()
       .subscribe(
         data => {

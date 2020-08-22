@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -20,6 +20,7 @@ import { EditIncomeFormComponent } from './components/edit-income-form/edit-inco
 import { GeneralActionsBarComponent } from './components/general-actions-bar/general-actions-bar.component';
 import { AuthRoutingModule } from './routes/auth-routing.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 
 @NgModule({
@@ -48,7 +49,13 @@ import { AuthModule } from './modules/auth/auth.module';
     BrowserAnimationsModule,
     NgxPaginationModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

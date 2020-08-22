@@ -1,12 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { ErrorsService } from '../../services/errors.service';
-import { TokenService } from '../../services/token.service';
 import { AccountingItem, OperationSuccess } from '../../types/AccountingItem';
-import { formatDateForForms, formatDateForTables } from '../../utils/formatDate';
+import { formatDateForForms } from '../../utils/formatDate';
 import { IncomesService } from '../../services/incomes.service';
-import { aggregateCategories } from '../../utils/aggregateCategories';
 
 @Component({
   selector: 'app-edit-income-form',
@@ -40,20 +38,15 @@ export class EditIncomeFormComponent implements OnInit {
     private router: Router,
     private errorsService: ErrorsService,
     private incomesService: IncomesService,
-    private tokenService: TokenService,
-  ) {
+  ) { }
+
+  ngOnInit(): void {
     this.editIncomeForm = this.formBuilder.group({
       category: ['', [Validators.required, Validators.maxLength(20)]],
       description: ['', [Validators.maxLength(20)]],
       price: [Number(1), [Validators.required, Validators.min(0.01), Validators.max(999999999999)]],
       date: [Date(), [Validators.required]]
     })
-  }
-
-  ngOnInit(): void {
-    if (this.tokenService.isTokenExpired()) {
-      this.router.navigate(['authorization']);
-    }
     this.incomesService.getConcreteIncome(this.incomeForEditId)
       .subscribe(
         (data: AccountingItem) => {

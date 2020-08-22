@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ResetPassUserData } from '../../types/user';
 import { Success } from '../../types/authResponse';
@@ -12,7 +12,7 @@ import { ErrorsService } from '../../services/errors.service';
   templateUrl: './reset-password-form.component.html',
   styleUrls: ['./reset-password-form.component.css']
 })
-export class ResetPasswordFormComponent {
+export class ResetPasswordFormComponent implements OnInit {
   resetPasswordForm;
   serverErrors = null;
   resetServerErrors = this.errorsService.resetServerErrors;
@@ -26,7 +26,9 @@ export class ResetPasswordFormComponent {
     private formBulder: FormBuilder,
     private errorsService: ErrorsService,
     private redirects: RedirectService,
-  ) {
+  ) { }
+
+  ngOnInit(): void {
     this.resetPasswordForm = this.formBulder.group({
       email: ['', [Validators.required, Validators.email]]
     })

@@ -26,17 +26,16 @@ export class AuthorizationFormComponent implements OnInit {
     private errorsService: ErrorsService,
     private tokenService: TokenService,
     private router: Router,
-  ) {
+  ) { }
+
+  ngOnInit(): void {
+    if (this.tokenService.getToken() != null) {
+      this.router.navigate(['home']);
+    }
     this.authorizationForm = this.formBulder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     })
-  }
-
-  ngOnInit(): void {
-    if (this.tokenService.getToken() != null && !this.tokenService.isTokenExpired()) {
-      this.router.navigate(['home']);
-    }
   }
 
   get f() { return this.authorizationForm.controls; }

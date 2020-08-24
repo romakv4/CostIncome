@@ -14,3 +14,7 @@ td i:hover {
 tr td {
     vertical-align: middle;
 }
+
+a:hover {
+    cursor: pointer;
+}

@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 import { ErrorsService } from '../../services/errors.service';
 import { AccountingItem, OperationSuccess } from '../../types/AccountingItem';
 import { CostsService } from '../../services/costs.service';
+import { getCurrentDate } from 'src/app/utils/formatDate';
+import { trigger, transition, animate, state, style } from '@angular/animations';
 
 @Component({
   selector: 'app-add-cost-form',
   templateUrl: './add-cost-form.component.html',
-  styleUrls: ['./add-cost-form.component.css']
+  styleUrls: ['./add-cost-form.component.css'],
 })
 export class AddCostFormComponent implements OnInit {
 
@@ -41,6 +43,7 @@ export class AddCostFormComponent implements OnInit {
       price: [Number(1), [Validators.required, Validators.min(0.01), Validators.max(999999999999)]],
       date: [Date(), [Validators.required]]
     })
+    this.f.date.setValue(getCurrentDate());
   }
 
   get f() { return this.addCostForm.controls }
@@ -60,7 +63,7 @@ export class AddCostFormComponent implements OnInit {
               category: '',
               description: null,
               price: 1,
-              date: this.getCurrentDate()
+              date: getCurrentDate()
             });
           }
           setTimeout(() => { this.addCostSuccess = null }, 2500);
@@ -82,13 +85,6 @@ export class AddCostFormComponent implements OnInit {
         },
         error => console.log(error)
       )
-  }
-
-  getCurrentDate() {
-    const date = new Date();
-    return date.getFullYear().toString() + '-'
-        + (date.getMonth() + 1).toString().padStart(2, '0') + '-'
-        + date.getDate().toString().padStart(2, '0');
   }
 
   toCosts() {

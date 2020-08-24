@@ -51,9 +51,10 @@ export class EditCostFormComponent implements OnInit {
       .subscribe(
         (data: AccountingItem) => {
           this.isEditedCost = formatDateForForms(data);
-          this.editCostForm.controls.category.setValue(data.category);
-          this.editCostForm.controls.description.setValue(data.description);
-          this.editCostForm.controls.price.setValue(data.price);
+          this.f.category.setValue(this.isEditedCost.category);
+          this.f.description.setValue(this.isEditedCost.description);
+          this.f.price.setValue(this.isEditedCost.price);
+          this.f.date.setValue(this.isEditedCost.date);
         }
       )
   }
@@ -65,6 +66,7 @@ export class EditCostFormComponent implements OnInit {
     if (this.editCostForm.invalid) {
       return;
     }
+    console.log(costData);
     costData.id = this.costForEditId;
     this.costsService.editCost(costData)
       .subscribe(

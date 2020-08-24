@@ -66,4 +66,9 @@ export class IncomesComponent implements OnInit {
     this.incomeForEditId = id;
   }
 
+  navigateToHome() {
+    this.router.navigate(['/home']);
+    return false;
+  }
+
 }

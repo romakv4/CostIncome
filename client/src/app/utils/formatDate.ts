@@ -27,7 +27,10 @@ export const formatDateForForms = (accountingItem: AccountingItem) => {
 
 export const formatDate = (date) => {
   const tempDate = new Date(date);
-  return tempDate.getFullYear().toString() + '-'
-  + (tempDate.getMonth() + 1).toString().padStart(2, '0') + '-'
-  + tempDate.getDate().toString().padStart(2, '0')
+  return `${tempDate.getFullYear()}-${(tempDate.getMonth() + 1).toString().padStart(2, '0')}-${tempDate.getDate().toString().padStart(2, '0')}`
+}
+
+export const getCurrentDate = () => {
+  const date = new Date();
+  return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
 }

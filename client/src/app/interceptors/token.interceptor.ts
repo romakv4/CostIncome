@@ -18,7 +18,10 @@ export class TokenInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(request).pipe(
+    const authRequest = request.clone({
+        headers: request.headers.append('Authorization', `Bearer ${sessionStorage.getItem('token')}`)
+    });
+    return next.handle(authRequest).pipe(
       tap(
         event => { },
         error => {

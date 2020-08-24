@@ -3,21 +3,21 @@
     <div *ngIf="costs.length !== 0">
         <app-accounting-items-table [caption]="'LATEST COSTS'" [accountingItems]="costs"></app-accounting-items-table>
         <br>
-        <button (click)="router.navigate(['/costs'])">See All</button>
+        <button (click)="navigateToCosts()">See All</button>
     </div>
     <div style="text-align: center;" *ngIf="costs.length === 0">
         <div>There is nothing!</div>
         <br>
-        <button (click)="router.navigate(['/add-cost'])" data-cy="add-cost">Add cost</button>
+        <button (click)="navigateToAddCost()" data-cy="add-cost">Add cost</button>
     </div>
     <div *ngIf="incomes.length !== 0">
         <app-accounting-items-table [caption]="'LATEST INCOMES'" [accountingItems]="incomes"></app-accounting-items-table>
         <br>
-        <button (click)="router.navigate(['/incomes'])">See All</button>
+        <button (click)="navigateToIncomes()">See All</button>
     </div>
     <div style="text-align: center;" *ngIf="incomes.length === 0">
         <div>There is nothing!</div>
         <br>
-        <button (click)="router.navigate(['/add-income'])" data-cy="add-income">Add income</button>
+        <button (click)="navigateToAddIncome()" data-cy="add-income">Add income</button>
     </div>
 </div>

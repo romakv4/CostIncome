@@ -51,9 +51,10 @@ export class EditIncomeFormComponent implements OnInit {
       .subscribe(
         (data: AccountingItem) => {
           this.isEditedIncome = formatDateForForms(data);
-          this.editIncomeForm.controls.category.setValue(data.category);
-          this.editIncomeForm.controls.description.setValue(data.description);
-          this.editIncomeForm.controls.price.setValue(data.price);
+          this.f.category.setValue(this.isEditedIncome.category);
+          this.f.description.setValue(this.isEditedIncome.description);
+          this.f.price.setValue(this.isEditedIncome.price);
+          this.f.date.setValue(this.isEditedIncome.date);
         }
       )
   }

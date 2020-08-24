@@ -82,7 +82,6 @@
             </label>
             <input id="date"
                 type="date"
-                value="{{ getCurrentDate() }}"
                 formControlName="date"
                 class="validFormField"
                 [ngClass]="{ 'erroredFormField': (submitted || f.date.touched) && f.date.errors }">

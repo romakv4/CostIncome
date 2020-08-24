@@ -37,4 +37,24 @@ export class HomeComponent implements OnInit {
         error => console.log(error)
       )
   }
+
+  navigateToCosts() {
+    this.router.navigate(['/costs']);
+    return false;
+  }
+
+  navigateToAddCost() {
+    this.router.navigate(['/add-cost']);
+    return false;
+  }
+
+  navigateToIncomes() {
+    this.router.navigate(['/incomes']);
+    return false;
+  }
+
+  navigateToAddIncome() {
+    this.router.navigate(['/add-income']);
+    return false;
+  }
 }

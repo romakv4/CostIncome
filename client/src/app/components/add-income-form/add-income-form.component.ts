@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ErrorsService } from '../../services/errors.service';
 import { IncomesService } from '../../services/incomes.service';
 import { AccountingItem, OperationSuccess } from '../../types/AccountingItem';
+import { getCurrentDate } from 'src/app/utils/formatDate';
 
 @Component({
   selector: 'app-add-income-form',
@@ -41,6 +42,7 @@ export class AddIncomeFormComponent implements OnInit {
       price: [Number(1), [Validators.required, Validators.min(0.01), Validators.max(999999999999)]],
       date: [Date(), [Validators.required]]
     })
+    this.f.date.setValue(getCurrentDate());
   }
 
   get f() { return this.addIncomeForm.controls }
@@ -60,7 +62,7 @@ export class AddIncomeFormComponent implements OnInit {
               category: '',
               description: null,
               price: 1,
-              date: this.getCurrentDate()
+              date: getCurrentDate()
             });
           }
           setTimeout(() => { this.addIncomeSuccess = null }, 2500);
@@ -82,13 +84,6 @@ export class AddIncomeFormComponent implements OnInit {
         },
         error => console.log(error)
       )
-  }
-
-  getCurrentDate() {
-    const date = new Date();
-    return date.getFullYear().toString() + '-'
-        + (date.getMonth() + 1).toString().padStart(2, '0') + '-'
-        + date.getDate().toString().padStart(2, '0');
   }
 
   toIncomes() {

@@ -66,4 +66,9 @@ export class CostsComponent implements OnInit {
     this.costForEditId = id;
   }
 
+  navigateToHome() {
+    this.router.navigate(['/home']);
+    return false;
+  }
+
 }

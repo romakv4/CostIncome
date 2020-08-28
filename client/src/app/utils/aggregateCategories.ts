@@ -1,16 +1,26 @@
 export const aggregateCategories = (accountingItemsArray) => {
-    const result = [];
-    const reduced = accountingItemsArray.reduce((c, v) => {
-      c[v.category] = (c[v.category] || 0) + v.price;
-      return c;
-    }, {});
+  const result = [];
+  const chartItems = accountingItemsArray.reduce((chartItem, accountingItem) => {
+    chartItem[accountingItem.category] = (chartItem[accountingItem.category] || 0) + accountingItem.price;
+    return chartItem;
+  }, {});
 
-    for (const category of Object.keys(reduced)) {
-      result.push({
-        name: category,
-        value: reduced[category]
-      })
-    }
+  const total = getTotalValue(chartItems);
 
-    return result;
+  for (const category of Object.keys(chartItems)) {
+    result.push({
+      name: `${category} (${((chartItems[category] / total) * 100).toFixed(2)}%)`,
+      value: chartItems[category]
+    })
   }
+
+  return result;
+}
+
+const getTotalValue = (chartItems) => {
+  let totalValue = 0;
+  for (const category of Object.keys(chartItems)) {
+    totalValue += chartItems[category];
+  }
+  return totalValue;
+}
